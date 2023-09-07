@@ -1,0 +1,9 @@
+extends base
+
+block content
+    p Mon paragraphe :
+
+    ul
+        for route in routes
+            li 
+                a(href=route) route
