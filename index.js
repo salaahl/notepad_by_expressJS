@@ -27,7 +27,7 @@ app.get('/parameters', (req, res) => {
 });
 
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database(sqlite3, (err) => {
+const db = new sqlite3.Database('./data/db.sqlite', (err) => {
   if (err) {
     return console.error(err.message);
   }
@@ -35,48 +35,53 @@ const db = new sqlite3.Database(sqlite3, (err) => {
 });
 
 app.get('/create', (req, res) => {
-  const sql_create = `CREATE TABLE IF NOT EXISTS Livres (
-    Livre_ID INTEGER PRIMARY KEY AUTOINCREMENT,
-    Titre VARCHAR(100) NOT NULL,
-    Auteur VARCHAR(100) NOT NULL,
-    Commentaires TEXT
+  const sql_create = `CREATE TABLE IF NOT EXISTS notepad (
+    note_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    text TEXT
   );`;
 
   db.run(sql_create, (err) => {
     if (err) {
       return console.error(err.message);
     }
-    console.log("Création réussie de la table 'Livres'");
+    console.log("Création réussie de la table 'notepad'");
   });
 
-  res.send('Injection réussie');
+  res.send('Création réussie');
 });
 
+// via la méthode de la requête préparée :
 app.get('/insert', (req, res) => {
-  const sql_insert = `INSERT INTO Livres (Livre_ID, Titre, Auteur, Commentaires) VALUES
-  (1, 'Mrs. Bridge', 'Evan S. Connell', 'Premier de la série'),
-  (2, 'Mr. Bridge', 'Evan S. Connell', 'Second de la série'),
-  (3, 'L''ingénue libertine', 'Colette', 'Minne + Les égarements de Minne');`;
+  const stmt = db.prepare('INSERT INTO notepad VALUES (?)');
+  stmt.run(
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+  );
+  stmt.finalize();
 
-  db.run(sql_insert, (err) => {
-    if (err) {
-      return console.error(err.message);
-    }
-    res.send("Alimentation réussie de la table 'Livres'");
-  });
+  res.send("Alimentation réussie de la table 'notepad'");
 });
 
-/* 
-  db.all :
+app.get('/read', (req, res) => {
+  const sql = 'SELECT * FROM notepad';
+
+  /* 
   Le 1° paramètre est la requête SQL à exécuter
-  Le 2° paramètre est un tableau avec les variables nécessaires à la requête. Ici, la valeur "[]" est employée parce que la requête n'a pas besoin de variable.
+  Le 2° paramètre est un tableau avec les variables nécessaires à la requête (joue le rôle d'une requête préparée ?). Ici, la valeur "[]" est employée parce que la requête n'a pas besoin de variable.
   Le 3° paramètre est une fonction callback appelée après l'exécution de la requête SQL.
   "(err, rows)" correspond aux paramètres passés à la fonction callback. "err" contient éventuellement un objet erreur et "rows" est un tableau contenant la liste des lignes renvoyées par le SELECT.
   */
-app.get('/read', (req, res) => {
-  const sql = 'SELECT * FROM Livres ORDER BY Titre';
-
   db.all(sql, [], (err, rows) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    res.render('read', { title: 'Home', model: rows });
+  });
+});
+
+app.get('/read/:id', (req, res) => {
+  const stmt = 'SELECT * FROM notepad WHERE note_id = ?';
+
+  db.get(stmt, [1], (err, rows) => {
     if (err) {
       return console.error(err.message);
     }
