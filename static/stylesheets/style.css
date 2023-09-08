@@ -19,14 +19,14 @@ h1 {
   left: 0;
   right: 0;
   margin: auto;
-  transition: width .5s, height .5s;
-  transition-delay: 0s, .5s;
+  transition: width .5s, height 1s, backdrop-filter 1s;
+  transition-delay: 0s, .5s, 2s;
 }
 
 #note-modal.active {
   height: 100%;
   width: 100%;
-  backdrop-filter: blur(1px) brightness(0.5);
+  backdrop-filter: blur(5px) brightness(0.5);
 }
 
 #note-detail {
