@@ -1,9 +1,9 @@
 extends base
 
 block content
-    p Mon paragraphe :
+    h1=title
 
     ul
         for route in routes
             li 
-                a(href=route.route) route.name
+                a(href=route.route)=route.name

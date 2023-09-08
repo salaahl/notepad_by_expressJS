@@ -14,8 +14,8 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
 app.get('/', (req, res) => {
-  res.render('home', {
-    title: 'Home',
+  res.render('index', {
+    title: 'Index',
     routes: [
       {
         name: 'create',
