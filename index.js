@@ -16,7 +16,20 @@ app.set('views', path.join(__dirname, 'views'));
 app.get('/', (req, res) => {
   res.render('home', {
     title: 'Home',
-    routes: ['./create', './insert', './read'],
+    routes: [
+      {
+        name: 'create',
+        route: './create',
+      },
+      {
+        name: 'insert',
+        route: './insert',
+      },
+      {
+        name: 'read',
+        route: './read',
+      },
+    ],
   });
 });
 
