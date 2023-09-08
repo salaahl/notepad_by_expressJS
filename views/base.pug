@@ -1,6 +1,14 @@
 html
+    head
+        title= title
+
+        block stylesheets 
+            link(rel="stylesheet", href="/stylesheets/style.css")
+
     body
         h1 #{title}
-        
+
         block content
             p This page doesn't have any content yet.
+
+        block js

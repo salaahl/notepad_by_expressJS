@@ -1,3 +1,51 @@
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
 h1 {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#note-modal {
+  display: flex;
+  height: 0%;
+  width: 0%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  transition: width .5s, height .5s;
+  transition-delay: 0s, .5s;
+}
+
+#note-modal.active {
+  height: 100%;
+  width: 100%;
+  backdrop-filter: blur(1px) brightness(0.5);
+}
+
+#note-detail {
+  height: 80%;
+  width: 80%;
+  margin: auto;
+}
+
+#note-detail > * {
+  filter: opacity(0);
+  transition: all 1s;
+  transition-delay: 2s;
+}
+
+#note-modal.active > #note-detail {
+  background-color: blueviolet;
+  border: 2px solid black;
+}
+
+#note-modal.active > #note-detail > * {
+  filter: opacity(1);
 }

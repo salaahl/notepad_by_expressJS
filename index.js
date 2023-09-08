@@ -3,50 +3,64 @@ const app = express();
 const port = 3010;
 const path = require('path');
 
-app.use(express.static('static'));
-
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
-
-// view engine setup
-app.set('view engine', 'pug');
-app.set('views', path.join(__dirname, 'views'));
-
-app.get('/', (req, res) => {
-  res.render('index', {
-    title: 'Index',
-    routes: [
-      {
-        name: 'create',
-        route: './create',
-      },
-      {
-        name: 'insert',
-        route: './insert',
-      },
-      {
-        name: 'read',
-        route: './read',
-      },
-    ],
-  });
-});
-
-app.get('/parameters', (req, res) => {
-  res.render('parameters', {
-    title: 'Parameters',
-  });
-});
-
-// CRUD
+// Base de données
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./data/db.sqlite', (err) => {
   if (err) {
     return console.error(err.message);
   }
-  console.log("Connexion réussie à la base de données 'apptest.db'");
+  console.log("Connexion réussie à la base de données 'db.sqlite'");
 });
+
+// Indispensable pour "ecouter" l'application
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`);
+});
+
+// Equivalent du dossier /public
+app.use(express.static('static'));
+
+// Imports necessaires aux requêtes
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Déclaration du dossier /views et initialisation des fichiers .pug
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'views'));
+
+// Explications sur les requêtes dans la partie CRUD
+app.get('/', (req, res) => {
+  const sql = 'SELECT * FROM notepad';
+
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    res.render('notes', { title: 'Home', notes: rows });
+  });
+});
+
+app.post('/', (req, res) => {
+  const stmt = 'SELECT * FROM notepad WHERE note_id = ?';
+  var params = [req.body.id];
+
+  db.get(stmt, params, (err, row) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify({ id: row.note_id, text: row.text }));
+  });
+});
+
+app.get('/options', (req, res) => {
+  res.render('options', {
+    title: 'options',
+  });
+});
+
+/*
+CRUD :
 
 app.get('/create', (req, res) => {
   const sql_create = `CREATE TABLE IF NOT EXISTS notepad (
@@ -66,7 +80,7 @@ app.get('/create', (req, res) => {
 
 // via la méthode de la requête préparée :
 app.get('/insert', (req, res) => {
-  const stmt = db.prepare('INSERT INTO notepad VALUES (?)');
+  const stmt = db.prepare('INSERT INTO notepad (text) VALUES (?)');
   stmt.run(
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
   );
@@ -78,12 +92,7 @@ app.get('/insert', (req, res) => {
 app.get('/read', (req, res) => {
   const sql = 'SELECT * FROM notepad';
 
-  /* 
-  Le 1° paramètre est la requête SQL à exécuter
-  Le 2° paramètre est un tableau avec les variables nécessaires à la requête (joue le rôle d'une requête préparée ?). Ici, la valeur "[]" est employée parce que la requête n'a pas besoin de variable.
-  Le 3° paramètre est une fonction callback appelée après l'exécution de la requête SQL.
-  "(err, rows)" correspond aux paramètres passés à la fonction callback. "err" contient éventuellement un objet erreur et "rows" est un tableau contenant la liste des lignes renvoyées par le SELECT.
-  */
+  
   db.all(sql, [], (err, rows) => {
     if (err) {
       return console.error(err.message);
@@ -92,16 +101,25 @@ app.get('/read', (req, res) => {
   });
 });
 
-app.get('/read/:id', (req, res) => {
+app.get('/read/:note_id', (req, res) => {
   const stmt = 'SELECT * FROM notepad WHERE note_id = ?';
+  var params = [req.params.note_id]
 
-  db.get(stmt, [1], (err, rows) => {
+  /* 
+  Le 1° paramètre est la requête SQL à exécuter
+  Le 2° paramètre est un tableau avec les variables nécessaires à la requête (joue le rôle d'une requête préparée ?). Ici, la valeur "[]" est employée parce que la requête n'a pas besoin de variable.
+  Le 3° paramètre est une fonction callback appelée après l'exécution de la requête SQL.
+  "(err, rows)" correspond aux paramètres passés à la fonction callback. "err" contient éventuellement un objet erreur et "rows" est un tableau contenant la liste des lignes renvoyées par le SELECT.
+  */
+/*
+  db.get(stmt, params, (err, rows) => {
     if (err) {
       return console.error(err.message);
     }
     res.render('read', { title: 'Home', model: rows });
   });
 });
+*/
 
 /*
 const elasticsearch = require('elasticsearch');
