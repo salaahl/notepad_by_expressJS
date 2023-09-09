@@ -82,25 +82,29 @@ app.post('/get-notes', (req, res) => {
   res.end(JSON.stringify({ id: note.note_id, text: note.text }));
 });
 
-app.post('/update-note', (req, res) => {
-  const stmt = 'UPDATE notepad SET text = ? FROM notepad WHERE note_id = ?';
-  var params = [req.body.text, req.body.id];
+
+app.post('/save-note', (req, res) => {
+  let stmt = null;
+  let params = null;
+  res.setHeader('Content-Type', 'application/json');
+
+  if (req.body.id) {
+    stmt = 'UPDATE notepad SET text = ? FROM notepad WHERE note_id = ?';
+    params = [req.body.text, req.body.id];
+  } else {
+    stmt = 'INSERT INTO notepad (text) VALUES (?)';
+    params = [req.body.text];
+  }
 
   db.run(stmt, params, (err) => {
     if (err) {
-      return console.error(err.message);
+      console.error(err.message);
+      return res.end(JSON.stringify({ status: 'success', data: req.body, stmt: stmt, params: params }));
     }
   });
   db.close();
 
-  res.setHeader('Content-Type', 'application/json');
-  res.end(JSON.stringify({ status: 'mettre le statut ici' }));
-});
-
-// Version stackblitz
-app.post('/update-note', (req, res) => {
-  res.setHeader('Content-Type', 'application/json');
-  res.end(JSON.stringify({ data: req.body }));
+  res.end(JSON.stringify({ status: 'error', data: req.body, stmt: stmt, params: params }));
 });
 
 app.get('/options', (req, res) => {

@@ -5,10 +5,10 @@ append stylesheets
 
 block content
     main
-        article(id="new-note")
+        section(id="new-note")
             form
-                input(type="text" name="text" placeholder="Entrez votre texte ici :")
-                button(type="submit")='Soumettre'
+                input(type="number", name="note-id" hidden)
+                textarea(id="note-text", name="text", placeholder="Créer une nouvelle note")
 
         section(id="notes")
             <!-- Lors du clic, récupérer les données et créer une nouvelle div qui aura le comportement d'un modal (position: fixed etc) -->
@@ -20,11 +20,11 @@ block content
             article(id="note-modal")
                 div(id="note-modal-inner")
                         form
-                            input(id="note-id" type="number" name="note-id" hidden)
+                            input(id="note-id", type="number", name="note-id" hidden)
                             textarea(id="note-text" name="text", cols="30", rows="10")
                         span dernière sauvegarde :
                         span
-                            button(id="close-modal-btn" class="button-stylised" onclick="document.querySelector('#note-modal').classList.remove('active')") Fermer la note
+                            button(id="close-modal-btn", class="button-stylised", onclick="document.querySelector('#note-modal').classList.remove('active')") Fermer la note
                         
 
 block js

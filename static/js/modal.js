@@ -1,3 +1,34 @@
+// Nouvelle note
+document.querySelector('#new-note textarea').addEventListener('keyup', function () {
+  console.log('nouvelle note')
+  let $ = (id) => {
+    return document.querySelector(id);
+  };
+
+  const data = {
+    text: this.value,
+  };
+
+  const request = new Request('/save-note', {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  fetch(request)
+    .then((response) => response.json())
+    .then((note) => {
+      console.log(note);
+    })
+    .catch((error) => {
+      console.log(error.message);
+      alert('Erreur.');
+    });
+});
+
+// Récupération des données d'une note
 document.querySelectorAll('.note').forEach((note) => {
   note.addEventListener('click', function () {
     let $ = (id) => {
@@ -30,7 +61,8 @@ document.querySelectorAll('.note').forEach((note) => {
   });
 });
 
-document.querySelector('textarea').addEventListener('keyup', function () {
+// Mise à jour d'une note
+document.querySelector('#note-modal textarea').addEventListener('keyup', function () {
   let $ = (id) => {
     return document.querySelector(id);
   };
@@ -40,7 +72,7 @@ document.querySelector('textarea').addEventListener('keyup', function () {
     text: this.value,
   };
 
-  const request = new Request('/update-note', {
+  const request = new Request('/save-note', {
     method: 'POST',
     body: JSON.stringify(data),
     headers: {

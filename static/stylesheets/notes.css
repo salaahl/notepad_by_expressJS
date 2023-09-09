@@ -40,10 +40,6 @@ body {
   margin: 0;
 }
 
-h1 {
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-
 #notes {
   display: flex;
   justify-content: space-between;
@@ -124,7 +120,6 @@ h1 {
 #note-modal-inner {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   flex-wrap: wrap;
   height: 80%;
   width: 80%;
@@ -148,11 +143,14 @@ h1 {
   width: 100%;
 }
 
-#note-modal textarea, #note-modal span {
+#note-modal textarea {
   padding: 1%;
 }
 
 #note-modal span {
+  display: flex;
+  align-items: center;
   height: 10%;
   width: fit-content;
+  padding: 0 1%;
 }

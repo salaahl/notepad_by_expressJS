@@ -109,6 +109,10 @@ body h3 {
   text-transform: uppercase;
 }
 
+section {
+  margin: 4% auto;
+}
+
 .button-stylised {
   position: relative;
   width: 100%;
