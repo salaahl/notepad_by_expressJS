@@ -18,11 +18,14 @@ block content
                     div=note.text
 
             article(id="note-modal")
-                div(id="note-detail")
-                    div
+                div(id="note-modal-inner")
                         form
                             input(id="note-id" type="number" name="note-id" hidden)
                             textarea(id="note-text" name="text", cols="30", rows="10")
+                        span dernière sauvegarde :
+                        span
+                            button(id="close-modal-btn" class="button-stylised" onclick="document.querySelector('#note-modal').classList.remove('active')") Fermer la note
+                        
 
 block js
-    script(src='/js/open-modal.js')
+    script(src='/js/modal.js')

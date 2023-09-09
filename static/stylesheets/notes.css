@@ -121,24 +121,38 @@ h1 {
   backdrop-filter: blur(5px) brightness(0.5);
 }
 
-#note-detail {
+#note-modal-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
   height: 80%;
   width: 80%;
   margin: auto;
+  overflow: hidden;
 }
 
-#note-detail textarea {
-  display: none;
+#note-modal.active > #note-modal-inner {
+  background-color: burlywood;
+  border: 2px solid;
+}
+
+#note-modal form {
+  height: 90%;
+  width: 100%;
+}
+
+#note-modal textarea {
   resize: none;
   height: 100%;
   width: 100%;
-  border: 2px solid black;
 }
 
-#note-modal.active > #note-detail {
-  
+#note-modal textarea, #note-modal span {
+  padding: 1%;
 }
 
-#note-modal.active > #note-detail textarea {
-  display: inline-block;
+#note-modal span {
+  height: 10%;
+  width: fit-content;
 }
