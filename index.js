@@ -36,18 +36,18 @@ app.get('/', (req, res) => {
     if (err) {
       const notes = [
         {
-          note_id : '1',
-          text : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+          note_id: '1',
+          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         },
         {
-          note_id : '2',
-          text : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+          note_id: '2',
+          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         },
         {
-          note_id : '3',
-          text : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+          note_id: '3',
+          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         },
-      ]
+      ];
       console.error(err.message);
       res.render('notes', { title: 'Home', notes: notes });
     }
@@ -55,6 +55,7 @@ app.get('/', (req, res) => {
   });
 });
 
+/*
 app.post('/', (req, res) => {
   const stmt = 'SELECT * FROM notepad WHERE note_id = ?';
   var params = [req.body.id];
@@ -66,6 +67,19 @@ app.post('/', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify({ id: row.note_id, text: row.text }));
   });
+});
+*/
+
+app.post('/', (req, res) => {
+  const stmt = 'SELECT * FROM notepad WHERE note_id = ?';
+  var params = [req.body.id];
+  const note = {
+    note_id: '1',
+    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+  };
+  
+  res.setHeader('Content-Type', 'application/json');
+  res.end(JSON.stringify({ id: note.note_id, text: note.text }));
 });
 
 app.get('/options', (req, res) => {

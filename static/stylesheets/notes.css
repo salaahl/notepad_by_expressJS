@@ -4,12 +4,14 @@
 
 @media (max-width: 767px) {
   .note {
+    max-height: 30vh;
     width: 30%;
   }
 }
 
 @media (min-width: 768px) {
   .note {
+    max-height: 30vh;
     width: 20%;
   }
 }
@@ -124,17 +126,17 @@ h1 {
   margin: auto;
 }
 
-#note-detail > * {
-  filter: opacity(0);
-  transition: all 1s;
-  transition-delay: 2s;
-}
-
-#note-modal.active > #note-detail {
-  background-color: blueviolet;
+#note-detail textarea {
+  resize: none;
+  height: 100%;
+  width: 100%;
   border: 2px solid black;
 }
 
-#note-modal.active > #note-detail > * {
-  filter: opacity(1);
+#note-modal.active > #note-detail {
+  
+}
+
+#note-modal.active > #note-detail textarea {
+  
 }

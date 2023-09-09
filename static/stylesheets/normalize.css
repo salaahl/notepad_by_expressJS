@@ -85,6 +85,10 @@ main {
   margin: auto;
 }
 
+form {
+  margin: 0;
+}
+
 h1 {
   text-align: center;
   text-transform: uppercase;

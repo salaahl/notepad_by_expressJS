@@ -19,9 +19,9 @@ document.querySelectorAll('.note').forEach((note) => {
     fetch(request)
       .then((response) => response.json())
       .then((note) => {
+        console.log(note)
         $('#note-modal').classList.add('active');
-        $('#note-id').innerHTML = note.id;
-        $('#note-text').innerHTML = note.text;
+        $('#note-text').value = note.text;
       })
       .catch((error) => {
         console.log(error.message);

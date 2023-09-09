@@ -19,7 +19,9 @@ block content
 
             article(id="note-modal")
                 div(id="note-detail")
-                    div(id="note-id")
-                    div(id="note-text")
+                    div
+                        form(action="/" method="post")
+                        textarea(id="note-text" name="text", cols="30", rows="10")
+
 block js
     script(src='/js/open-modal.js')
