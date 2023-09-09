@@ -56,7 +56,8 @@ app.get('/', (req, res) => {
 });
 
 /*
-app.post('/', (req, res) => {
+// Version normale
+app.post('/get-notes', (req, res) => {
   const stmt = 'SELECT * FROM notepad WHERE note_id = ?';
   var params = [req.body.id];
 
@@ -70,16 +71,36 @@ app.post('/', (req, res) => {
 });
 */
 
-app.post('/', (req, res) => {
-  const stmt = 'SELECT * FROM notepad WHERE note_id = ?';
-  var params = [req.body.id];
+// Version stackblitz
+app.post('/get-notes', (req, res) => {
   const note = {
     note_id: '1',
     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
   };
-  
+
   res.setHeader('Content-Type', 'application/json');
   res.end(JSON.stringify({ id: note.note_id, text: note.text }));
+});
+
+app.post('/update-note', (req, res) => {
+  const stmt = 'UPDATE notepad SET text = ? FROM notepad WHERE note_id = ?';
+  var params = [req.body.text, req.body.id];
+
+  db.run(stmt, params, (err) => {
+    if (err) {
+      return console.error(err.message);
+    }
+  });
+  db.close();
+
+  res.setHeader('Content-Type', 'application/json');
+  res.end(JSON.stringify({ status: 'mettre le statut ici' }));
+});
+
+// Version stackblitz
+app.post('/update-note', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.end(JSON.stringify({ data: req.body }));
 });
 
 app.get('/options', (req, res) => {

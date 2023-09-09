@@ -6,7 +6,7 @@ append stylesheets
 block content
     main
         article(id="new-note")
-            form(action="/" method="post")
+            form
                 input(type="text" name="text" placeholder="Entrez votre texte ici :")
                 button(type="submit")='Soumettre'
 
@@ -20,8 +20,9 @@ block content
             article(id="note-modal")
                 div(id="note-detail")
                     div
-                        form(action="/" method="post")
-                        textarea(id="note-text" name="text", cols="30", rows="10")
+                        form
+                            input(id="note-id" type="number" name="note-id" hidden)
+                            textarea(id="note-text" name="text", cols="30", rows="10")
 
 block js
     script(src='/js/open-modal.js')
