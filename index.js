@@ -34,7 +34,22 @@ app.get('/', (req, res) => {
 
   db.all(sql, [], (err, rows) => {
     if (err) {
-      return console.error(err.message);
+      const notes = [
+        {
+          note_id : '1',
+          text : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        },
+        {
+          note_id : '2',
+          text : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        },
+        {
+          note_id : '3',
+          text : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        },
+      ]
+      console.error(err.message);
+      res.render('notes', { title: 'Home', notes: notes });
     }
     res.render('notes', { title: 'Home', notes: rows });
   });

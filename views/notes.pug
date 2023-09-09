@@ -1,5 +1,8 @@
 extends base
 
+append stylesheets
+    link(rel="stylesheet", href="/stylesheets/notes.css")
+
 block content
     main
         article(id="new-note")
@@ -7,15 +10,16 @@ block content
                 input(type="text" name="text" placeholder="Entrez votre texte ici :")
                 button(type="submit")='Soumettre'
 
-        <!-- Lors du clic, récupérer les données et créer une nouvelle div qui aura le comportement d'un modal (position: fixed etc) -->
-        for note in notes
-            article(class="note")
-                div=note.note_id
-                div=note.text
+        section(id="notes")
+            <!-- Lors du clic, récupérer les données et créer une nouvelle div qui aura le comportement d'un modal (position: fixed etc) -->
+            for note in notes
+                article(class="note")
+                    div=note.note_id
+                    div=note.text
 
-        article(id="note-modal")
-            div(id="note-detail")
-                div(id="note-id")
-                div(id="note-text")
+            article(id="note-modal")
+                div(id="note-detail")
+                    div(id="note-id")
+                    div(id="note-text")
 block js
     script(src='/js/open-modal.js')
