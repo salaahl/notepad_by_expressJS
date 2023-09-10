@@ -34,6 +34,7 @@ app.get('/', (req, res) => {
 
   db.all(sql, [], (err, rows) => {
     if (err) {
+      console.error(err.message);
       const notes = [
         {
           note_id: '1',
@@ -48,14 +49,12 @@ app.get('/', (req, res) => {
           text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         },
       ];
-      console.error(err.message);
       res.render('notes', { title: 'Home', notes: notes });
     }
     res.render('notes', { title: 'Home', notes: rows });
   });
 });
 
-/*
 // Version normale
 app.post('/get-notes', (req, res) => {
   const stmt = 'SELECT * FROM notepad WHERE note_id = ?';
@@ -69,9 +68,9 @@ app.post('/get-notes', (req, res) => {
     res.end(JSON.stringify({ id: row.note_id, text: row.text }));
   });
 });
-*/
 
-// Version stackblitz
+/*
+Version stackblitz
 app.post('/get-notes', (req, res) => {
   const note = {
     note_id: '1',
@@ -81,30 +80,49 @@ app.post('/get-notes', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
   res.end(JSON.stringify({ id: note.note_id, text: note.text }));
 });
-
+*/
 
 app.post('/save-note', (req, res) => {
   let stmt = null;
   let params = null;
   res.setHeader('Content-Type', 'application/json');
 
-  if (req.body.id) {
-    stmt = 'UPDATE notepad SET text = ? FROM notepad WHERE note_id = ?';
+  // Si id et texte, alors note existante = mettre à jour
+  // Si seulement texte existant = nouvelle note
+  // Si texte manquant, alors note vide 
+  if (req.body.id && req.body.text) {
+    stmt = 'UPDATE notepad SET text = ? WHERE note_id = ?';
     params = [req.body.text, req.body.id];
-  } else {
+  } else if(req.body.text) {
     stmt = 'INSERT INTO notepad (text) VALUES (?)';
     params = [req.body.text];
+  } else {
+    stmt = 'DELETE FROM notepad WHERE note_id = ?';
+    params = [req.body.id];
   }
 
   db.run(stmt, params, (err) => {
     if (err) {
       console.error(err.message);
-      return res.end(JSON.stringify({ status: 'success', data: req.body, stmt: stmt, params: params }));
+      return res.end(
+        JSON.stringify({
+          status: 'error',
+          data: req.body,
+          stmt: stmt,
+          params: params,
+        })
+      );
     }
   });
-  db.close();
 
-  res.end(JSON.stringify({ status: 'error', data: req.body, stmt: stmt, params: params }));
+  res.end(
+    JSON.stringify({
+      status: 'success',
+      data: req.body,
+      stmt: stmt,
+      params: params,
+    })
+  );
 });
 
 app.get('/options', (req, res) => {
@@ -116,6 +134,7 @@ app.get('/options', (req, res) => {
 /*
 CRUD :
 
+// A ajouter : titre, user_id, tags
 app.get('/create', (req, res) => {
   const sql_create = `CREATE TABLE IF NOT EXISTS notepad (
     note_id INTEGER PRIMARY KEY AUTOINCREMENT,
