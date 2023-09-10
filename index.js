@@ -56,7 +56,7 @@ app.get('/', (req, res) => {
 });
 
 // Version normale
-app.post('/get-notes', (req, res) => {
+app.post('/get-note', (req, res) => {
   const stmt = 'SELECT * FROM notepad WHERE note_id = ?';
   var params = [req.body.id];
 
@@ -66,6 +66,20 @@ app.post('/get-notes', (req, res) => {
     }
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify({ id: row.note_id, text: row.text }));
+  });
+});
+
+//
+app.post('/get-notes', (req, res) => {
+  const sql = 'SELECT * FROM notepad';
+
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    console.log(rows);
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify({ note: rows }));
   });
 });
 

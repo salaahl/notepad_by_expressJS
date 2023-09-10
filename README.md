@@ -1,3 +1,1 @@
-# node-dmbz1u
-
-[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/node-dmbz1u)
+- Adapter le comportement du modal lors d'une nouvelle note de sorte à ce que ça ne me fasse pas un INSERT INFO à chaque saisie de caractère

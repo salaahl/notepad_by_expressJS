@@ -16,7 +16,7 @@ document.querySelectorAll('.note').forEach((note) => {
       id: note.children[0].innerHTML,
     };
 
-    const request = new Request('/get-notes', {
+    const request = new Request('/get-note', {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
@@ -27,7 +27,6 @@ document.querySelectorAll('.note').forEach((note) => {
     fetch(request)
       .then((response) => response.json())
       .then((note) => {
-        console.log(note);
         $('#note-modal').classList.add('active');
         $('#note-id').value = note.id;
         $('#note-text').value = note.text;
@@ -67,7 +66,6 @@ document
     fetch(request)
       .then((response) => response.json())
       .then((note) => {
-        console.log(note);
       })
       .catch((error) => {
         console.log(error.message);

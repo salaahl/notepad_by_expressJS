@@ -1,13 +1,13 @@
 extends base
 
 append stylesheets
-    link(rel="stylesheet", href="/stylesheets/notes.css")
+    link(rel="stylesheet" href="/stylesheets/notes.css")
 
 block content
     main
         section
-            button(id="close-modal-btn", class="button-stylised", onclick="document.querySelector('#note-modal').classList.remove('active')") Nouvelle note
-            
+            button(id="close-modal-btn" class="button-stylised" onclick="document.querySelector('#note-modal').classList.remove('active')") Nouvelle note
+
 
         section(id="notes")
             <!-- Lors du clic, récupérer les données et créer une nouvelle div qui aura le comportement d'un modal (position: fixed etc) -->
@@ -18,13 +18,14 @@ block content
 
             article(id="note-modal")
                 div(id="note-modal-inner")
-                        form
-                            input(id="note-id", type="number", name="note-id" hidden)
-                            textarea(id="note-text" name="text", cols="30", rows="10")
-                        span dernière sauvegarde :
-                        span
-                            button(id="close-modal-btn", class="button-stylised", onclick="document.querySelector('#note-modal').classList.remove('active')") Fermer la note
-                        
+                    form
+                        input(id="note-id" type="number" name="note-id" hidden)
+                        textarea(id="note-text" name="text" cols="30" rows="10")
+                    span dernière sauvegarde :
+                    span
+                        button(id="close-modal-btn" class="button-stylised" onclick="actualizeNotes()") Fermer la note
+
 
 block js
+    script(src='/js/notes-actualize.js')
     script(src='/js/modal.js')
