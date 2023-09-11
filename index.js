@@ -31,13 +31,6 @@ app.set('views', path.join(__dirname, 'views'));
 // Explications sur les requêtes dans la partie CRUD
 app.get('/', (req, res) => {
   let sql = 'SELECT * FROM notepad';
-  let params = null;
-
-  if(req.body.filter) {
-    sql = 'SELECT * FROM notepad ORDER BY note_id DESC';
-  } else {
-    sql = 'SELECT * FROM notepad';
-  }
 
   db.all(sql, [], (err, rows) => {
     if (err) {
@@ -84,7 +77,7 @@ app.post('/get-notes', (req, res) => {
     if (err) {
       return console.error(err.message);
     }
-    
+
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify({ note: rows }));
   });
@@ -100,7 +93,7 @@ app.post('/search-note', (req, res) => {
     if (err) {
       return console.error(err.message);
     }
-    
+
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify({ notes: rows }));
   });
@@ -127,11 +120,11 @@ app.post('/save-note', (req, res) => {
 
   // Si id et texte, alors note existante = mettre à jour
   // Si seulement texte existant = nouvelle note
-  // Si texte manquant, alors note vide 
+  // Si texte manquant, alors note vide
   if (req.body.id && req.body.text) {
     stmt = 'UPDATE notepad SET text = ? WHERE note_id = ?';
     params = [req.body.text, req.body.id];
-  } else if(req.body.text) {
+  } else if (req.body.text) {
     stmt = 'INSERT INTO notepad (text) VALUES (?)';
     params = [req.body.text];
   } else {
@@ -139,7 +132,7 @@ app.post('/save-note', (req, res) => {
     params = [req.body.id];
   }
 
-  db.run(stmt, params, (err) => {
+  db.run(stmt, params, (err, row) => {
     if (err) {
       console.error(err.message);
       return res.end(
@@ -151,16 +144,17 @@ app.post('/save-note', (req, res) => {
         })
       );
     }
-  });
 
-  res.end(
-    JSON.stringify({
-      status: 'success',
-      data: req.body,
-      stmt: stmt,
-      params: params,
-    })
-  );
+    res.end(
+      JSON.stringify({
+        status: 'success',
+        id: row,
+        data: req.body,
+        stmt: stmt,
+        params: params,
+      })
+    );
+  });
 });
 
 app.get('/options', (req, res) => {

@@ -1,35 +1,66 @@
 @media (prefers-color-scheme: dark) {
+  :root {
+    --note-background-color: black;
+    --note-title-color: white;
+  }
+}
 
+@media (prefers-color-scheme: light) {
+  :root {
+    --note-background-color: beige;
+    --note-title-color: black;
+  }
 }
 
 @media (max-width: 767px) {
   .note {
-    width: 30%;
+    width: 48%;
+  }
+
+  #notes {
+    justify-content: space-between;
+  }
+
+  #note-modal-inner {
+    height: 95%;
+    width: 95%;
+  }
+
+  #note-modal span {
+    width: min-content;
   }
 }
 
 @media (min-width: 768px) {
   .note {
-    width: 30%;
+    width: 32%;
+  }
+
+  .note:nth-child(3n+2) {
+    margin: auto 2%;
+  }
+
+  #note-modal-inner {
+    height: 80%;
+    width: 80%;
+  }
+
+  #note-modal span {
+    width: fit-content;
   }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
-
 }
 
 @media (min-width: 1024px) and (max-width: 1280px) {
-
 }
 
 @media (min-width: 1280px) {
-
 }
 
 @media (max-width: 1280px) {
-
 }
-
 
 html,
 body {
@@ -40,8 +71,8 @@ body {
 
 section:first-child {
   display: flex;
-    justify-content: space-between;
-    align-items: center;
+  justify-content: space-between;
+  align-items: center;
 }
 
 section:first-child div:first-child {
@@ -54,19 +85,30 @@ section:first-child button {
 
 #notes {
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
 }
 
 .note {
+  text-align: justify;
   aspect-ratio: 1;
   margin: 1% 0;
   border: 2px solid;
   overflow: hidden;
 }
 
-.note, #note-modal-inner {
-  border-radius: 30px;
+.note-title {
+  text-align: center;
+  font-weight: 600;
+  background-color: var(--note-background-color);
+  width: 100%;
+  margin: auto;
+  padding: 1% 2%;
+  color: var(--note-title-color);
+}
+
+.note,
+#note-modal-inner {
+  border-radius: 5px;
 }
 
 .note.active {
@@ -84,6 +126,12 @@ section:first-child button {
   left: 0;
   right: 0;
   margin: auto;
+}
+
+#note-modal.active {
+  height: 100%;
+  width: 100%;
+  backdrop-filter: blur(5px) brightness(0.5);
   transition: width 0.5s,
     height 1s
       linear(
@@ -130,18 +178,10 @@ section:first-child button {
   transition-delay: 0s, 0.5s, 2s;
 }
 
-#note-modal.active {
-  height: 100%;
-  width: 100%;
-  backdrop-filter: blur(5px) brightness(0.5);
-}
-
 #note-modal-inner {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  height: 80%;
-  width: 80%;
   margin: auto;
   overflow: hidden;
 }
@@ -160,9 +200,11 @@ section:first-child button {
   resize: none;
   height: 100%;
   width: 100%;
+  border: 0px;
 }
 
-#note-modal textarea, .note {
+#note-modal textarea,
+.note-text {
   padding: 1%;
 }
 
@@ -170,6 +212,5 @@ section:first-child button {
   display: flex;
   align-items: center;
   height: 10%;
-  width: fit-content;
   padding: 0 1%;
 }

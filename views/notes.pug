@@ -16,17 +16,18 @@ block content
             <!-- Lors du clic, récupérer les données et créer une nouvelle div qui aura le comportement d'un modal (position: fixed etc) -->
             for note in notes
                 article(class="note")
-                    div=note.note_id
-                    div=note.text
+                    input(type="number", name="note-id" value=note.note_id hidden)
+                    div(class="note-title") Titre
+                    div(class="note-text")=note.text
 
         article(id="note-modal")
             div(id="note-modal-inner")
                 form
                     input(id="note-id" type="number" name="note-id" hidden)
-                    textarea(id="note-text" name="text" cols="30" rows="10")
-                span dernière sauvegarde :
+                    textarea(id="note-text" name="text")
+                span Dernière sauvegarde :
                 span
-                    button(id="close-modal-btn" class="button-stylised" onclick="refreshNotes()") Fermer la note
+                    button(id="close-modal-btn" class="button-stylised" onclick="refreshNotes()") Fermer
 
 
 block js

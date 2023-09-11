@@ -1,15 +1,19 @@
 function refreshNotes(notes = null) {
+  let notesDiv = document.getElementById('notes');
   if (notes) {
-    let notesDiv = document.getElementById('notes');
     notesDiv.innerHTML = '';
 
     notes.notes.forEach((note) => {
       notesDiv.innerHTML +=
-        '<article class="note"><div>' +
+        '<article class="note">' +
+        '<input type="number" name="note-id" value="' +
         note.note_id +
-        '</div><div>' +
+        '" hidden />' +
+        '<div class="note-title">Title</div>' +
+        '<div class="note-text">' +
         note.text +
-        '</div></article>';
+        '</div>' +
+        '</article>';
     });
 
     refreshListeners();
@@ -21,16 +25,19 @@ function refreshNotes(notes = null) {
     fetch(request)
       .then((response) => response.json())
       .then((notes) => {
-        let notesDiv = document.getElementById('notes');
         notesDiv.innerHTML = '';
 
         notes.note.forEach((note) => {
           notesDiv.innerHTML +=
-            '<article class="note"><div>' +
+            '<article class="note">' +
+            '<input type="number" name="note-id" value="' +
             note.note_id +
-            '</div><div>' +
+            '" hidden />' +
+            '<div class="note-title">Title</div>' +
+            '<div class="note-text">' +
             note.text +
-            '</div></article>';
+            '</div>' +
+            '</article>';
         });
 
         document.querySelector('#note-modal').classList.remove('active');

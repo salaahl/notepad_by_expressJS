@@ -14,7 +14,7 @@ function refreshListeners() {
   document.querySelectorAll('.note').forEach((note) => {
     note.addEventListener('click', function () {
       const data = {
-        id: note.children[0].innerHTML,
+        id: this.querySelector('input[name=note-id]').value,
       };
 
       const request = new Request('/get-note', {
@@ -27,10 +27,10 @@ function refreshListeners() {
 
       fetch(request)
         .then((response) => response.json())
-        .then((note) => {
+        .then((data) => {
           $('#note-modal').classList.add('active');
-          $('#note-id').value = note.id;
-          $('#note-text').value = note.text;
+          $('#note-id').value = data.id;
+          $('#note-text').value = data.text;
         })
         .catch((error) => {
           console.log(error.message);
@@ -66,7 +66,9 @@ function refreshListeners() {
 
       fetch(request)
         .then((response) => response.json())
-        .then((note) => {})
+        .then((data) => {
+          console.log(data);
+        })
         .catch((error) => {
           console.log(error.message);
           alert('Erreur.');
