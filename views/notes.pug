@@ -6,8 +6,11 @@ append stylesheets
 block content
     main
         section
+            div
+                form
+                    input(id="search-note" class="input" type="text" name="search-note" placeholder="Rechercher une note")
+            
             button(id="close-modal-btn" class="button-stylised" onclick="document.querySelector('#note-modal').classList.remove('active')") Nouvelle note
-
 
         section(id="notes")
             <!-- Lors du clic, récupérer les données et créer une nouvelle div qui aura le comportement d'un modal (position: fixed etc) -->
@@ -16,16 +19,17 @@ block content
                     div=note.note_id
                     div=note.text
 
-            article(id="note-modal")
-                div(id="note-modal-inner")
-                    form
-                        input(id="note-id" type="number" name="note-id" hidden)
-                        textarea(id="note-text" name="text" cols="30" rows="10")
-                    span dernière sauvegarde :
-                    span
-                        button(id="close-modal-btn" class="button-stylised" onclick="actualizeNotes()") Fermer la note
+        article(id="note-modal")
+            div(id="note-modal-inner")
+                form
+                    input(id="note-id" type="number" name="note-id" hidden)
+                    textarea(id="note-text" name="text" cols="30" rows="10")
+                span dernière sauvegarde :
+                span
+                    button(id="close-modal-btn" class="button-stylised" onclick="refreshNotes()") Fermer la note
 
 
 block js
-    script(src='/js/notes-actualize.js')
+    script(src='/js/refresh-notes.js')
     script(src='/js/modal.js')
+    script(src='/js/search-note.js')

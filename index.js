@@ -30,7 +30,14 @@ app.set('views', path.join(__dirname, 'views'));
 
 // Explications sur les requêtes dans la partie CRUD
 app.get('/', (req, res) => {
-  const sql = 'SELECT * FROM notepad';
+  let sql = 'SELECT * FROM notepad';
+  let params = null;
+
+  if(req.body.filter) {
+    sql = 'SELECT * FROM notepad ORDER BY note_id DESC';
+  } else {
+    sql = 'SELECT * FROM notepad';
+  }
 
   db.all(sql, [], (err, rows) => {
     if (err) {
@@ -49,13 +56,13 @@ app.get('/', (req, res) => {
           text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         },
       ];
-      res.render('notes', { title: 'Home', notes: notes });
+      res.render('notes', { title: 'Notes', notes: notes });
     }
-    res.render('notes', { title: 'Home', notes: rows });
+    res.render('notes', { title: 'Notes', notes: rows });
   });
 });
 
-// Version normale
+// Récupère le contenu d'une note
 app.post('/get-note', (req, res) => {
   const stmt = 'SELECT * FROM notepad WHERE note_id = ?';
   var params = [req.body.id];
@@ -69,7 +76,7 @@ app.post('/get-note', (req, res) => {
   });
 });
 
-//
+// Récupère toutes les notes de façon asynchrone
 app.post('/get-notes', (req, res) => {
   const sql = 'SELECT * FROM notepad';
 
@@ -77,9 +84,25 @@ app.post('/get-notes', (req, res) => {
     if (err) {
       return console.error(err.message);
     }
-    console.log(rows);
+    
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify({ note: rows }));
+  });
+});
+
+// Recherche d'une note
+app.post('/search-note', (req, res) => {
+  let sql = 'SELECT * FROM notepad WHERE text LIKE ?';
+  let searchConcat = '%' + req.body.search + '%';
+  var params = [searchConcat];
+
+  db.all(sql, params, (err, rows) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify({ notes: rows }));
   });
 });
 
@@ -96,6 +119,7 @@ app.post('/get-notes', (req, res) => {
 });
 */
 
+// Enregistre le contenu d'une note
 app.post('/save-note', (req, res) => {
   let stmt = null;
   let params = null;
@@ -148,7 +172,7 @@ app.get('/options', (req, res) => {
 /*
 CRUD :
 
-// A ajouter : titre, user_id, tags
+// A ajouter : titre, user_id, tags, heure de création/modification
 app.get('/create', (req, res) => {
   const sql_create = `CREATE TABLE IF NOT EXISTS notepad (
     note_id INTEGER PRIMARY KEY AUTOINCREMENT,

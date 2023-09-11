@@ -4,15 +4,13 @@
 
 @media (max-width: 767px) {
   .note {
-    max-height: 30vh;
     width: 30%;
   }
 }
 
 @media (min-width: 768px) {
   .note {
-    max-height: 30vh;
-    width: 20%;
+    width: 30%;
   }
 }
 
@@ -40,14 +38,35 @@ body {
   margin: 0;
 }
 
+section:first-child {
+  display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+section:first-child div:first-child {
+  width: 75%;
+}
+
+section:first-child button {
+  width: 20%;
+}
+
 #notes {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .note {
+  aspect-ratio: 1;
+  margin: 1% 0;
   border: 2px solid;
   overflow: hidden;
+}
+
+.note, #note-modal-inner {
+  border-radius: 30px;
 }
 
 .note.active {
@@ -59,7 +78,7 @@ body {
   display: flex;
   height: 0%;
   width: 0%;
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
@@ -143,7 +162,7 @@ body {
   width: 100%;
 }
 
-#note-modal textarea {
+#note-modal textarea, .note {
   padding: 1%;
 }
 

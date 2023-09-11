@@ -6,6 +6,7 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "bulma": "^0.9.4",
     "elasticsearch": "^16.7.3",
     "express": "^4.17.1",
     "mongoose": "^7.5.0",
