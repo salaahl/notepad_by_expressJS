@@ -100,7 +100,7 @@ section:first-child button {
   padding: 1% 2%;
 }
 
-.note-title, #modal-note-title {
+.note-title, #note-modal-title {
   text-transform: uppercase;
   text-align: center;
   font-weight: 600;
@@ -199,7 +199,7 @@ section:first-child button {
   width: 100%;
 }
 
-#modal-note-title {
+#note-modal-title {
   height: 10%;
   border: 0;
 }

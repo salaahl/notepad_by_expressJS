@@ -30,26 +30,11 @@ app.set('views', path.join(__dirname, 'views'));
 
 // Explications sur les requêtes dans la partie CRUD
 app.get('/', (req, res) => {
-  let sql = 'SELECT (note_id, title, text, tags, user_id, timestamp) FROM notepad';
+  let sql = 'SELECT note_id, title, text, tags, user_id, timestamp FROM notepad';
 
   db.all(sql, [], (err, rows) => {
     if (err) {
       console.error(err.message);
-      const notes = [
-        {
-          note_id: '1',
-          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-        },
-        {
-          note_id: '2',
-          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-        },
-        {
-          note_id: '3',
-          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-        },
-      ];
-      res.render('notes', { title: 'Notes', notes: notes });
     }
     res.render('notes', { title: 'Notes', notes: rows });
   });
@@ -57,7 +42,7 @@ app.get('/', (req, res) => {
 
 // Récupère le contenu d'une note
 app.post('/get-note', (req, res) => {
-  const stmt = 'SELECT (note_id, title, text, tags, user_id, timestamp) FROM notepad WHERE note_id = ?';
+  const stmt = 'SELECT note_id, title, text, tags, user_id, timestamp FROM notepad WHERE note_id = ?';
   var params = [req.body.id];
 
   db.get(stmt, params, (err, row) => {
@@ -71,7 +56,7 @@ app.post('/get-note', (req, res) => {
 
 // Récupère toutes les notes de façon asynchrone
 app.post('/get-notes', (req, res) => {
-  const sql = 'SELECT (note_id, title, text, tags, user_id, timestamp) FROM notepad';
+  const sql = 'SELECT note_id, title, text, tags, user_id, timestamp FROM notepad';
 
   db.all(sql, [], (err, rows) => {
     if (err) {
@@ -85,7 +70,7 @@ app.post('/get-notes', (req, res) => {
 
 // Recherche d'une note
 app.post('/search-note', (req, res) => {
-  let sql = 'SELECT (note_id, title, text, tags, user_id, timestamp) FROM notepad WHERE title LIKE ? OR text LIKE ?';
+  let sql = 'SELECT note_id, title, text, tags, user_id, timestamp FROM notepad WHERE title LIKE ? OR text LIKE ?';
   let searchConcat = '%' + req.body.search + '%';
   var params = [searchConcat, searchConcat];
 
@@ -122,7 +107,7 @@ app.post('/save-note', (req, res) => {
   // Si seulement texte existant = nouvelle note
   // Si texte manquant, alors note vide
   if (req.body.id && req.body.text) {
-    stmt = 'UPDATE notepad SET title = ? SET text = ? WHERE note_id = ?';
+    stmt = 'UPDATE notepad SET title = ?, text = ? WHERE note_id = ?';
     params = [req.body.title, req.body.text, req.body.id];
   } else if (req.body.title || req.body.text) {
     stmt = 'INSERT INTO notepad (title, text) VALUES (?, ?)';
@@ -188,7 +173,7 @@ app.get('/create', (req, res) => {
 
 // via la méthode de la requête préparée :
 app.get('/insert', (req, res) => {
-  const stmt = db.prepare('INSERT INTO notepad (title, text, tags) VALUES (?, ?, ?)');
+  const stmt = db.prepare('INSERT INTO notepad title, text, tags VALUES (?, ?, ?)');
   stmt.run(
     'Mon titre',
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
@@ -203,7 +188,7 @@ app.get('/insert', (req, res) => {
 CRUD :
 
 app.get('/read', (req, res) => {
-  const sql = 'SELECT (note_id, title, text, tags, user_id, timestamp) FROM notepad';
+  const sql = 'SELECT note_id, title, text, tags, user_id, timestamp FROM notepad';
 
   
   db.all(sql, [], (err, rows) => {
@@ -215,7 +200,7 @@ app.get('/read', (req, res) => {
 });
 
 app.get('/read/:note_id', (req, res) => {
-  const stmt = 'SELECT (note_id, title, text, tags, user_id, timestamp) FROM notepad WHERE note_id = ?';
+  const stmt = 'SELECT note_id, title, text, tags, user_id, timestamp FROM notepad WHERE note_id = ?';
   var params = [req.params.note_id]
 
   /* 
