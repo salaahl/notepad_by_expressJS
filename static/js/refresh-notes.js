@@ -33,7 +33,7 @@ function refreshNotes(notes = null) {
             '<input type="number" name="note-id" value="' +
             note.note_id +
             '" hidden />' +
-            '<div class="note-title">Title</div>' +
+            '<div class="note-title">' + note.title + '</div>' +
             '<div class="note-text">' +
             note.text +
             '</div>' +

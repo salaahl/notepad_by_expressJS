@@ -29,9 +29,9 @@ function refreshListeners() {
         .then((response) => response.json())
         .then((data) => {
           $('#note-modal').classList.add('active');
-          $('#note-modal-id').value = data.id;
-          $('#note-modal-title').value = data.title;
-          $('#note-modal-text').value = data.text;
+          $('#note-modal-id').value = data.note.id;
+          $('#note-modal-title').value = data.note.title;
+          $('#note-modal-text').value = data.note.text;
         })
         .catch((error) => {
           console.log(error.message);

@@ -16,7 +16,7 @@ block content
             for note in notes
                 article(class="note")
                     input(type="number", name="note-id" value=note.note_id hidden)
-                    div(class="note-title") Titre
+                    div(class="note-title")=note.title
                     div(class="note-text")=note.text
 
         article(id="note-modal")

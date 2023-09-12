@@ -50,7 +50,7 @@ app.post('/get-note', (req, res) => {
       return console.error(err.message);
     }
     res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify({ id: row.note_id, text: row.text }));
+    res.end(JSON.stringify({ note: row }));
   });
 });
 
