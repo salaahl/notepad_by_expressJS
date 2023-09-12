@@ -5,7 +5,7 @@ const path = require('path');
 
 // Base de données
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./data/db.sqlite', (err) => {
+const db = new sqlite3.Database('./db.sqlite', (err) => {
   if (err) {
     return console.error(err.message);
   }
@@ -35,7 +35,7 @@ app.get('/', (req, res) => {
   db.all(sql, [], (err, rows) => {
     if (err) {
       console.error(err.message);
-      const notes = [
+      const myNotes = [
         {
           note_id: '1',
           text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
@@ -49,9 +49,8 @@ app.get('/', (req, res) => {
           text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         },
       ];
-      res.render('notes', { title: 'Notes', notes: notes });
+      res.render('notes', { title: 'Notes', notes: myNotes });
     }
-    res.render('notes', { title: 'Notes', notes: rows });
   });
 });
 
@@ -163,8 +162,7 @@ app.get('/options', (req, res) => {
   });
 });
 
-/*
-CRUD :
+
 
 // A ajouter : titre, user_id, tags, heure de création/modification
 app.get('/create', (req, res) => {
@@ -198,6 +196,8 @@ app.get('/insert', (req, res) => {
   res.send("Alimentation réussie de la table 'notepad'");
 });
 
+/*
+CRUD :
 app.get('/read', (req, res) => {
   const sql = 'SELECT * FROM notepad';
 
