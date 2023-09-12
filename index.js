@@ -30,12 +30,12 @@ app.set('views', path.join(__dirname, 'views'));
 
 // Explications sur les requêtes dans la partie CRUD
 app.get('/', (req, res) => {
-  let sql = 'SELECT * FROM notepad';
+  let sql = 'SELECT (note_id, title, text, tags, user_id, timestamp) FROM notepad';
 
   db.all(sql, [], (err, rows) => {
     if (err) {
       console.error(err.message);
-      const myNotes = [
+      const notes = [
         {
           note_id: '1',
           text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
@@ -49,7 +49,7 @@ app.get('/', (req, res) => {
           text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         },
       ];
-      res.render('notes', { title: 'Notes', notes: myNotes });
+      res.render('notes', { title: 'Notes', notes: notes });
     }
     res.render('notes', { title: 'Notes', notes: rows });
   });
@@ -57,7 +57,7 @@ app.get('/', (req, res) => {
 
 // Récupère le contenu d'une note
 app.post('/get-note', (req, res) => {
-  const stmt = 'SELECT * FROM notepad WHERE note_id = ?';
+  const stmt = 'SELECT (note_id, title, text, tags, user_id, timestamp) FROM notepad WHERE note_id = ?';
   var params = [req.body.id];
 
   db.get(stmt, params, (err, row) => {
@@ -71,7 +71,7 @@ app.post('/get-note', (req, res) => {
 
 // Récupère toutes les notes de façon asynchrone
 app.post('/get-notes', (req, res) => {
-  const sql = 'SELECT * FROM notepad';
+  const sql = 'SELECT (note_id, title, text, tags, user_id, timestamp) FROM notepad';
 
   db.all(sql, [], (err, rows) => {
     if (err) {
@@ -85,9 +85,9 @@ app.post('/get-notes', (req, res) => {
 
 // Recherche d'une note
 app.post('/search-note', (req, res) => {
-  let sql = 'SELECT * FROM notepad WHERE text LIKE ?';
+  let sql = 'SELECT (note_id, title, text, tags, user_id, timestamp) FROM notepad WHERE title LIKE ? OR text LIKE ?';
   let searchConcat = '%' + req.body.search + '%';
-  var params = [searchConcat];
+  var params = [searchConcat, searchConcat];
 
   db.all(sql, params, (err, rows) => {
     if (err) {
@@ -122,11 +122,11 @@ app.post('/save-note', (req, res) => {
   // Si seulement texte existant = nouvelle note
   // Si texte manquant, alors note vide
   if (req.body.id && req.body.text) {
-    stmt = 'UPDATE notepad SET text = ? WHERE note_id = ?';
-    params = [req.body.text, req.body.id];
-  } else if (req.body.text) {
-    stmt = 'INSERT INTO notepad (text) VALUES (?)';
-    params = [req.body.text];
+    stmt = 'UPDATE notepad SET title = ? SET text = ? WHERE note_id = ?';
+    params = [req.body.title, req.body.text, req.body.id];
+  } else if (req.body.title || req.body.text) {
+    stmt = 'INSERT INTO notepad (title, text) VALUES (?, ?)';
+    params = [req.body.title, req.body.text];
   } else {
     stmt = 'DELETE FROM notepad WHERE note_id = ?';
     params = [req.body.id];
@@ -163,18 +163,17 @@ app.get('/options', (req, res) => {
   });
 });
 
-/*
-CRUD :
+
 
 // A ajouter : titre, user_id, tags, heure de création/modification
 app.get('/create', (req, res) => {
   const sql_create = `CREATE TABLE IF NOT EXISTS notepad (
     note_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    tile VARCHAR NULL,
+    title VARCHAR NULL,
+    text TEXT,
     tags VARCHAR NULL,
     user_id INT NULL,
-    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP NULL,
-    text TEXT
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP NULL
   );`;
 
   db.run(sql_create, (err) => {
@@ -189,17 +188,22 @@ app.get('/create', (req, res) => {
 
 // via la méthode de la requête préparée :
 app.get('/insert', (req, res) => {
-  const stmt = db.prepare('INSERT INTO notepad (text) VALUES (?)');
+  const stmt = db.prepare('INSERT INTO notepad (title, text, tags) VALUES (?, ?, ?)');
   stmt.run(
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+    'Mon titre',
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    'MonTag'
   );
   stmt.finalize();
 
   res.send("Alimentation réussie de la table 'notepad'");
 });
 
+/*
+CRUD :
+
 app.get('/read', (req, res) => {
-  const sql = 'SELECT * FROM notepad';
+  const sql = 'SELECT (note_id, title, text, tags, user_id, timestamp) FROM notepad';
 
   
   db.all(sql, [], (err, rows) => {
@@ -211,7 +215,7 @@ app.get('/read', (req, res) => {
 });
 
 app.get('/read/:note_id', (req, res) => {
-  const stmt = 'SELECT * FROM notepad WHERE note_id = ?';
+  const stmt = 'SELECT (note_id, title, text, tags, user_id, timestamp) FROM notepad WHERE note_id = ?';
   var params = [req.params.note_id]
 
   /* 

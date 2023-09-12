@@ -29,8 +29,9 @@ function refreshListeners() {
         .then((response) => response.json())
         .then((data) => {
           $('#note-modal').classList.add('active');
-          $('#note-id').value = data.id;
-          $('#note-text').value = data.text;
+          $('#note-modal-id').value = data.id;
+          $('#note-modal-title').value = data.title;
+          $('#note-modal-text').value = data.text;
         })
         .catch((error) => {
           console.log(error.message);
@@ -41,18 +42,20 @@ function refreshListeners() {
 
   // Mise à jour d'une note
   document
-    .querySelector('#note-modal textarea')
-    .addEventListener('keyup', function () {
+    .querySelectorAll('#note-modal textarea, #note-modal-title').forEach((note) => {
+    note.addEventListener('keyup', function () {
       let data = null;
 
-      if (document.querySelector('#note-id').value) {
+      if (document.querySelector('#note-modal-id').value) {
         data = {
-          id: document.querySelector('#note-id').value,
-          text: this.value,
+          id: document.querySelector('#note-modal-id').value,
+          title: document.querySelector('#note-modal-title').value,
+          text: document.querySelector('#note-modal textarea').value,
         };
       } else {
         data = {
-          text: this.value,
+          title: document.querySelector('#note-modal-title').value,
+          text: document.querySelector('#note-modal textarea').value,
         };
       }
 
@@ -74,6 +77,7 @@ function refreshListeners() {
           alert('Erreur.');
         });
     });
+  })
 }
 
 refreshListeners();
