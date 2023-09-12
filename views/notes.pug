@@ -9,13 +9,14 @@ block content
             div
                 form
                     input(id="search-note" class="input" type="text" name="search-note" placeholder="Rechercher une note")
-            
+
             button(id="close-modal-btn" class="button-stylised" onclick="document.querySelector('#note-modal').classList.remove('active')") Nouvelle note
+            button(id="delete-note-btn" class="button-stylised" onclick="document.querySelectorAll('.note').forEach((note) => { note.classList.add('delete-note') })") Supprimer une note
 
         section(id="notes")
             for note in notes
                 article(class="note")
-                    input(type="number", name="note-id" value=note.note_id hidden)
+                    input(type="number" name="note-id" value=note.note_id hidden)
                     div(class="note-title")=note.title
                     div(class="note-text")=note.text
 

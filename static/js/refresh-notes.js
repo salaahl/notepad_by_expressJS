@@ -1,5 +1,8 @@
 function refreshNotes(notes = null) {
   let notesDiv = document.getElementById('notes');
+  document.querySelector('#note-modal-id').value = null;
+  document.querySelector('#note-modal-title').value = null;
+  document.querySelector('#note-modal textarea').value = null;
   if (notes) {
     notesDiv.innerHTML = '';
 
@@ -9,7 +12,9 @@ function refreshNotes(notes = null) {
         '<input type="number" name="note-id" value="' +
         note.note_id +
         '" hidden />' +
-        '<div class="note-title">' + note.title + '</div>' +
+        '<div class="note-title">' +
+        note.title +
+        '</div>' +
         '<div class="note-text">' +
         note.text +
         '</div>' +
@@ -33,7 +38,9 @@ function refreshNotes(notes = null) {
             '<input type="number" name="note-id" value="' +
             note.note_id +
             '" hidden />' +
-            '<div class="note-title">' + note.title + '</div>' +
+            '<div class="note-title">' +
+            note.title +
+            '</div>' +
             '<div class="note-text">' +
             note.text +
             '</div>' +

@@ -36,10 +36,6 @@
     width: 32%;
   }
 
-  .note:nth-child(3n+2) {
-    margin: auto 2%;
-  }
-
   #note-modal-inner {
     height: 80%;
     width: 80%;
@@ -51,6 +47,9 @@
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
+  .note:nth-child(3n+2) {
+    margin: auto 2%;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -59,11 +58,11 @@
   }
 
   .note:nth-child(4n+2) {
-    margin: 0 1% 0 2%;
+    margin: auto 1% auto 2%;
   }
 
   .note:nth-child(4n+3) {
-    margin: 0 2% 0 1%;
+    margin: auto 2% auto 1%;
   }
 }
 
@@ -87,7 +86,7 @@ section:first-child {
 }
 
 section:first-child div:first-child {
-  width: 75%;
+  width: 50%;
 }
 
 section:first-child button {
