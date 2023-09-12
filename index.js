@@ -106,10 +106,10 @@ app.post('/save-note', (req, res) => {
   // Si id et texte, alors note existante = mettre à jour
   // Si seulement texte existant = nouvelle note
   // Si texte manquant, alors note vide
-  if (req.body.id && req.body.text) {
+  if (req.body.title && req.body.text && req.body.id) {
     stmt = 'UPDATE notepad SET title = ?, text = ? WHERE note_id = ?';
     params = [req.body.title, req.body.text, req.body.id];
-  } else if (req.body.title || req.body.text) {
+  } else if (req.body.title && req.body.text) {
     stmt = 'INSERT INTO notepad (title, text) VALUES (?, ?)';
     params = [req.body.title, req.body.text];
   } else {
