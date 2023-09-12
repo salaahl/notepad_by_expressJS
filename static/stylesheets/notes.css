@@ -58,8 +58,12 @@
     width: 23%;
   }
 
+  .note:nth-child(4n+2) {
+    margin: 0 1% 0 2%;
+  }
+
   .note:nth-child(4n+3) {
-    margin: auto 2%;
+    margin: 0 2% 0 1%;
   }
 }
 
