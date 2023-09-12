@@ -170,6 +170,10 @@ CRUD :
 app.get('/create', (req, res) => {
   const sql_create = `CREATE TABLE IF NOT EXISTS notepad (
     note_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    tile VARCHAR NULL,
+    tags VARCHAR NULL,
+    user_id INT NULL,
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP NULL,
     text TEXT
   );`;
 

@@ -13,7 +13,6 @@ block content
             button(id="close-modal-btn" class="button-stylised" onclick="document.querySelector('#note-modal').classList.remove('active')") Nouvelle note
 
         section(id="notes")
-            <!-- Lors du clic, récupérer les données et créer une nouvelle div qui aura le comportement d'un modal (position: fixed etc) -->
             for note in notes
                 article(class="note")
                     input(type="number", name="note-id" value=note.note_id hidden)
