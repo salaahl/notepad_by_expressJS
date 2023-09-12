@@ -51,6 +51,7 @@ app.get('/', (req, res) => {
       ];
       res.render('notes', { title: 'Notes', notes: myNotes });
     }
+    res.render('notes', { title: 'Notes', notes: rows });
   });
 });
 
@@ -162,7 +163,8 @@ app.get('/options', (req, res) => {
   });
 });
 
-
+/*
+CRUD :
 
 // A ajouter : titre, user_id, tags, heure de création/modification
 app.get('/create', (req, res) => {
@@ -196,8 +198,6 @@ app.get('/insert', (req, res) => {
   res.send("Alimentation réussie de la table 'notepad'");
 });
 
-/*
-CRUD :
 app.get('/read', (req, res) => {
   const sql = 'SELECT * FROM notepad';
 
