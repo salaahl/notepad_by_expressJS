@@ -147,6 +147,28 @@ app.post('/save-note', (req, res) => {
   });
 });
 
+// Enregistre le contenu d'une note
+app.post('/delete-note', (req, res) => {
+  let stmt = 'DELETE FROM notepad WHERE note_id = ?';
+  let params = [req.body.id];
+
+  db.run(stmt, params, function (err, row) {
+    if (err) {
+      console.error(err.message);
+    }
+
+    res.setHeader('Content-Type', 'application/json');
+    res.end(
+      JSON.stringify({
+        status: 'success',
+        row: row,
+        data: req.body,
+        note_id: this.lastID,
+      })
+    );
+  });
+});
+
 app.get('/options', (req, res) => {
   res.render('options', {
     title: 'options',

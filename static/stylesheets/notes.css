@@ -47,7 +47,7 @@
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
-  .note:nth-child(3n+2) {
+  .note:nth-child(3n + 2) {
     margin: auto 2%;
   }
 }
@@ -57,11 +57,11 @@
     width: 23%;
   }
 
-  .note:nth-child(4n+2) {
+  .note:nth-child(4n + 2) {
     margin: auto 1% auto 2%;
   }
 
-  .note:nth-child(4n+3) {
+  .note:nth-child(4n + 3) {
     margin: auto 2% auto 1%;
   }
 }
@@ -107,10 +107,16 @@ section:first-child button {
 }
 
 .note-title {
+  height: 10%;
   padding: 1% 2%;
 }
 
-.note-title, #note-modal-title {
+.note-text {
+  height: 78%;
+}
+
+.note-title,
+#note-modal-title {
   text-transform: uppercase;
   text-align: center;
   font-weight: 600;
@@ -127,6 +133,17 @@ section:first-child button {
 .note.active {
   height: 100%;
   width: 100%;
+}
+
+.note .delete {
+  float: right;
+  background-color: red;
+  height: 10%;
+  width: auto;
+  aspect-ratio: 1;
+  max-height: 40px;
+  max-width: 40px;
+  margin: 1%;
 }
 
 #note-modal {
