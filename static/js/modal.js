@@ -1,10 +1,132 @@
 let timer;
-let milliseconds = 2000;
+let milliseconds = 1000;
 
 let $ = (id) => {
   return document.querySelector(id);
 };
 
+function refreshNotes(notes = null) {
+  let notesDiv = document.getElementById('notes');
+  document.querySelector('#note-modal-id').value = null;
+  document.querySelector('#note-modal-title').value = null;
+  document.querySelector('#note-modal textarea').value = null;
+  if (notes) {
+    notesDiv.innerHTML = '';
+
+    notes.notes.forEach((note) => {
+      notesDiv.innerHTML +=
+        '<article class="note">' +
+        '<input type="number" name="note-id" value="' +
+        note.note_id +
+        '" hidden />' +
+        '<div class="note-title">' +
+        note.title +
+        '</div>' +
+        '<div class="note-text">' +
+        note.text +
+        '</div>' +
+        '<button class="open-note">Ouvrir</button>' +
+        '<button class="delete-note"></button>' +
+        '</article>';
+    });
+
+    refreshListeners();
+  } else {
+    const request = new Request('/get-notes', {
+      method: 'POST',
+    });
+
+    fetch(request)
+      .then((response) => response.json())
+      .then((notes) => {
+        notesDiv.innerHTML = '';
+
+        notes.note.forEach((note) => {
+          notesDiv.innerHTML +=
+            '<article class="note">' +
+            '<input type="number" name="note-id" value="' +
+            note.note_id +
+            '" hidden />' +
+            '<div class="note-title">' +
+            note.title +
+            '</div>' +
+            '<div class="note-text">' +
+            note.text +
+            '</div>' +
+            '<button class="open-note">Ouvrir</button>' +
+            '<button class="delete-note"></button>' +
+            '</article>';
+        });
+
+        document.querySelector('#note-modal').classList.remove('active');
+        refreshListeners();
+      })
+      .catch((error) => {
+        console.log(error.message);
+        alert('Erreur.');
+      });
+  }
+}
+
+/* ---------- */
+function deleteNotesListeners() {
+  document.querySelectorAll('.delete-note').forEach((note) => {
+    note.classList.add('delete');
+  });
+
+  document.querySelectorAll('.open-note').forEach((note) => {
+    note.style.display = 'none';
+  });
+
+  document.querySelector('#enable-delete-note').innerHTML = 'Terminer';
+  document.querySelector('#enable-delete-note').onclick = function()
+  {
+    document.querySelectorAll('.delete-note').forEach((note) => {
+      note.classList.remove('delete');
+    });
+
+    document.querySelectorAll('.open-note').forEach((note) => {
+      note.style.display = 'block';
+    });
+
+    document.querySelector('#enable-delete-note').innerHTML = 'Supprimer une note';
+  };
+
+  document.querySelectorAll('button.delete').forEach((note) => {
+    note.addEventListener('click', function () {
+      console.log('delete note');
+      if (
+        confirm(
+          'Voulez-vous vraiment supprimer cette note ? Cette action est irreversible.'
+        )
+      ) {
+        let data = {
+          id: this.parentElement.querySelector('input[name="note-id"]').value,
+        };
+
+        const request = new Request('/delete-note', {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        fetch(request)
+          .then((response) => response.json())
+          .then((data) => {
+            refreshNotes();
+          })
+          .catch((error) => {
+            console.log(error.message);
+            alert('Erreur.');
+          });
+      }
+    });
+  });
+}
+
+/* ---------- */
 function refreshListeners() {
   // Nouvelle note
   document
@@ -14,10 +136,10 @@ function refreshListeners() {
     });
 
   // Récupération des données d'une note
-  document.querySelectorAll('.note-text').forEach((note) => {
+  document.querySelectorAll('.open-note').forEach((note) => {
     note.addEventListener('click', function () {
       const data = {
-        id: this.querySelector('input[name=note-id]').value,
+        id: this.parentElement.querySelector('input[name=note-id]').value,
       };
 
       const request = new Request('/get-note', {
@@ -48,9 +170,8 @@ function refreshListeners() {
     .querySelectorAll('#note-modal textarea, #note-modal-title')
     .forEach((note) => {
       note.addEventListener('keyup', function () {
-
         clearTimeout(timer);
-        
+
         timer = setTimeout(function () {
           let data = null;
 

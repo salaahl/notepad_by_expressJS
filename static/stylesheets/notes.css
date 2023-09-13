@@ -135,11 +135,12 @@ section:first-child button {
   width: 100%;
 }
 
-.note button:not(.delete) {
+.delete-note {
   display: none;
 }
 
-.note .delete {
+.delete-note.delete {
+  display: block;
   float: right;
   background-color: red;
   height: 20%;
