@@ -20,7 +20,7 @@ block content
                     div(class="note-title")=note.title
                     div(class="note-text")=note.text
                     <!-- Va accueillir la classe "delete" -->
-                    div
+                    button(onclick="deleteNotes()")
 
         article(id="note-modal")
             div(id="note-modal-inner")
@@ -35,5 +35,6 @@ block content
 
 block js
     script(src='/js/refresh-notes.js')
+    script(src='/js/delete-notes.js')
     script(src='/js/modal.js')
     script(src='/js/search-note.js')

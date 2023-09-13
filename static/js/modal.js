@@ -14,7 +14,7 @@ function refreshListeners() {
     });
 
   // Récupération des données d'une note
-  document.querySelectorAll('.note').forEach((note) => {
+  document.querySelectorAll('.note-text').forEach((note) => {
     note.addEventListener('click', function () {
       const data = {
         id: this.querySelector('input[name=note-id]').value,
