@@ -1,6 +1,7 @@
 // Mise à jour d'une note
-function deleteNotes() {
+function refreshDeleteNotes() {
   document.querySelectorAll('.delete').forEach((note) => {
+    console.log('delete note');
     
     note.addEventListener('click', function () {
       data = {

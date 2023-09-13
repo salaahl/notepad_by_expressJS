@@ -1,5 +1,5 @@
 let timer;
-let milliseconds = 10000;
+let milliseconds = 2000;
 
 let $ = (id) => {
   return document.querySelector(id);

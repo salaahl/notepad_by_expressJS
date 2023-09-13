@@ -11,7 +11,7 @@ block content
                     input(id="search-note" class="input" type="text" name="search-note" placeholder="Rechercher une note")
 
             button(id="close-modal-btn" class="button-stylised" onclick="document.querySelector('#note-modal').classList.remove('active')") Nouvelle note
-            button(id="delete-note-btn" class="button-stylised" onclick="document.querySelectorAll('.note').forEach((note) => { note.lastChild.classList.add('delete') })") Supprimer une note
+            button(id="delete-note-btn" class="button-stylised" onclick="document.querySelectorAll('.note').forEach((note) => { note.querySelector('button').classList.add('delete') })") Supprimer une note
 
         section(id="notes")
             for note in notes
@@ -20,7 +20,7 @@ block content
                     div(class="note-title")=note.title
                     div(class="note-text")=note.text
                     <!-- Va accueillir la classe "delete" -->
-                    button(onclick="deleteNotes()")
+                    button(onclick="refreshDeleteNotes()")
 
         article(id="note-modal")
             div(id="note-modal-inner")

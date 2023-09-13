@@ -44,11 +44,13 @@ function refreshNotes(notes = null) {
             '<div class="note-text">' +
             note.text +
             '</div>' +
+            '<button onclick="refreshDeleteNotes()"></button>' +
             '</article>';
         });
 
         document.querySelector('#note-modal').classList.remove('active');
         refreshListeners();
+        refreshDeleteNotes();
       })
       .catch((error) => {
         console.log(error.message);

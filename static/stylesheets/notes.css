@@ -112,7 +112,7 @@ section:first-child button {
 }
 
 .note-text {
-  height: 78%;
+  height: 68%;
 }
 
 .note-title,
@@ -135,14 +135,18 @@ section:first-child button {
   width: 100%;
 }
 
+.note button:not(.delete) {
+  display: none;
+}
+
 .note .delete {
   float: right;
   background-color: red;
-  height: 10%;
+  height: 20%;
   width: auto;
   aspect-ratio: 1;
-  max-height: 40px;
-  max-width: 40px;
+  max-height: 60px;
+  max-width: 60px;
   margin: 1%;
 }
 
