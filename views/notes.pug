@@ -12,7 +12,7 @@ block content
 
             div
                 button(id="new-note" class="button-stylised" onclick="document.querySelector('#note-modal').classList.remove('active')") Nouvelle note
-                button(id="enable-delete-note" class="button-stylised" onclick="deleteNotesListeners()") Supprimer une note
+                button(id="enable-delete-note" class="button-stylised" onclick="deleteNote()") Supprimer une note
 
         section(id="notes")
             for note in notes
