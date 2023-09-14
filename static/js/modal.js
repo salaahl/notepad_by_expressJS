@@ -32,6 +32,39 @@ function read() {
     });
 }
 
+function refreshNotes() {
+  const request = new Request('/get-notes', {
+    method: 'POST',
+  });
+
+  fetch(request)
+    .then((response) => response.json())
+    .then((notes) => {
+      notes.note.forEach((note) => {
+        document.getElementById('notes').innerHTML +=
+          '<article class="note">' +
+          '<input type="number" name="note-id" value="' +
+          note.note_id +
+          '" hidden />' +
+          '<div class="note-title">' +
+          note.title +
+          '</div>' +
+          '<div class="note-text">' +
+          note.text +
+          '</div>' +
+          '<button class="open-note">Ouvrir</button>' +
+          '</article>';
+      });
+
+      // penser à intégrer ici une fonction qui rafraichit les listeners
+      reinitializeModal();
+    })
+    .catch((error) => {
+      console.log(error.message);
+      alert('Erreur.');
+    });
+}
+
 function update() {
   clearTimeout(timer);
 
@@ -42,7 +75,7 @@ function update() {
       text: document.querySelector('#note-modal textarea').value,
     };
 
-    console.log(data)
+    console.log(data);
 
     const request = new Request('/save-note', {
       method: 'POST',
@@ -138,7 +171,6 @@ function disableDeleteNote() {
 document
   .querySelector('#enable-delete-note')
   .addEventListener('click', enableDeleteNote);
-
 
 /*
 function deleteNote() {
