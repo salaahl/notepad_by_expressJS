@@ -32,7 +32,7 @@ function read() {
     });
 }
 
-function refreshNotes() {
+function closeNote() {
   const request = new Request('/get-notes', {
     method: 'POST',
   });
