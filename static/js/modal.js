@@ -86,7 +86,7 @@ function remove() {
     fetch(request)
       .then((response) => response.json())
       .then((data) => {
-        this.parentElement.remove();
+        this.remove();
       })
       .catch((error) => {
         console.log(error.message);
