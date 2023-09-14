@@ -42,6 +42,8 @@ function update() {
       text: document.querySelector('#note-modal textarea').value,
     };
 
+    console.log(data)
+
     const request = new Request('/save-note', {
       method: 'POST',
       body: JSON.stringify(data),
