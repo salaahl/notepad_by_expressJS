@@ -126,6 +126,14 @@ section:first-child button {
   width: 100%;
 }
 
+.open-note {
+ background-color: green;
+}
+
+.delete-note {
+  background-color: red;
+}
+
 .note-title,
 #note-modal-title {
   text-transform: uppercase;

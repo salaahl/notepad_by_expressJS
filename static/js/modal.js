@@ -81,6 +81,8 @@ function deleteNotesListeners() {
   document.querySelector('#enable-delete-note').innerHTML =
     'Supprimer une note';
 
+  refreshListeners();
+
   document.querySelectorAll('.delete-note').forEach((note) => {
     note.addEventListener('click', function () {
       if (
@@ -117,11 +119,9 @@ function deleteNotesListeners() {
 /* ---------- */
 function refreshListeners() {
   // Nouvelle note
-  document
-    .querySelector('#new-note')
-    .addEventListener('click', function () {
-      $('#note-modal').classList.add('active');
-    });
+  document.querySelector('#new-note').addEventListener('click', function () {
+    $('#note-modal').classList.add('active');
+  });
 
   // Récupération des données d'une note
   document.querySelectorAll('.open-note').forEach((note) => {
