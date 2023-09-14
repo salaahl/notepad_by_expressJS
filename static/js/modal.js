@@ -41,7 +41,7 @@ function closeNote() {
     .then((response) => response.json())
     .then((notes) => {
       notes.note.forEach((note) => {
-        document.getElementById('notes').innerHTML +=
+        document.getElementById('notes').innerHTML =
           '<article class="note">' +
           '<input type="number" name="note-id" value="' +
           note.note_id +
