@@ -142,9 +142,10 @@ function reinitializeModal() {
 // Changement des listeners et du comportement du bouton
 function enableDeleteNote() {
   document.querySelectorAll('.note').forEach((note) => {
-    note.querySelector('button').classList.add('delete-note');
-    note.querySelector('button').classList.remove('open-note');
-    note.querySelector('button').innerHTML = 'Supprimer';
+    note.querySelector('.open-note').classList.add('delete-note');
+    note.querySelector('.open-note').innerHTML = 'Supprimer';
+    note.querySelector('.open-note').classList.remove('open-note');
+
     note.removeEventListener('click', read);
     note.addEventListener('click', remove);
   });
@@ -159,8 +160,8 @@ function enableDeleteNote() {
 function disableDeleteNote() {
   document.querySelectorAll('.note').forEach((note) => {
     note.querySelector('.delete-note').classList.add('open-note');
-    note.querySelector('.delete-note').classList.remove('delete-note');
     note.querySelector('.delete-note').innerHTML = 'Ouvrir';
+    note.querySelector('.delete-note').classList.remove('delete-note');
     note.removeEventListener('click', remove);
     note.addEventListener('click', read);
   });
@@ -171,49 +172,6 @@ function disableDeleteNote() {
     .querySelector('#enable-delete-note')
     .addEventListener('click', enableDeleteNote);
 }
-
-/*
-function deleteNote() {
-  
-  // Changement des listeners et du comportement du bouton
-  function enableDeleteNote() {
-    document.querySelectorAll('.note').forEach((note) => {
-      note.querySelector('button').classList.add('delete-note');
-      note.querySelector('button').classList.remove('open-note');
-      note.querySelector('button').innerHTML = 'Supprimer';
-      note.removeEventListener('click', read);
-      note.addEventListener('click', remove);
-    });
-  };
-
-  function disableDeleteNote() {
-    document.querySelectorAll('.note').forEach((note) => {
-      note.querySelector('.delete-note').classList.add('open-note');
-      note.querySelector('.delete-note').classList.remove('delete-note');
-      note.querySelector('.delete-note').innerHTML = 'Ouvrir';
-      note.removeEventListener('click', remove);
-      note.addEventListener('click', read);
-    });
-  };
-
-  document
-    .querySelector('#enable-delete-note')
-    .addEventListener('click', enableDeleteNote)
-
-  document.querySelector('#enable-delete-note').innerHTML = 'Terminer';
-
-  document.querySelectorAll('.note').forEach((note) => {
-    note.querySelector('button').classList.add('delete-note');
-    note.querySelector('.open-note').classList.remove('open-note');
-    note.querySelector('.delete-note').innerHTML = 'Supprimer';
-  });
-
-  document.querySelectorAll('.delete-note').forEach((note) => {
-    note.removeEventListener('click', read);
-    note.addEventListener('click', remove);
-  });
-}
-*/
 
 /* ---------- */
 function listeners() {
