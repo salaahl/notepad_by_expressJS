@@ -1,4 +1,5 @@
-// Mise à jour d'une note
+/*
+ Mise à jour d'une note
 function deleteNotesListeners() {
   document.querySelectorAll('.note').forEach((note) => {
     note.querySelector('.open-note').classList.add('delete-note');
@@ -36,3 +37,4 @@ function deleteNotesListeners() {
     });
   });
 }
+*/
