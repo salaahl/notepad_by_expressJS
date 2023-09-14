@@ -86,11 +86,16 @@ section:first-child {
 }
 
 section:first-child div:first-child {
-  width: 50%;
+  width: 100%;
+}
+
+section:first-child div:last-child {
+  display: flex;
+  margin-left: 1%;
 }
 
 section:first-child button {
-  width: 20%;
+  width: min-content;
 }
 
 #notes {

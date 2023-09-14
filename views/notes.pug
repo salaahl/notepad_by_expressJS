@@ -10,8 +10,9 @@ block content
                 form
                     input(id="search-note" class="input" type="text" name="search-note" placeholder="Rechercher une note")
 
-            button(id="close-modal-btn" class="button-stylised" onclick="document.querySelector('#note-modal').classList.remove('active')") Nouvelle note
-            button(id="enable-delete-note" class="button-stylised" onclick="deleteNotesListeners()") Supprimer une note
+            div
+                button(id="close-modal-btn" class="button-stylised" onclick="document.querySelector('#note-modal').classList.remove('active')") Nouvelle note
+                button(id="enable-delete-note" class="button-stylised" onclick="deleteNotesListeners()") Supprimer une note
 
         section(id="notes")
             for note in notes
