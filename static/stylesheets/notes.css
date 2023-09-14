@@ -100,7 +100,7 @@ section:first-child button {
 }
 
 #disable-delete-note {
-  
+  display: none;
 }
 
 #notes {

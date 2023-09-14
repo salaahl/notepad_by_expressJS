@@ -6,7 +6,7 @@ let $ = (id) => {
 };
 
 // Lire UNE note
-function read() {
+function getNote() {
   const data = {
     id: this.parentElement.querySelector('input[name=note-id]').value,
   };
@@ -146,7 +146,7 @@ function enableDeleteNote() {
     note.querySelector('.open-note').innerHTML = 'Supprimer';
     note.querySelector('.open-note').classList.remove('open-note');
 
-    note.removeEventListener('click', read);
+    note.removeEventListener('click', getNote);
     note.addEventListener('click', remove);
   });
 
@@ -161,9 +161,9 @@ function disableDeleteNote() {
     note.querySelector('.delete-note').innerHTML = 'Ouvrir';
     note.querySelector('.delete-note').classList.remove('delete-note');
     note.removeEventListener('click', remove);
-    note.addEventListener('click', read);
+    note.addEventListener('click', getNote);
   });
-  
+
   document
     .querySelector('#enable-delete-note')
     .addEventListener('click', enableDeleteNote);
@@ -188,7 +188,7 @@ function listeners() {
   // Récupération des données d'une note
   document.querySelectorAll('.open-note').forEach((note) => {
     note.removeEventListener('click', remove);
-    note.addEventListener('click', read);
+    note.addEventListener('click', getNote);
   });
 
   // Mise à jour d'une note
