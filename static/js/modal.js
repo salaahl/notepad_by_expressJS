@@ -83,7 +83,7 @@ function remove() {
     fetch(request)
       .then((response) => response.json())
       .then((data) => {
-        refreshNotes();
+        this.parentElement.remove();
       })
       .catch((error) => {
         console.log(error.message);
