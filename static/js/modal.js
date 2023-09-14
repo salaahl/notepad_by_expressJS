@@ -70,31 +70,18 @@ function refreshNotes(notes = null) {
 
 /* ---------- */
 function deleteNotesListeners() {
-  document.querySelectorAll('.delete-note').forEach((note) => {
-    note.classList.add('delete');
-  });
-
-  document.querySelectorAll('.open-note').forEach((note) => {
-    note.style.display = 'none';
+  document.querySelectorAll('.note').forEach((note) => {
+    note.querySelector('.open-note').classList.add('delete-note');
+    note.querySelector('.open-note').classList.remove('open-note');
   });
 
   document.querySelector('#enable-delete-note').innerHTML = 'Terminer';
-  document.querySelector('#enable-delete-note').onclick = function()
-  {
-    document.querySelectorAll('.delete-note').forEach((note) => {
-      note.classList.remove('delete');
-    });
 
-    document.querySelectorAll('.open-note').forEach((note) => {
-      note.style.display = 'block';
-    });
+  document.querySelector('#enable-delete-note').innerHTML =
+    'Supprimer une note';
 
-    document.querySelector('#enable-delete-note').innerHTML = 'Supprimer une note';
-  };
-
-  document.querySelectorAll('button.delete').forEach((note) => {
+  document.querySelectorAll('.delete-note').forEach((note) => {
     note.addEventListener('click', function () {
-      console.log('delete note');
       if (
         confirm(
           'Voulez-vous vraiment supprimer cette note ? Cette action est irreversible.'

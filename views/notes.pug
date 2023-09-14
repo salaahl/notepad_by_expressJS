@@ -20,9 +20,8 @@ block content
                     input(type="number" name="note-id" value=note.note_id hidden)
                     div(class="note-title")=note.title
                     div(class="note-text")=note.text
+                    <!-- Va également accueillir la classe "delete" -->
                     button(class="open-note") Ouvrir
-                    <!-- Va accueillir la classe "delete" -->
-                    button(class="delete-note")
 
         article(id="note-modal")
             div(id="note-modal-inner")

@@ -1,11 +1,11 @@
 // Mise à jour d'une note
 function deleteNotesListeners() {
-  document.querySelectorAll('.delete-note').forEach((note) => {
-    note.querySelector('button').classList.add('delete');
+  document.querySelectorAll('.note').forEach((note) => {
+    note.querySelector('.open-note').classList.add('delete-note');
+    note.querySelector('.open-note').classList.remove('open-note');
   });
-  document.querySelectorAll('button.delete').forEach((note) => {
+  document.querySelectorAll('.delete-note').forEach((note) => {
     note.addEventListener('click', function () {
-      console.log('delete note');
       if (
         confirm(
           'Voulez-vous vraiment supprimer cette note ? Cette action est irreversible.'
