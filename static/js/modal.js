@@ -58,6 +58,7 @@ function closeNote() {
       });
 
       // penser à intégrer ici une fonction qui rafraichit les listeners
+      openNoteListener();
       reinitializeModal();
     })
     .catch((error) => {
@@ -225,14 +226,17 @@ document.querySelector('#new-note').addEventListener('click', function () {
 });
 
 // Récupération des données d'une note
+function openNoteListener() {
 document.querySelectorAll('.open-note').forEach((note) => {
   note.removeEventListener('click', remove);
   note.addEventListener('click', read);
 });
-
+}
 // Mise à jour d'une note
 document
   .querySelectorAll('#note-modal textarea, #note-modal-title')
   .forEach((note) => {
     note.addEventListener('keyup', update);
   });
+
+  openNoteListener();
