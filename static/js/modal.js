@@ -71,6 +71,7 @@ function refreshNotes(notes = null) {
 /* ---------- */
 function deleteNotesListeners() {
   document.querySelectorAll('.note').forEach((note) => {
+    note.querySelector('.open-note').innerHTML = 'Supprimer';
     note.querySelector('.open-note').classList.add('delete-note');
     note.querySelector('.open-note').classList.remove('open-note');
   });
