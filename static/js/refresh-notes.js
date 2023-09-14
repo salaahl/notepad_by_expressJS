@@ -21,8 +21,6 @@ function refreshNotes(notes = null) {
       '<button class="open-note">Ouvrir</button>' +
       '</article>';
     });
-
-    listeners();
   } else {
     const request = new Request('/get-notes', {
       method: 'POST',
@@ -48,13 +46,12 @@ function refreshNotes(notes = null) {
           '<button class="open-note">Ouvrir</button>' +
           '</article>';
         });
-
-        document.querySelector('#note-modal').classList.remove('active');
-        listeners();
       })
       .catch((error) => {
         console.log(error.message);
         alert('Erreur.');
       });
   }
+  document.querySelector('#note-modal').classList.remove('active');
+  listeners();
 }
