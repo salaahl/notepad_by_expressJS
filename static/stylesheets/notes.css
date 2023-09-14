@@ -99,6 +99,10 @@ section:first-child button {
   margin: 0 1% 0 1%;
 }
 
+#disable-delete-note {
+  
+}
+
 #notes {
   display: flex;
   flex-wrap: wrap;

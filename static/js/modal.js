@@ -149,9 +149,7 @@ function enableDeleteNote() {
     note.removeEventListener('click', read);
     note.addEventListener('click', remove);
   });
-  document
-    .querySelector('#enable-delete-note')
-    .setAttribute('id', '#disable-delete-note');
+
   document
     .querySelector('#disable-delete-note')
     .addEventListener('click', disableDeleteNote);
@@ -165,9 +163,7 @@ function disableDeleteNote() {
     note.removeEventListener('click', remove);
     note.addEventListener('click', read);
   });
-  document
-    .querySelector('#disable-delete-note')
-    .setAttribute('id', '#enable-delete-note');
+  
   document
     .querySelector('#enable-delete-note')
     .addEventListener('click', enableDeleteNote);
