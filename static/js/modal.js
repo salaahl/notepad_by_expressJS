@@ -5,6 +5,7 @@ let $ = (id) => {
   return document.querySelector(id);
 };
 
+// Lire UNE note
 function read() {
   const data = {
     id: this.parentElement.querySelector('input[name=note-id]').value,
@@ -25,41 +26,6 @@ function read() {
       $('#note-modal-id').value = data.note.note_id;
       $('#note-modal-title').value = data.note.title;
       $('#note-modal-text').value = data.note.text;
-    })
-    .catch((error) => {
-      console.log(error.message);
-      alert('Erreur.');
-    });
-}
-
-function closeNote() {
-  const request = new Request('/get-notes', {
-    method: 'POST',
-  });
-
-  fetch(request)
-    .then((response) => response.json())
-    .then((notes) => {
-      document.getElementById('notes').innerHTML = '';
-      notes.note.forEach((note) => {
-        document.getElementById('notes').innerHTML +=
-          '<article class="note">' +
-          '<input type="number" name="note-id" value="' +
-          note.note_id +
-          '" hidden />' +
-          '<div class="note-title">' +
-          note.title +
-          '</div>' +
-          '<div class="note-text">' +
-          note.text +
-          '</div>' +
-          '<button class="open-note">Ouvrir</button>' +
-          '</article>';
-      });
-
-      // penser à intégrer ici une fonction qui rafraichit les listeners
-      openNoteListener();
-      reinitializeModal();
     })
     .catch((error) => {
       console.log(error.message);
@@ -129,6 +95,42 @@ function remove() {
   }
 }
 
+// ----------
+
+function closeNote() {
+  const request = new Request('/get-notes', {
+    method: 'POST',
+  });
+
+  fetch(request)
+    .then((response) => response.json())
+    .then((notes) => {
+      document.getElementById('notes').innerHTML = '';
+      notes.note.forEach((note) => {
+        document.getElementById('notes').innerHTML +=
+          '<article class="note">' +
+          '<input type="number" name="note-id" value="' +
+          note.note_id +
+          '" hidden />' +
+          '<div class="note-title">' +
+          note.title +
+          '</div>' +
+          '<div class="note-text">' +
+          note.text +
+          '</div>' +
+          '<button class="open-note">Ouvrir</button>' +
+          '</article>';
+      });
+
+      // penser à intégrer ici une fonction qui rafraichit les listeners
+      reinitializeModal();
+    })
+    .catch((error) => {
+      console.log(error.message);
+      alert('Erreur.');
+    });
+}
+
 function reinitializeModal() {
   document.querySelector('#note-modal-id').value = null;
   document.querySelector('#note-modal-title').value = null;
@@ -142,13 +144,13 @@ function enableDeleteNote() {
   document.querySelectorAll('.note').forEach((note) => {
     note.querySelector('button').classList.add('delete-note');
     note.querySelector('button').classList.remove('open-note');
-    note.querySelector('.delete-note').innerHTML = 'Supprimer';
+    note.querySelector('button').innerHTML = 'Supprimer';
     note.removeEventListener('click', read);
     note.addEventListener('click', remove);
   });
   document
     .querySelector('#enable-delete-note')
-    .setAttribute('id', 'disable-delete-note');
+    .setAttribute('id', '#disable-delete-note');
   document
     .querySelector('#disable-delete-note')
     .addEventListener('click', disableDeleteNote);
@@ -156,9 +158,9 @@ function enableDeleteNote() {
 
 function disableDeleteNote() {
   document.querySelectorAll('.note').forEach((note) => {
-    note.querySelector('button').classList.add('open-note');
-    note.querySelector('button').classList.remove('delete-note');
-    note.querySelector('.open-note').innerHTML = 'Ouvrir';
+    note.querySelector('.delete-note').classList.add('open-note');
+    note.querySelector('.delete-note').classList.remove('delete-note');
+    note.querySelector('.delete-note').innerHTML = 'Ouvrir';
     note.removeEventListener('click', remove);
     note.addEventListener('click', read);
   });
@@ -186,8 +188,8 @@ function deleteNote() {
 
   function disableDeleteNote() {
     document.querySelectorAll('.note').forEach((note) => {
-      note.querySelector('button').classList.add('open-note');
-      note.querySelector('button').classList.remove('delete-note');
+      note.querySelector('.delete-note').classList.add('open-note');
+      note.querySelector('.delete-note').classList.remove('delete-note');
       note.querySelector('.delete-note').innerHTML = 'Ouvrir';
       note.removeEventListener('click', remove);
       note.addEventListener('click', read);
@@ -202,7 +204,7 @@ function deleteNote() {
 
   document.querySelectorAll('.note').forEach((note) => {
     note.querySelector('button').classList.add('delete-note');
-    note.querySelector('button').classList.remove('open-note');
+    note.querySelector('.open-note').classList.remove('open-note');
     note.querySelector('.delete-note').innerHTML = 'Supprimer';
   });
 
@@ -214,29 +216,29 @@ function deleteNote() {
 */
 
 /* ---------- */
-// Valeurs par défaut
-// Activer la suppression de notes
-document
+function listeners() {
+  // Activer la suppression de notes
+  document
   .querySelector('#enable-delete-note')
   .addEventListener('click', enableDeleteNote);
 
-// Nouvelle note
-document.querySelector('#new-note').addEventListener('click', function () {
-  $('#note-modal').classList.add('active');
-});
-
-// Récupération des données d'une note
-function openNoteListener() {
-document.querySelectorAll('.open-note').forEach((note) => {
-  note.removeEventListener('click', remove);
-  note.addEventListener('click', read);
-});
-}
-// Mise à jour d'une note
-document
-  .querySelectorAll('#note-modal textarea, #note-modal-title')
-  .forEach((note) => {
-    note.addEventListener('keyup', update);
+  // Nouvelle note
+  document.querySelector('#new-note').addEventListener('click', function () {
+    $('#note-modal').classList.add('active');
   });
 
-  openNoteListener();
+  // Récupération des données d'une note
+  document.querySelectorAll('.open-note').forEach((note) => {
+    note.removeEventListener('click', remove);
+    note.addEventListener('click', read);
+  });
+
+  // Mise à jour d'une note
+  document
+    .querySelectorAll('#note-modal textarea, #note-modal-title')
+    .forEach((note) => {
+      note.addEventListener('keyup', update);
+    });
+}
+
+listeners();
