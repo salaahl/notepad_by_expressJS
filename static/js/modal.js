@@ -141,6 +141,8 @@ function reinitializeModal() {
 
 // Changement des listeners et du comportement du bouton
 function enableDeleteNote() {
+  document.querySelector('#enable-delete-note').style.display = 'none';
+  document.querySelector('#disable-delete-note').style.display = 'block';
   document.querySelectorAll('.note').forEach((note) => {
     note.querySelector('.open-note').classList.add('delete-note');
     note.querySelector('.open-note').innerHTML = 'Supprimer';
@@ -155,6 +157,8 @@ function enableDeleteNote() {
 }
 
 function disableDeleteNote() {
+  document.querySelector('#enable-delete-note').style.display = 'block';
+  document.querySelector('#disable-delete-note').style.display = 'none';
   document.querySelectorAll('.note').forEach((note) => {
     note.querySelector('.delete-note').classList.add('open-note');
     note.querySelector('.delete-note').innerHTML = 'Ouvrir';

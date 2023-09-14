@@ -26,7 +26,7 @@
 
   body h1 {
     font-size: 15vw;
-    -webkit-text-stroke: 1px var(--text-stroke-color);
+    -webkit-text-stroke: 3px var(--text-stroke-color);
   }
 
   body h2 {
