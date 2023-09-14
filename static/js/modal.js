@@ -139,15 +139,15 @@ function reinitializeModal() {
 // Changement des listeners et du comportement du bouton
 function enableDeleteNote() {
   document.querySelectorAll('.note').forEach((note) => {
-    note.querySelector('.open-note').classList.add('delete-note');
-    note.querySelector('.open-note').classList.remove('open-note');
-    note.querySelector('.open-note').innerHTML = 'Supprimer';
+    note.querySelector('button').classList.add('delete-note');
+    note.querySelector('button').classList.remove('open-note');
+    note.querySelector('.delete-note').innerHTML = 'Supprimer';
     note.removeEventListener('click', read);
     note.addEventListener('click', remove);
   });
   document
     .querySelector('#enable-delete-note')
-    .setAttribute('id', '#disable-delete-note');
+    .setAttribute('id', 'disable-delete-note');
   document
     .querySelector('#disable-delete-note')
     .addEventListener('click', disableDeleteNote);
@@ -155,9 +155,9 @@ function enableDeleteNote() {
 
 function disableDeleteNote() {
   document.querySelectorAll('.note').forEach((note) => {
-    note.querySelector('.delete-note').classList.add('open-note');
-    note.querySelector('.delete-note').classList.remove('delete-note');
-    note.querySelector('.delete-note').innerHTML = 'Ouvrir';
+    note.querySelector('button').classList.add('open-note');
+    note.querySelector('button').classList.remove('delete-note');
+    note.querySelector('.open-note').innerHTML = 'Ouvrir';
     note.removeEventListener('click', remove);
     note.addEventListener('click', read);
   });
@@ -169,19 +169,15 @@ function disableDeleteNote() {
     .addEventListener('click', enableDeleteNote);
 }
 
-document
-  .querySelector('#enable-delete-note')
-  .addEventListener('click', enableDeleteNote);
-
 /*
 function deleteNote() {
   
   // Changement des listeners et du comportement du bouton
   function enableDeleteNote() {
     document.querySelectorAll('.note').forEach((note) => {
-      note.querySelector('.open-note').classList.add('delete-note');
-      note.querySelector('.open-note').classList.remove('open-note');
-      note.querySelector('.open-note').innerHTML = 'Supprimer';
+      note.querySelector('button').classList.add('delete-note');
+      note.querySelector('button').classList.remove('open-note');
+      note.querySelector('button').innerHTML = 'Supprimer';
       note.removeEventListener('click', read);
       note.addEventListener('click', remove);
     });
@@ -189,8 +185,8 @@ function deleteNote() {
 
   function disableDeleteNote() {
     document.querySelectorAll('.note').forEach((note) => {
-      note.querySelector('.delete-note').classList.add('open-note');
-      note.querySelector('.delete-note').classList.remove('delete-note');
+      note.querySelector('button').classList.add('open-note');
+      note.querySelector('button').classList.remove('delete-note');
       note.querySelector('.delete-note').innerHTML = 'Ouvrir';
       note.removeEventListener('click', remove);
       note.addEventListener('click', read);
@@ -204,8 +200,8 @@ function deleteNote() {
   document.querySelector('#enable-delete-note').innerHTML = 'Terminer';
 
   document.querySelectorAll('.note').forEach((note) => {
-    note.querySelector('.open-note').classList.add('delete-note');
-    note.querySelector('.open-note').classList.remove('open-note');
+    note.querySelector('button').classList.add('delete-note');
+    note.querySelector('button').classList.remove('open-note');
     note.querySelector('.delete-note').innerHTML = 'Supprimer';
   });
 
@@ -217,24 +213,26 @@ function deleteNote() {
 */
 
 /* ---------- */
-function listeners() {
-  // Nouvelle note
-  document.querySelector('#new-note').addEventListener('click', function () {
-    $('#note-modal').classList.add('active');
+// Valeurs par défaut
+// Activer la suppression de notes
+document
+  .querySelector('#enable-delete-note')
+  .addEventListener('click', enableDeleteNote);
+
+// Nouvelle note
+document.querySelector('#new-note').addEventListener('click', function () {
+  $('#note-modal').classList.add('active');
+});
+
+// Récupération des données d'une note
+document.querySelectorAll('.open-note').forEach((note) => {
+  note.removeEventListener('click', remove);
+  note.addEventListener('click', read);
+});
+
+// Mise à jour d'une note
+document
+  .querySelectorAll('#note-modal textarea, #note-modal-title')
+  .forEach((note) => {
+    note.addEventListener('keyup', update);
   });
-
-  // Récupération des données d'une note
-  document.querySelectorAll('.open-note').forEach((note) => {
-    note.removeEventListener('click', remove);
-    note.addEventListener('click', read);
-  });
-
-  // Mise à jour d'une note
-  document
-    .querySelectorAll('#note-modal textarea, #note-modal-title')
-    .forEach((note) => {
-      note.addEventListener('keyup', update);
-    });
-}
-
-listeners();
