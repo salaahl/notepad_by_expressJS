@@ -11,7 +11,7 @@ block content
                     input(id="search-note" class="input" type="text" name="search-note" placeholder="Rechercher une note")
 
             div
-                button(id="close-modal-btn" class="button-stylised" onclick="document.querySelector('#note-modal').classList.remove('active')") Nouvelle note
+                button(id="new-note" class="button-stylised" onclick="document.querySelector('#note-modal').classList.remove('active')") Nouvelle note
                 button(id="enable-delete-note" class="button-stylised" onclick="deleteNotesListeners()") Supprimer une note
 
         section(id="notes")

@@ -118,7 +118,7 @@ function deleteNotesListeners() {
 function refreshListeners() {
   // Nouvelle note
   document
-    .querySelector('section:first-child button')
+    .querySelector('#new-note')
     .addEventListener('click', function () {
       $('#note-modal').classList.add('active');
     });
