@@ -222,6 +222,10 @@ function listeners() {
   .querySelector('#enable-delete-note')
   .addEventListener('click', enableDeleteNote);
 
+  document
+  .querySelector('#disable-delete-note')
+  .addEventListener('click', disableDeleteNote);
+
   // Nouvelle note
   document.querySelector('#new-note').addEventListener('click', function () {
     $('#note-modal').classList.add('active');
