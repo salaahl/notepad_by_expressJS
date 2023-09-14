@@ -5,7 +5,7 @@ const path = require('path');
 
 // Base de données
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./data/db2.sqlite', (err) => {
+const db = new sqlite3.Database('./db2.sqlite', (err) => {
   if (err) {
     return console.error(err.message);
   }
