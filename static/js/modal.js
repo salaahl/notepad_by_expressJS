@@ -137,9 +137,6 @@ document
   .querySelector('#enable-delete-note')
   .addEventListener('click', enableDeleteNote);
 
-document
-  .querySelector('#disable-delete-note')
-  .addEventListener('click', disableDeleteNote);
 
 /*
 function deleteNote() {
