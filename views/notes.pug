@@ -12,7 +12,7 @@ block content
 
             div
                 button(id="new-note" class="button-stylised" onclick="document.querySelector('#note-modal').classList.remove('active')") Nouvelle note
-                button(id="enable-delete-note" class="button-stylised" onclick="deleteNote()") Supprimer une note
+                button(id="enable-delete-note" class="button-stylised") Supprimer une note
 
         section(id="notes")
             for note in notes
@@ -31,7 +31,7 @@ block content
                     textarea(id="note-modal-text" name="text")
                 span Dernière sauvegarde :
                 span
-                    button(id="close-modal-btn" class="button-stylised" onclick="refreshNotes()") Fermer
+                    button(id="close-modal-btn" class="button-stylised" onclick="reinitializeModal()") Fermer
 
 
 block js

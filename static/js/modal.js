@@ -37,10 +37,10 @@ function update() {
 
   timer = setTimeout(function () {
     let data = {
-        id: document.querySelector('#note-modal-id').value,
-        title: document.querySelector('#note-modal-title').value,
-        text: document.querySelector('#note-modal textarea').value,
-      };
+      id: document.querySelector('#note-modal-id').value,
+      title: document.querySelector('#note-modal-title').value,
+      text: document.querySelector('#note-modal textarea').value,
+    };
 
     const request = new Request('/save-note', {
       method: 'POST',
@@ -92,74 +92,89 @@ function remove() {
   }
 }
 
-function refreshNotes(notes = null) {
-  let notesDiv = document.getElementById('notes');
+function reinitializeModal() {
   document.querySelector('#note-modal-id').value = null;
   document.querySelector('#note-modal-title').value = null;
   document.querySelector('#note-modal textarea').value = null;
-  if (notes) {
-    notesDiv.innerHTML = '';
 
-    notes.notes.forEach((note) => {
-      notesDiv.innerHTML +=
-        '<article class="note">' +
-        '<input type="number" name="note-id" value="' +
-        note.note_id +
-        '" hidden />' +
-        '<div class="note-title">' +
-        note.title +
-        '</div>' +
-        '<div class="note-text">' +
-        note.text +
-        '</div>' +
-        '<button class="open-note">Ouvrir</button>' +
-        '<button class="delete-note"></button>' +
-        '</article>';
-    });
-  } else {
-    const request = new Request('/get-notes', {
-      method: 'POST',
-    });
-
-    fetch(request)
-      .then((response) => response.json())
-      .then((notes) => {
-        notesDiv.innerHTML = '';
-
-        notes.note.forEach((note) => {
-          notesDiv.innerHTML +=
-            '<article class="note">' +
-            '<input type="number" name="note-id" value="' +
-            note.note_id +
-            '" hidden />' +
-            '<div class="note-title">' +
-            note.title +
-            '</div>' +
-            '<div class="note-text">' +
-            note.text +
-            '</div>' +
-            '<button class="open-note">Ouvrir</button>' +
-            '<button class="delete-note"></button>' +
-            '</article>';
-        });
-
-        document.querySelector('#note-modal').classList.remove('active');
-      })
-      .catch((error) => {
-        console.log(error.message);
-        alert('Erreur.');
-      });
-  }
+  document.querySelector('#note-modal').classList.remove('active');
 }
 
-/* ---------- */
+// Changement des listeners et du comportement du bouton
+function enableDeleteNote() {
+  document.querySelectorAll('.note').forEach((note) => {
+    note.querySelector('.open-note').classList.add('delete-note');
+    note.querySelector('.open-note').classList.remove('open-note');
+    note.querySelector('.open-note').innerHTML = 'Supprimer';
+    note.removeEventListener('click', read);
+    note.addEventListener('click', remove);
+  });
+  document
+    .querySelector('#enable-delete-note')
+    .setAttribute('id', '#disable-delete-note');
+  document
+    .querySelector('#disable-delete-note')
+    .addEventListener('click', disableDeleteNote);
+}
+
+function disableDeleteNote() {
+  document.querySelectorAll('.note').forEach((note) => {
+    note.querySelector('.delete-note').classList.add('open-note');
+    note.querySelector('.delete-note').classList.remove('delete-note');
+    note.querySelector('.delete-note').innerHTML = 'Ouvrir';
+    note.removeEventListener('click', remove);
+    note.addEventListener('click', read);
+  });
+  document
+    .querySelector('#disable-delete-note')
+    .setAttribute('id', '#enable-delete-note');
+  document
+    .querySelector('#enable-delete-note')
+    .addEventListener('click', enableDeleteNote);
+}
+
+document
+  .querySelector('#enable-delete-note')
+  .addEventListener('click', enableDeleteNote);
+
+document
+  .querySelector('#disable-delete-note')
+  .addEventListener('click', disableDeleteNote);
+
+/*
 function deleteNote() {
+  
+  // Changement des listeners et du comportement du bouton
+  function enableDeleteNote() {
+    document.querySelectorAll('.note').forEach((note) => {
+      note.querySelector('.open-note').classList.add('delete-note');
+      note.querySelector('.open-note').classList.remove('open-note');
+      note.querySelector('.open-note').innerHTML = 'Supprimer';
+      note.removeEventListener('click', read);
+      note.addEventListener('click', remove);
+    });
+  };
+
+  function disableDeleteNote() {
+    document.querySelectorAll('.note').forEach((note) => {
+      note.querySelector('.delete-note').classList.add('open-note');
+      note.querySelector('.delete-note').classList.remove('delete-note');
+      note.querySelector('.delete-note').innerHTML = 'Ouvrir';
+      note.removeEventListener('click', remove);
+      note.addEventListener('click', read);
+    });
+  };
+
+  document
+    .querySelector('#enable-delete-note')
+    .addEventListener('click', enableDeleteNote)
 
   document.querySelector('#enable-delete-note').innerHTML = 'Terminer';
 
   document.querySelectorAll('.note').forEach((note) => {
     note.querySelector('.open-note').classList.add('delete-note');
     note.querySelector('.open-note').classList.remove('open-note');
+    note.querySelector('.delete-note').innerHTML = 'Supprimer';
   });
 
   document.querySelectorAll('.delete-note').forEach((note) => {
@@ -167,9 +182,10 @@ function deleteNote() {
     note.addEventListener('click', remove);
   });
 }
+*/
 
 /* ---------- */
-function refreshListeners() {
+function listeners() {
   // Nouvelle note
   document.querySelector('#new-note').addEventListener('click', function () {
     $('#note-modal').classList.add('active');
@@ -180,6 +196,7 @@ function refreshListeners() {
     note.removeEventListener('click', remove);
     note.addEventListener('click', read);
   });
+
   // Mise à jour d'une note
   document
     .querySelectorAll('#note-modal textarea, #note-modal-title')
@@ -188,4 +205,4 @@ function refreshListeners() {
     });
 }
 
-refreshListeners();
+listeners();
