@@ -54,7 +54,7 @@
 
 @media (min-width: 1024px) {
   .note {
-    width: 23%;
+    width: 23.5%;
   }
 
   .note:nth-child(4n + 2) {
@@ -99,7 +99,7 @@ section:first-child button {
   margin: 0 1% 0 1%;
 }
 
-#disable-delete-note {
+#disable-delete-note, .delete-note {
   display: none;
 }
 
@@ -126,8 +126,10 @@ section:first-child button {
 }
 
 .open-note, .delete-note {
+  position: relative;
   height: 22%;
   width: 100%;
+  z-index: 10;
 }
 
 .open-note {
@@ -168,6 +170,7 @@ section:first-child button {
   left: 0;
   right: 0;
   margin: auto;
+  z-index: 20;
 }
 
 #note-modal.active {

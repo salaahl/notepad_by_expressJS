@@ -1,4 +1,4 @@
-// Mise à jour d'une note
+// Recherche d'une note
 document.querySelector('#search-note').addEventListener('keyup', function () {
   let data = {
     search: this.value,
@@ -15,7 +15,7 @@ document.querySelector('#search-note').addEventListener('keyup', function () {
   fetch(request)
     .then((response) => response.json())
     .then((notes) => {
-      refreshNotes(notes);
+      getNotes(notes);
     })
     .catch((error) => {
       console.log(error.message);

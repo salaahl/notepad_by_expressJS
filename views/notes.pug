@@ -23,6 +23,7 @@ block content
                     div(class="note-text")=note.text
                     <!-- Va également accueillir la classe "delete" -->
                     button(class="open-note") Ouvrir
+                    button(class="delete-note") Supprimer
 
         article(id="note-modal")
             div(id="note-modal-inner")
@@ -32,11 +33,12 @@ block content
                     textarea(id="note-modal-text" name="text")
                 span Dernière sauvegarde :
                 span
-                    button(id="close-modal-btn" class="button-stylised" onclick="closeNote()") Fermer
+                    button(id="close-modal-btn" class="button-stylised" onclick="saveNote()") Sauvegarder
 
 
 block js
-    script(src='/js/refresh-notes.js')
+    script(src='/js/get-notes.js')
     script(src='/js/delete-notes.js')
     script(src='/js/modal.js')
     script(src='/js/search-note.js')
+    script(src='/js/listeners.js')

@@ -1,40 +1,18 @@
-/*
- Mise à jour d'une note
-function deleteNotesListeners() {
-  document.querySelectorAll('.note').forEach((note) => {
-    note.querySelector('.open-note').classList.add('delete-note');
-    note.querySelector('.open-note').classList.remove('open-note');
-  });
-  document.querySelectorAll('.delete-note').forEach((note) => {
-    note.addEventListener('click', function () {
-      if (
-        confirm(
-          'Voulez-vous vraiment supprimer cette note ? Cette action est irreversible.'
-        )
-      ) {
-        let data = {
-          id: this.parentElement.querySelector('input[name="note-id"]').value,
-        };
+function noteSkeleton(id, title, text) {
+  let note =
+    '<article class="note">' +
+    '<input type="number" name="note-id" value="' +
+    id +
+    '" hidden />' +
+    '<div class="note-title">' +
+    title +
+    '</div>' +
+    '<div class="note-text">' +
+    text +
+    '</div>' +
+    '<button class="open-note">Ouvrir</button>' +
+    '<button class="delete-note">Supprimer</button>' +
+    '</article>';
 
-        const request = new Request('/delete-note', {
-          method: 'POST',
-          body: JSON.stringify(data),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-
-        fetch(request)
-          .then((response) => response.json())
-          .then((data) => {
-            refreshNotes();
-          })
-          .catch((error) => {
-            console.log(error.message);
-            alert('Erreur.');
-          });
-      }
-    });
-  });
+  return note;
 }
-*/

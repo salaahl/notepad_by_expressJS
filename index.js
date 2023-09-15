@@ -5,11 +5,10 @@ const path = require('path');
 
 // Base de données
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./db2.sqlite', (err) => {
+const db = new sqlite3.Database('./data/db2.sqlite', (err) => {
   if (err) {
     return console.error(err.message);
   }
-  console.log("Connexion réussie à la base de données 'db.sqlite'");
 });
 
 // Indispensable pour "ecouter" l'application
@@ -31,7 +30,7 @@ app.set('views', path.join(__dirname, 'views'));
 // Explications sur les requêtes dans la partie CRUD
 app.get('/', (req, res) => {
   let sql =
-    'SELECT note_id, title, text, tags, user_id, timestamp FROM notepad';
+    'SELECT note_id, title, text, tags, user_id, timestamp FROM notepad ORDER BY note_id DESC';
 
   db.all(sql, [], (err, rows) => {
     if (err) {
@@ -59,7 +58,7 @@ app.post('/get-note', (req, res) => {
 // Récupère toutes les notes de façon asynchrone
 app.post('/get-notes', (req, res) => {
   const sql =
-    'SELECT note_id, title, text, tags, user_id, timestamp FROM notepad';
+    'SELECT note_id, title, text, tags, user_id, timestamp FROM notepad ORDER BY note_id DESC';
 
   db.all(sql, [], (err, rows) => {
     if (err) {
@@ -87,19 +86,6 @@ app.post('/search-note', (req, res) => {
     res.end(JSON.stringify({ notes: rows }));
   });
 });
-
-/*
-Version stackblitz
-app.post('/get-notes', (req, res) => {
-  const note = {
-    note_id: '1',
-    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-  };
-
-  res.setHeader('Content-Type', 'application/json');
-  res.end(JSON.stringify({ id: note.note_id, text: note.text }));
-});
-*/
 
 // Enregistre le contenu d'une note
 app.post('/save-note', (req, res) => {
@@ -190,7 +176,6 @@ app.get('/create', (req, res) => {
     if (err) {
       return console.error(err.message);
     }
-    console.log("Création réussie de la table 'notepad'");
   });
 
   res.send('Création réussie');
