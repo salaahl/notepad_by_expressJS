@@ -79,6 +79,12 @@ body {
   margin: 0;
 }
 
+textarea {
+  resize: none;
+  width: 100%;
+  border: 0px;
+}
+
 section:first-child {
   display: flex;
   justify-content: space-between;
@@ -99,7 +105,8 @@ section:first-child button {
   margin: 0 1% 0 1%;
 }
 
-#disable-delete-note, .delete-note {
+#disable-delete-note,
+.delete-note {
   display: none;
 }
 
@@ -109,6 +116,10 @@ section:first-child button {
 }
 
 .note {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: justify;
   aspect-ratio: 1;
   margin: 1% 0;
@@ -117,23 +128,28 @@ section:first-child button {
 }
 
 .note-title {
-  height: 10%;
+  height: auto;
   padding: 1% 2%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
-.note-text {
+.note textarea {
   height: 68%;
+  overflow: hidden;
 }
 
-.open-note, .delete-note {
+.open-note,
+.delete-note {
   position: relative;
   height: 22%;
-  width: 100%;
+  width: 70%;
   z-index: 10;
 }
 
 .open-note {
- background-color: green;
+  background-color: green;
 }
 
 .delete-note {
@@ -247,10 +263,7 @@ section:first-child button {
 }
 
 #note-modal textarea {
-  resize: none;
   height: 90%;
-  width: 100%;
-  border: 0px;
 }
 
 #note-modal textarea,

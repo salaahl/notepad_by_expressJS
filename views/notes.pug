@@ -20,7 +20,7 @@ block content
                 article(class="note")
                     input(type="number" name="note-id" value=note.note_id hidden)
                     div(class="note-title")=note.title
-                    div(class="note-text")=note.text
+                    textarea(class="note-text")=note.text
                     <!-- Va également accueillir la classe "delete" -->
                     button(class="open-note") Ouvrir
                     button(class="delete-note") Supprimer
