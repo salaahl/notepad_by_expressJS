@@ -1,1 +1,0 @@
-- vérifier que les listeners de boutons sont tjrs actifs après une modif de note
