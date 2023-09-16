@@ -1,2 +1,1 @@
-- Adapter le comportement du modal lors d'une nouvelle note de sorte à ce que ça ne me fasse pas un INSERT INFO à chaque saisie de caractère
 - vérifier que les listeners de boutons sont tjrs actifs après une modif de note
