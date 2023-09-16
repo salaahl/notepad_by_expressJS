@@ -51,8 +51,6 @@ function update() {
   fetch(request)
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
-      document.querySelector('#note-modal-id').value = data.note_id;
     })
     .catch((error) => {
       console.log(error.message);
@@ -93,7 +91,6 @@ function remove() {
 function saveNote() {
   update();
   getNotes();
-  notesButtonsListeners();
   reinitializeModal();
 
   document.querySelector('#note-modal').classList.remove('active');

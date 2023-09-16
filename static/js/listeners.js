@@ -7,19 +7,26 @@ function notesButtonsListeners() {
   document
     .querySelector('#disable-delete-note')
     .addEventListener('click', disableDeleteNote);
+
+  // Récupération des données d'une note
+  document.querySelectorAll('.open-note').forEach((note) => {
+    // Suppression du précedent eventListener si défini
+    note.removeEventListener('click', remove);
+    note.addEventListener('click', getNote);
+  });
+
+  // Récupération des données d'une note
+  document.querySelectorAll('.delete-note').forEach((note) => {
+    // Suppression du précedent eventListener si défini
+    note.removeEventListener('click', remove);
+    note.addEventListener('click', getNote);
+  });
 }
 
 // Nouvelle note
 document.querySelector('#new-note').addEventListener('click', function () {
   reinitializeModal();
   $('#note-modal').classList.add('active');
-});
-
-// Récupération des données d'une note
-document.querySelectorAll('.open-note').forEach((note) => {
-  // Suppression du précedent eventListener si défini
-  note.removeEventListener('click', remove);
-  note.addEventListener('click', getNote);
 });
 
 // Mise à jour d'une note

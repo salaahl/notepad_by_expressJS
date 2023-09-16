@@ -20,7 +20,7 @@ block content
                 article(class="note")
                     input(type="number" name="note-id" value=note.note_id hidden)
                     div(class="note-title")=note.title
-                    textarea(class="note-text")=note.text
+                    textarea(class="note-text" readonly)=note.text
                     <!-- Va également accueillir la classe "delete" -->
                     button(class="open-note") Ouvrir
                     button(class="delete-note") Supprimer
@@ -31,7 +31,6 @@ block content
                     input(id="note-modal-id" type="number" name="note-modal-id" hidden)
                     input(id="note-modal-title" type="text" name="note-modal-title" placeholder="Titre")
                     textarea(id="note-modal-text" name="text")
-                span Dernière sauvegarde :
                 span
                     button(id="close-modal-btn" class="button-stylised" onclick="saveNote()") Sauvegarder
 

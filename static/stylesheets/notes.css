@@ -85,6 +85,10 @@ textarea {
   border: 0px;
 }
 
+textarea:focus-visible {
+  outline: 0;
+}
+
 section:first-child {
   display: flex;
   justify-content: space-between;
@@ -118,9 +122,8 @@ section:first-child button {
 .note {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  text-align: justify;
   aspect-ratio: 1;
   margin: 1% 0;
   border: 2px solid;
@@ -136,7 +139,7 @@ section:first-child button {
 }
 
 .note textarea {
-  height: 68%;
+  height: 88%;
   overflow: hidden;
 }
 
@@ -145,6 +148,7 @@ section:first-child button {
   position: relative;
   height: 22%;
   width: 70%;
+  margin: -32% 0 10% 0;
   z-index: 10;
 }
 
@@ -268,12 +272,14 @@ section:first-child button {
 
 #note-modal textarea,
 .note-text {
-  padding: 1%;
+  padding: 2%;
 }
 
 #note-modal span {
   display: flex;
+  justify-content: right;
   align-items: center;
   height: 10%;
   padding: 0 1%;
+  width: 100%;
 }
