@@ -1,6 +1,3 @@
-let timer;
-let milliseconds = 1000;
-
 let $ = (id) => {
   return document.querySelector(id);
 };
@@ -33,7 +30,7 @@ function getNote() {
     });
 }
 
-function update() {
+function saveNote() {
   let data = {
     id: document.querySelector('#note-modal-id').value,
     title: document.querySelector('#note-modal-title').value,
@@ -51,6 +48,10 @@ function update() {
   fetch(request)
     .then((response) => response.json())
     .then((data) => {
+      getNotes();
+      reinitializeModal();
+      notesButtonsListeners();
+      document.querySelector('#note-modal').classList.remove('active');
     })
     .catch((error) => {
       console.log(error.message);
@@ -58,7 +59,7 @@ function update() {
     });
 }
 
-function remove() {
+function deleteNote() {
   if (
     confirm(
       'Voulez-vous vraiment supprimer cette note ? Cette action est irreversible.'
@@ -88,14 +89,6 @@ function remove() {
   }
 }
 
-function saveNote() {
-  update();
-  getNotes();
-  reinitializeModal();
-
-  document.querySelector('#note-modal').classList.remove('active');
-}
-
 function reinitializeModal() {
   document.querySelector('#note-modal-id').value = null;
   document.querySelector('#note-modal-title').value = null;
@@ -108,12 +101,8 @@ function enableDeleteNote() {
   document.querySelectorAll('.note').forEach((note) => {
     note.querySelector('.open-note').style.display = 'none';
     note.querySelector('.delete-note').style.display = 'block';
-    note.querySelector('.delete-note').addEventListener('click', remove);
+    note.querySelector('.delete-note').addEventListener('click', deleteNote);
   });
-
-  document
-    .querySelector('#disable-delete-note')
-    .addEventListener('click', disableDeleteNote);
 }
 
 function disableDeleteNote() {
@@ -124,8 +113,4 @@ function disableDeleteNote() {
     note.querySelector('.open-note').style.display = 'block';
     note.querySelector('.open-note').addEventListener('click', getNote);
   });
-
-  document
-    .querySelector('#enable-delete-note')
-    .addEventListener('click', enableDeleteNote);
 }

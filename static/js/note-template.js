@@ -1,14 +1,16 @@
-function noteSkeleton(id, title, text) {
+function noteTemplate(id, title, text) {
   let note =
     '<article class="note">' +
     '<input type="number" name="note-id" value="' +
     id +
     '" hidden />' +
+    '<div class="note-detail">' +
     '<div class="note-title">' +
     title +
     '</div>' +
-    '<div class="note-text">' +
+    '<textarea class="note-text" readonly>' +
     text +
+    '</textarea>' +
     '</div>' +
     '<button class="open-note">Ouvrir</button>' +
     '<button class="delete-note">Supprimer</button>' +

@@ -130,8 +130,15 @@ section:first-child button {
   overflow: hidden;
 }
 
+.note-detail {
+  height: 100%;
+  width: 100%;
+}
+
 .note-title {
   height: auto;
+  width: 80%;
+  margin: auto;
   padding: 1% 2%;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -139,7 +146,7 @@ section:first-child button {
 }
 
 .note textarea {
-  height: 88%;
+  height: inherit;
   overflow: hidden;
 }
 
@@ -166,7 +173,6 @@ section:first-child button {
   text-align: center;
   font-weight: 600;
   background-color: var(--note-background-color);
-  width: 100%;
   color: var(--note-title-color);
 }
 
@@ -263,6 +269,7 @@ section:first-child button {
 
 #note-modal-title {
   height: 10%;
+  width: 100%;
   border: 0;
 }
 

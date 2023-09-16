@@ -6,7 +6,7 @@ function getNotes(notes = null) {
   // Cas de figure 2 : je veux juste récupérer une liste actualisée de TOUTES mes notes (après une nouvelle note par exemple)
   if (notes) {
     notes.notes.forEach((note) => {
-      notesDiv.innerHTML += noteSkeleton(note.note_id, note.title, note.text);
+      notesDiv.innerHTML += noteTemplate(note.note_id, note.title, note.text);
     });
   } else {
     const request = new Request('/get-notes', {
@@ -17,7 +17,7 @@ function getNotes(notes = null) {
       .then((response) => response.json())
       .then((notes) => {
         notes.note.forEach((note) => {
-          notesDiv.innerHTML += noteSkeleton(
+          notesDiv.innerHTML += noteTemplate(
             note.note_id,
             note.title,
             note.text

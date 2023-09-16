@@ -11,17 +11,17 @@ block content
                     input(id="search-note" class="input" type="text" name="search-note" placeholder="Rechercher une note")
 
             div
-                button(id="new-note" class="button-stylised" onclick="document.querySelector('#note-modal').classList.remove('active')") Nouvelle note
-                button(id="enable-delete-note" class="button-stylised") Supprimer une note
-                button(id="disable-delete-note" class="button-stylised") Terminer
+                button(id="new-note" class="button-stylised" onclick="") Nouvelle note
+                button(id="enable-delete-note" class="button-stylised" onclick="enableDeleteNote()") Supprimer une note
+                button(id="disable-delete-note" class="button-stylised" onclick="disableDeleteNote()") Terminer
 
         section(id="notes")
             for note in notes
                 article(class="note")
                     input(type="number" name="note-id" value=note.note_id hidden)
-                    div(class="note-title")=note.title
-                    textarea(class="note-text" readonly)=note.text
-                    <!-- Va également accueillir la classe "delete" -->
+                    div(class="note-detail")
+                        div(class="note-title")=note.title
+                        textarea(class="note-text" readonly)=note.text
                     button(class="open-note") Ouvrir
                     button(class="delete-note") Supprimer
 
@@ -37,7 +37,7 @@ block content
 
 block js
     script(src='/js/get-notes.js')
-    script(src='/js/delete-notes.js')
-    script(src='/js/modal.js')
+    script(src='/js/note-template.js')
+    script(src='/js/functions.js')
     script(src='/js/search-note.js')
     script(src='/js/listeners.js')
