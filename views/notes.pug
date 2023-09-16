@@ -32,12 +32,12 @@ block content
                     input(id="note-modal-title" type="text" name="note-modal-title" placeholder="Titre")
                     textarea(id="note-modal-text" name="text")
                 span
-                    button(id="close-modal-btn" class="button-stylised" onclick="saveNote()") Sauvegarder
+                    button(id="close-modal-btn" class="button-stylised") Sauvegarder
 
 
 block js
-    script(src='/js/get-notes.js')
     script(src='/js/note-template.js')
     script(src='/js/functions.js')
+    script(src='/js/get-notes.js')
     script(src='/js/search-note.js')
     script(src='/js/listeners.js')

@@ -48,10 +48,6 @@ function saveNote() {
   fetch(request)
     .then((response) => response.json())
     .then((data) => {
-      getNotes();
-      reinitializeModal();
-      notesButtonsListeners();
-      document.querySelector('#note-modal').classList.remove('active');
     })
     .catch((error) => {
       console.log(error.message);
