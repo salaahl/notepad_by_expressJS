@@ -1,15 +1,14 @@
+// Définition d'un timer pour permettre aux notes de se charger avant que le querySelector ne se lance en cas de recharge des notes
 let timer;
 
 function notesButtonsListeners() {
   clearTimeout(timer);
   timer = setTimeout(function () {
     document.querySelectorAll('.open-note').forEach((note) => {
-      console.log('openforeach');
       note.addEventListener('click', getNote);
     });
 
     document.querySelectorAll('.delete-note').forEach((note) => {
-      console.log('deleteforeach');
       note.addEventListener('click', deleteNote);
     });
   }, 500);
