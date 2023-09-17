@@ -1,13 +1,15 @@
 @media (prefers-color-scheme: dark) {
   :root {
-    --note-title-background-color: black;
+    --note-title-background-color: darkslategray;
+    --note-background-color: black;
     --font-color: white;
   }
 }
 
 @media (prefers-color-scheme: light) {
   :root {
-    --note-title-background-color: beige;
+    --note-title-background-color:beige;
+    --note-background-color:white;
     --font-color: black;
   }
 }
@@ -90,7 +92,7 @@ textarea {
   width: 100%;
   border: 0px;
   color: var(--font-color);
-  background-color: inherit;
+  background-color: transparent;
 }
 
 textarea:focus-visible {
@@ -135,6 +137,7 @@ section:first-child button {
   aspect-ratio: 1;
   margin: 1% 0;
   border: 2px solid;
+  background-color: var(--note-background-color);
   overflow: hidden;
 }
 
@@ -189,6 +192,7 @@ section:first-child button {
 .note,
 #note-modal-inner {
   border-radius: 5px;
+  background-color: var(--note-background-color);
 }
 
 .note.active {
@@ -268,7 +272,6 @@ section:first-child button {
 }
 
 #note-modal.active > #note-modal-inner {
-  background-color: burlywood;
   border: 2px solid;
 }
 
