@@ -178,6 +178,20 @@ app.get('/create', (req, res) => {
     }
   });
 
+  const sql_create2 = `CREATE TABLE IF NOT EXISTS user (
+    user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    mail VARCHAR NOT NULL,
+    password VARCHAR NOT NULL,
+    PRIMARY KEY(user_id),
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP NULL
+  );`;
+
+  db.run(sql_create2, (err) => {
+    if (err) {
+      return console.error(err.message);
+    }
+  });
+
   res.send('Création réussie');
 });
 
@@ -192,6 +206,15 @@ app.get('/insert', (req, res) => {
     'MonTag'
   );
   stmt.finalize();
+
+  const stmtUser = db.prepare(
+    'INSERT INTO user mail, password VALUES (?, ?)'
+  );
+  stmtUser.run(
+    'sokhona.salaha@gmail.com',
+    'sokhona'
+  );
+  stmtUser.finalize();
 
   res.send("Alimentation réussie de la table 'notepad'");
 });
