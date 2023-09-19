@@ -1,49 +1,43 @@
-const notes = require('../data/notes.js');
+const Note = require('../models/Note.js');
 
 const getNotes = (req, res) => {
-  res.json(notes);
+  Note.find({})
+    .then((result) => res.status(200).json({ result }))
+    .catch((error) => res.status(500).json({ msg: error }));
+};
+
+const getNotesByTag = (req, res) => {
+  // Ajuster cette partie
+  Note.find({ tags: '/${req.params.tag}/' })
+    .then((result) => res.status(200).json({ result }))
+    .catch((error) => res.status(500).json({ msg: error }));
 };
 
 const getNote = (req, res) => {
-  const id = Number(req.params.noteID);
-  const note = notes.find((note) => note.id === id);
-
-  if (!note) {
-    return res.status(404).send('Note not found');
-  }
-  res.json(note);
+  Note.findOne({ _id: req.params.noteID })
+    .then((result) => res.status(200).json({ result }))
+    .catch(() => res.status(404).json({ msg: 'Note not found' }));
 };
 
 const createNote = (req, res) => {
-  const newNote = {
-    name: req.body.name,
-    surname: req.body.surname,
-    email: req.body.email,
-    password: req.body.password,
-  };
-  notes.push(newNote);
-  res.status(201).json(newNote);
+  Note.create(req.body)
+    .then((result) => res.status(200).json({ result }))
+    .catch((error) => res.status(500).json({ msg: error }));
 };
 
 const updateNote = (req, res) => {
-  const id = Number(req.params.noteID);
-  const index = notes.findIndex((note) => note.id === id);
-  const updatedNote = {
-    name: req.body.name,
-    surname: req.body.surname,
-    email: req.body.email,
-    password: req.body.password,
-  };
-
-  notes[index] = updatedNote;
-  res.status(200).json('Note updated');
+  Note.findOneAndUpdate({ _id: req.params.noteID }, req.body, {
+    new: true,
+    runValidators: true,
+  })
+    .then((result) => res.status(200).json({ result }))
+    .catch((error) => res.status(404).json({ msg: 'Note not found' }));
 };
 
 const deleteNote = (req, res) => {
-  const id = Number(req.params.noteID);
-  const index = notes.findIndex((note) => note.id === id);
-  notes.splice(index, 1);
-  res.status(200).json('Note deleted');
+  Note.findOneAndDelete({ _id: req.params.noteID })
+    .then((result) => res.status(200).json({ result }))
+    .catch((error) => res.status(404).json({ msg: 'Note not found' }));
 };
 
 module.exports = {
