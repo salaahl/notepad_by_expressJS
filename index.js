@@ -5,6 +5,14 @@ const path = require('path');
 const notes_routes = require('./routes/notes.js');
 const users_routes = require('./routes/users.js');
 
+// Base de données
+const sqlite3 = require('sqlite3').verbose();
+const db = new sqlite3.Database('./data/db2.sqlite', (err) => {
+  if (err) {
+    return console.error(err.message);
+  }
+});
+
 // Indispensable pour "ecouter" l'application
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
@@ -26,14 +34,6 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
 /*
-// Base de données
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./data/db2.sqlite', (err) => {
-  if (err) {
-    return console.error(err.message);
-  }
-});
-
 // Explications sur les requêtes dans la partie CRUD
 app.get('/', (req, res) => {
   let sql =
