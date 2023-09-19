@@ -10,7 +10,7 @@ app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
 
-// Le 1er paramètre est un préfixe de route
+// Import des routes. Le 1er paramètre est un préfixe
 app.use('/', notes_routes);
 app.use('/users/', users_routes);
 
