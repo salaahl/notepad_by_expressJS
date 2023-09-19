@@ -2,19 +2,17 @@ const express = require('express');
 const app = express();
 const port = 3010;
 const path = require('path');
-
-// Base de données
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./data/db2.sqlite', (err) => {
-  if (err) {
-    return console.error(err.message);
-  }
-});
+const notes_routes = require('./routes/notes.js');
+const users_routes = require('./routes/users.js');
 
 // Indispensable pour "ecouter" l'application
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
+
+// Le 1er paramètre est un préfixe de route
+app.use('/', notes_routes);
+app.use('/users/', users_routes);
 
 // Equivalent du dossier /public
 app.use(express.static('static'));
@@ -27,10 +25,19 @@ app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
+/*
+// Base de données
+const sqlite3 = require('sqlite3').verbose();
+const db = new sqlite3.Database('./data/db2.sqlite', (err) => {
+  if (err) {
+    return console.error(err.message);
+  }
+});
+
 // Explications sur les requêtes dans la partie CRUD
 app.get('/', (req, res) => {
   let sql =
-    'SELECT note_id, title, text, tags, user_id, timestamp FROM notepad ORDER BY note_id DESC';
+    'SELECT id, title, text, tags, user_id, timestamp FROM notepad ORDER BY id DESC';
 
   db.all(sql, [], (err, rows) => {
     if (err) {
@@ -43,7 +50,7 @@ app.get('/', (req, res) => {
 // Récupère le contenu d'une note
 app.post('/get-note', (req, res) => {
   const stmt =
-    'SELECT note_id, title, text, tags, user_id, timestamp FROM notepad WHERE note_id = ?';
+    'SELECT id, title, text, tags, user_id, timestamp FROM notepad WHERE id = ?';
   var params = [req.body.id];
 
   db.get(stmt, params, (err, row) => {
@@ -58,7 +65,7 @@ app.post('/get-note', (req, res) => {
 // Récupère toutes les notes de façon asynchrone
 app.post('/get-notes', (req, res) => {
   const sql =
-    'SELECT note_id, title, text, tags, user_id, timestamp FROM notepad ORDER BY note_id DESC';
+    'SELECT id, title, text, tags, user_id, timestamp FROM notepad ORDER BY id DESC';
 
   db.all(sql, [], (err, rows) => {
     if (err) {
@@ -73,7 +80,7 @@ app.post('/get-notes', (req, res) => {
 // Recherche d'une note
 app.post('/search-note', (req, res) => {
   let sql =
-    'SELECT note_id, title, text, tags, user_id, timestamp FROM notepad WHERE title LIKE ? OR text LIKE ?';
+    'SELECT id, title, text, tags, user_id, timestamp FROM notepad WHERE title LIKE ? OR text LIKE ?';
   let searchConcat = '%' + req.body.search + '%';
   var params = [searchConcat, searchConcat];
 
@@ -97,13 +104,13 @@ app.post('/save-note', (req, res) => {
   // Si titre et/ou texte existant MAIS pas de id = note inexistante = nouvelle note
   // Si titre et texte manquant = note vide = supprimer
   if ((req.body.title || req.body.text) && req.body.id) {
-    stmt = 'UPDATE notepad SET title = ?, text = ? WHERE note_id = ?';
+    stmt = 'UPDATE notepad SET title = ?, text = ? WHERE id = ?';
     params = [req.body.title, req.body.text, req.body.id];
   } else if ((req.body.title || req.body.text) && !req.body.id) {
     stmt = 'INSERT INTO notepad (title, text) VALUES (?, ?)';
     params = [req.body.title, req.body.text];
   } else {
-    stmt = 'DELETE FROM notepad WHERE note_id = ?';
+    stmt = 'DELETE FROM notepad WHERE id = ?';
     params = [req.body.id];
   }
 
@@ -116,7 +123,7 @@ app.post('/save-note', (req, res) => {
           row: row,
           data: req.body,
           stmt: stmt,
-          note_id: this.lastID,
+          id: this.lastID,
         })
       );
     }
@@ -127,7 +134,7 @@ app.post('/save-note', (req, res) => {
         row: row,
         data: req.body,
         stmt: stmt,
-        note_id: this.lastID,
+        id: this.lastID,
       })
     );
   });
@@ -135,7 +142,7 @@ app.post('/save-note', (req, res) => {
 
 // Enregistre le contenu d'une note
 app.post('/delete-note', (req, res) => {
-  let stmt = 'DELETE FROM notepad WHERE note_id = ?';
+  let stmt = 'DELETE FROM notepad WHERE id = ?';
   let params = [req.body.id];
 
   db.run(stmt, params, function (err, row) {
@@ -149,7 +156,7 @@ app.post('/delete-note', (req, res) => {
         status: 'success',
         row: row,
         data: req.body,
-        note_id: this.lastID,
+        id: this.lastID,
       })
     );
   });
@@ -164,7 +171,7 @@ app.get('/options', (req, res) => {
 // A ajouter : titre, user_id, tags, heure de création/modification
 app.get('/create', (req, res) => {
   const sql_create = `CREATE TABLE IF NOT EXISTS notepad (
-    note_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     title VARCHAR NULL,
     text TEXT,
     tags VARCHAR NULL,
@@ -223,7 +230,7 @@ app.get('/insert', (req, res) => {
 CRUD :
 
 app.get('/read', (req, res) => {
-  const sql = 'SELECT note_id, title, text, tags, user_id, timestamp FROM notepad';
+  const sql = 'SELECT id, title, text, tags, user_id, timestamp FROM notepad';
 
   
   db.all(sql, [], (err, rows) => {
@@ -234,9 +241,9 @@ app.get('/read', (req, res) => {
   });
 });
 
-app.get('/read/:note_id', (req, res) => {
-  const stmt = 'SELECT note_id, title, text, tags, user_id, timestamp FROM notepad WHERE note_id = ?';
-  var params = [req.params.note_id]
+app.get('/read/:id', (req, res) => {
+  const stmt = 'SELECT id, title, text, tags, user_id, timestamp FROM notepad WHERE id = ?';
+  var params = [req.params.id]
 
   /* 
   Le 1° paramètre est la requête SQL à exécuter
