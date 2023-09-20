@@ -1,4 +1,5 @@
 const Note = require('../models/Note.js');
+const {db} = require('../data/db.js');
 
 const getNotes = (req, res) => {
   let sql =

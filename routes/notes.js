@@ -1,13 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
-// Base de données
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./data/db2.sqlite', (err) => {
-  if (err) {
-    return console.error(err.message);
-  }
-});
+const {sqlite3, db} = require('../data/db.js');
 
 const {
   getNotes,
