@@ -32,7 +32,6 @@ router.get('/create', (req, res) => {
     user_id INTEGER PRIMARY KEY AUTOINCREMENT,
     mail VARCHAR NOT NULL,
     password VARCHAR NOT NULL,
-    PRIMARY KEY(user_id),
     timestamp DATETIME DEFAULT CURRENT_TIMESTAMP NULL
   );`;
 
