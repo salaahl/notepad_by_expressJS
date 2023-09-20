@@ -1,7 +1,7 @@
 const Note = require('../models/Note.js');
 const { db } = require('../data/db.js');
 
-const createTable = (req, res) => {
+const createTableIfNotExist = (req, res) => {
   const sql_create = `CREATE TABLE IF NOT EXISTS notepad (
     note_id INTEGER PRIMARY KEY AUTOINCREMENT,
     title VARCHAR NULL,
@@ -19,7 +19,7 @@ const createTable = (req, res) => {
 };
 
 const getNotes = (req, res) => {
-  createTable();
+  createTableIfNotExist();
   let sql =
     'SELECT note_id, title, text, tags, user_id, timestamp FROM notepad ORDER BY note_id DESC';
 
