@@ -37,8 +37,8 @@ function saveNote() {
     text: document.querySelector('#note-modal textarea').value,
   };
 
-  const request = new Request('/save-note', {
-    method: 'POST',
+  const request = new Request('/', {
+    method: 'PUT',
     body: JSON.stringify(data),
     headers: {
       'Content-Type': 'application/json',
@@ -65,8 +65,8 @@ function deleteNote() {
       id: this.parentElement.querySelector('input[name="note-id"]').value,
     };
 
-    const request = new Request('/delete-note', {
-      method: 'POST',
+    const request = new Request('/', {
+      method: 'DELETE',
       body: JSON.stringify(data),
       headers: {
         'Content-Type': 'application/json',

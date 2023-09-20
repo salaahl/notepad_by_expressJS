@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const {sqlite3, db} = require('../data/db.js');
+// A supprimer une fois que j'aurai cleané ce fichier
+const {db} = require('../data/db.js');
 
 const {
   getNotes,
-  getNotesByTag,
+  getNotesAsynchronously,
   getNote,
   searchNote,
   updateNote,
@@ -66,14 +67,14 @@ router.get('/insert', (req, res) => {
 
 router.get('/', getNotes);
 
-router.get('/get-notes', getNotesByTag);
+router.post('/get-notes', getNotesAsynchronously);
 
-router.get('/get-note', getNote);
+router.post('/get-note', getNote);
 
 router.post('/search-note', searchNote);
 
-router.put('/save-note', updateNote);
+router.put('/', updateNote);
 
-router.delete('/delete-note', deleteNote);
+router.delete('/', deleteNote);
 
 module.exports = router;

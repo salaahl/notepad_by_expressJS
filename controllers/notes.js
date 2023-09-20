@@ -13,8 +13,7 @@ const getNotes = (req, res) => {
   });
 };
 
-const getNotesByTag = (req, res) => {
-  // En réalité la fonction bis getNotes
+const getNotesAsynchronously = (req, res) => {
   const sql =
     'SELECT id, title, text, tags, user_id, timestamp FROM notepad ORDER BY id DESC';
 
@@ -56,12 +55,6 @@ const searchNote = (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify({ notes: rows }));
   });
-};
-
-const createNote = (req, res) => {
-  Note.create(req.body)
-    .then((result) => res.status(200).json({ result }))
-    .catch((error) => res.status(500).json({ msg: error }));
 };
 
 const updateNote = (req, res) => {
@@ -132,7 +125,7 @@ const deleteNote = (req, res) => {
 
 module.exports = {
   getNotes,
-  getNotesByTag,
+  getNotesAsynchronously,
   getNote,
   searchNote,
   updateNote,
