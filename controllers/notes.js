@@ -1,7 +1,25 @@
 const Note = require('../models/Note.js');
 const { db } = require('../data/db.js');
 
+const createTable = (req, res) => {
+  const sql_create = `CREATE TABLE IF NOT EXISTS notepad (
+    note_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title VARCHAR NULL,
+    text TEXT,
+    tags VARCHAR NULL,
+    user_id INT NULL,
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP NULL
+  );`;
+
+  db.run(sql_create, (err) => {
+    if (err) {
+      return console.error(err.message);
+    }
+  });
+};
+
 const getNotes = (req, res) => {
+  createTable();
   let sql =
     'SELECT note_id, title, text, tags, user_id, timestamp FROM notepad ORDER BY note_id DESC';
 
@@ -44,9 +62,9 @@ const getNote = (req, res) => {
 
 const searchNote = (req, res) => {
   let sql =
-    'SELECT note_id, title, text, tags, user_id, timestamp FROM notepad WHERE title LIKE ? OR text LIKE ?';
+    'SELECT note_id, title, text, tags, user_id, timestamp FROM notepad WHERE title LIKE ? OR text LIKE ? ORDER BY note_id DESC';
   let searchConcat = '%' + req.body.search + '%';
-  var params = [searchConcat, searchConcat];
+  var params = [searchConcat];
 
   db.all(sql, params, (err, rows) => {
     if (err) {
