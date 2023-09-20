@@ -7,15 +7,16 @@ const {
   getNotes,
   getNotesAsynchronously,
   getNote,
+  createNote,
   searchNote,
   updateNote,
   deleteNote,
 } = require('../controllers/notes.js');
 
 // A ajouter : titre, user_id, tags, heure de création/modification
-router.get('/create', (req, res) => {
+router.get('/create-table', (req, res) => {
   const sql_create = `CREATE TABLE IF NOT EXISTS notepad (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    note_id INTEGER PRIMARY KEY AUTOINCREMENT,
     title VARCHAR NULL,
     text TEXT,
     tags VARCHAR NULL,
@@ -29,47 +30,16 @@ router.get('/create', (req, res) => {
     }
   });
 
-  const sql_create2 = `CREATE TABLE IF NOT EXISTS user (
-    user_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    mail VARCHAR NOT NULL,
-    password VARCHAR NOT NULL,
-    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP NULL
-  );`;
-
-  db.run(sql_create2, (err) => {
-    if (err) {
-      return console.error(err.message);
-    }
-  });
-
   res.send('Création réussie');
 });
-
-// via la méthode de la requête préparée :
-router.get('/insert', (req, res) => {
-  const stmt = db.prepare(
-    'INSERT INTO notepad title, text, tags VALUES (?, ?, ?)'
-  );
-  stmt.run(
-    'Mon titre',
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    'MonTag'
-  );
-  stmt.finalize();
-
-  const stmtUser = db.prepare('INSERT INTO user mail, password VALUES (?, ?)');
-  stmtUser.run('sokhona.salaha@gmail.com', 'sokhona');
-  stmtUser.finalize();
-
-  res.send("Alimentation réussie de la table 'notepad'");
-});
-
 
 router.get('/', getNotes);
 
 router.post('/get-notes', getNotesAsynchronously);
 
 router.post('/get-note', getNote);
+
+router.get('/create-note', createNote);
 
 router.post('/search-note', searchNote);
 

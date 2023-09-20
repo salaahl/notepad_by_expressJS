@@ -30,6 +30,7 @@ function getNote() {
     });
 }
 
+// Fonction appelée (et complétée) par l'un des listeners
 function saveNote() {
   let data = {
     id: document.querySelector('#note-modal-id').value,
