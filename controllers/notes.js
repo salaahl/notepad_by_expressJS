@@ -1,5 +1,6 @@
 const Note = require('../models/Note.js');
-const { db } = require('../data/db.js');
+const { db } = require('../data/sqlite3.js');
+const mongoDB = require('../data/mongoDB.js');
 
 const createTableIfNotExist = (req, res) => {
   const sql_create = `CREATE TABLE IF NOT EXISTS notepad (

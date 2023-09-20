@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const app = express();
 const port = 3010;
@@ -5,8 +7,6 @@ const path = require('path');
 const mongoose = require('mongoose');
 const notes_routes = require('./routes/notes.js');
 //const products_routes = require('./routes/products.js');
-
-require('dotenv').config();
 
 /*
 Initialisation de la base de données pour des produits
