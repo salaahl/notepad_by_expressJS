@@ -4,17 +4,10 @@ const express = require('express');
 const app = express();
 const port = 3010;
 const path = require('path');
+const mongoDB = require('./data/mongoDB.js');
 const mongoose = require('mongoose');
 const notes_routes = require('./routes/notes.js');
 //const products_routes = require('./routes/products.js');
-
-/*
-Initialisation de la base de données pour des produits
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then((result) => app.listen(5000))
-  .catch((err) => console.log(Error));
-*/
 
 // Indispensable pour "ecouter" l'application
 app.listen(port, () => {

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const {
+  createMongooseTable,
   getNotes,
   getNotesAsynchronously,
   getNote,
@@ -10,6 +11,8 @@ const {
   updateNote,
   deleteNote,
 } = require('../controllers/notes.js');
+
+router.get('/mongoose-table', createMongooseTable);
 
 router.get('/', getNotes);
 

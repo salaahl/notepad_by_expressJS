@@ -1,6 +1,10 @@
 const Note = require('../models/Note.js');
 const { db } = require('../data/sqlite3.js');
-const mongoDB = require('../data/mongoDB.js');
+
+const createMongooseTable = (req, res) => {
+  const note = new Note({ title: 'Note MongoDB', text: 'lorem' });
+  note.save();
+};
 
 const createTableIfNotExist = (req, res) => {
   const sql_create = `CREATE TABLE IF NOT EXISTS notepad (
@@ -158,6 +162,7 @@ const deleteNote = (req, res) => {
 };
 
 module.exports = {
+  createMongooseTable,
   getNotes,
   getNotesAsynchronously,
   getNote,
