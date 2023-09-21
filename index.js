@@ -5,9 +5,7 @@ const app = express();
 const port = 3010;
 const path = require('path');
 const mongoDB = require('./data/mongoDB.js');
-const mongoose = require('mongoose');
 const notes_routes = require('./routes/notes.js');
-//const products_routes = require('./routes/products.js');
 
 // Indispensable pour "ecouter" l'application
 app.listen(port, () => {

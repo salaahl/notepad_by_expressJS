@@ -5,7 +5,7 @@ const NoteSchema = new mongoose.Schema({
   text: { type: String, required: true, maxLength: 100 },
   tags: { type: String, required: false, maxLength: 100 },
   user_id: { type: Number, required: false, maxLength: 100 },
-  updated: { type: Date, default: Date.now }
+  updated: { type: Date, required: true, default: Date.now }
 });
 
 const Note = mongoose.model('Note', NoteSchema);

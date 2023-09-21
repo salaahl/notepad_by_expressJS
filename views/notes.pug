@@ -18,7 +18,7 @@ block content
         section(id="notes")
             for note in notes
                 article(class="note")
-                    input(type="number" name="note-id" value=note.note_id hidden)
+                    input(type="number" name="note-id" value=note._id hidden)
                     div(class="note-detail")
                         div(class="note-title")=note.title
                         textarea(class="note-text" readonly)=note.text
