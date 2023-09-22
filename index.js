@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 const port = 3010;
 const path = require('path');
+const sqlite3 = require('./data/sqlite3.js');
 const mongoDB = require('./data/mongoDB.js');
 const notes_routes = require('./routes/notes.js');
 

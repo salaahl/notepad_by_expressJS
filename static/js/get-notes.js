@@ -9,7 +9,7 @@ function getNotes(notes = null) {
       notesDiv.innerHTML += noteTemplate(note.note_id, note.title, note.text);
     });
   } else {
-    const request = new Request('/get-notes', {
+    const request = new Request('/', {
       method: 'POST',
     });
 
