@@ -8,7 +8,7 @@ const {
   searchNote,
   updateNote,
   deleteNote,
-} = require('../controllers/notes-by-sqlite.js');
+} = require('../controllers/notes.js');
 
 router.get('/', getNotes);
 
