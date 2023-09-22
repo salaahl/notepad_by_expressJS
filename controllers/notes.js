@@ -65,7 +65,6 @@ const createNote = async (req, res) => {
   });
 
   try {
-    // Plûtot utiliser la méthode .save() pour notamment faire fonctionner les validateurs
     const insertOneResult = await collection.insertOne(noteBis);
     console.log(
       `${insertOneResult.insertedCount} note successfully inserted.\n`

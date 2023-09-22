@@ -20,7 +20,7 @@ function getNote() {
     .then((response) => response.json())
     .then((data) => {
       $('#note-modal').classList.add('active');
-      $('#note-modal-id').value = data.note.note_id;
+      $('#note-modal-id').value = data.note._id;
       $('#note-modal-title').value = data.note.title;
       $('#note-modal-text').value = data.note.text;
     })
