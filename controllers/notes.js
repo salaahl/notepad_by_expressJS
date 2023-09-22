@@ -34,7 +34,7 @@ const getNote = async (req, res) => {
   }
 };
 
-const searchNote = (req, res) => {
+const searchNote = async (req, res) => {
   // En faire de même avec le colonne "title"
   const findQuery = { text: '/' + req.body.search + '/' };
 
@@ -54,7 +54,12 @@ const createNote = async (req, res) => {
     text: req.body.text,
   };
 
-  const noteBis = new Note({
+  const noteBis = {
+    title: 'Note test',
+    text: 'Lorem.',
+  };
+
+  const noteWithSchema = new Note({
     title: 'Note test',
     text: 'Lorem.',
   });
@@ -72,7 +77,7 @@ const createNote = async (req, res) => {
   }
 };
 
-const updateNote = (req, res) => {
+const updateNote = async (req, res) => {
   const findOneQuery = { _id: req.body.id };
   const updateDoc = { $set: { title: req.body.title, text: req.body.text } };
 
@@ -92,9 +97,9 @@ const updateNote = (req, res) => {
   }
 };
 
-const deleteNote = (req, res) => {
+const deleteNote = async (req, res) => {
   const deleteQuery = { _id: req.body.id };
-  
+
   try {
     const deleteResult = await collection.deleteOne(deleteQuery);
   } catch (err) {
