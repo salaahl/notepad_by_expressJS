@@ -15,6 +15,7 @@ document.querySelector('#search-note').addEventListener('keyup', function () {
   fetch(request)
     .then((response) => response.json())
     .then((notes) => {
+      console.log(notes)
       getNotes(notes);
     })
     .catch((error) => {

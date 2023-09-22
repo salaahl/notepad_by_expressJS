@@ -1,7 +1,7 @@
 function noteTemplate(id, title, text) {
   let note =
     '<article class="note">' +
-    '<input type="number" name="note-id" value="' +
+    '<input type="text" name="note-id" value="' +
     id +
     '" hidden />' +
     '<div class="note-detail">' +

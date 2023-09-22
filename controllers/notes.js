@@ -1,5 +1,6 @@
 const Note = require('../models/Note.js');
 const { client } = require('../data/mongoDB.js');
+const ObjectId = require('mongodb').ObjectId;
 
 // Provide the name of the database and collection you want to use.
 // If the database and/or collection do not exist, the driver and Atlas
@@ -9,13 +10,15 @@ const collection = database.collection('notes');
 
 const getNotes = async (req, res) => {
   try {
-    const findResult = await collection.find({});
+    const notes = await collection.find({}).toArray();
     // Si la requête est de type POST, alors renvoyer sous forme de JSON
-    if (1 === 2) {
+    if (req.method == 'POST') {
+      console.log(req.method)
       res.setHeader('Content-Type', 'application/json');
-      res.end(JSON.stringify({ note: findResult }));
+      res.end(JSON.stringify({ note: notes }));
     } else {
-      res.render('notes', { title: 'Notes', notes: findResult });
+      console.log(req.method)
+      res.render('notes', { title: 'Notes', notes: notes });
     }
   } catch (err) {
     console.error(err);
@@ -23,73 +26,59 @@ const getNotes = async (req, res) => {
 };
 
 const getNote = async (req, res) => {
-  const findOneQuery = { _id: req.body.id };
+  console.log(req.body.id)
+  const findOneQuery = { _id: new ObjectId(req.body.id) };
 
   try {
-    const findOneResult = await collection.findOne(findOneQuery);
+    const note = await collection.findOne(findOneQuery);
     res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify({ note: findOneResult }));
+    res.end(JSON.stringify({ note: note }));
   } catch (err) {
     console.error(`Something went wrong trying to find one document: ${err}\n`);
   }
 };
 
-const searchNote = async (req, res) => {
+const searchNotes = async (req, res) => {
   // En faire de même avec le colonne "title"
-  const findQuery = { text: '/' + req.body.search + '/' };
+  const findQuery = { title: `/${req.body.search}/` };
 
   try {
-    const findResult = await collection.find(findQuery);
+    const notes = await collection.find(findQuery).toArray();
 
     res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify({ note: findResult }));
+    res.end(JSON.stringify({ note: notes }));
   } catch (err) {
     console.error(err);
   }
 };
 
 const createNote = async (req, res) => {
-  const note = {
+  const content = new Note({
     title: req.body.title,
     text: req.body.text,
-  };
-
-  const noteBis = {
-    title: 'Note test',
-    text: 'Lorem.',
-  };
-
-  const noteWithSchema = new Note({
-    title: 'Note test',
-    text: 'Lorem.',
   });
 
   try {
-    const insertOneResult = await collection.insertOne(noteBis);
-    console.log(
-      `${insertOneResult.insertedCount} note successfully inserted.\n`
-    );
+    const note = await collection.insertOne(content);
   } catch (err) {
-    console.error(
-      `Something went wrong trying to insert the new note: ${err}\n`
-    );
+    console.error();
   }
 };
 
 const updateNote = async (req, res) => {
-  const findOneQuery = { _id: req.body.id };
-  const updateDoc = { $set: { title: req.body.title, text: req.body.text } };
+  const note = { _id: new ObjectId(req.body.id) };
+  const noteContent = { $set: { title: req.body.title, text: req.body.text } };
 
-  // The following updateOptions document specifies that we want the *updated*
+  // The following options document specifies that we want the *updated*
   // document to be returned. By default, we get the document as it was *before*
   // the update.
-  const updateOptions = { returnOriginal: false };
+  const options = { returnOriginal: false };
 
   try {
     const updateResult = await collection.findOneAndUpdate(
-      findOneQuery,
-      updateDoc,
-      updateOptions
+      note,
+      noteContent,
+      options
     );
   } catch (err) {
     console.error(err);
@@ -97,10 +86,11 @@ const updateNote = async (req, res) => {
 };
 
 const deleteNote = async (req, res) => {
-  const deleteQuery = { _id: req.body.id };
-
   try {
-    const deleteResult = await collection.deleteOne(deleteQuery);
+    const deleteResult = await collection.deleteOne({ _id: new ObjectId(req.body.id) });
+
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify({ status: 'Note deleted' }));
   } catch (err) {
     console.error(err);
   }
@@ -110,7 +100,7 @@ module.exports = {
   getNotes,
   getNote,
   createNote,
-  searchNote,
+  searchNotes,
   updateNote,
   deleteNote,
 };

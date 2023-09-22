@@ -32,13 +32,25 @@ function getNote() {
 
 // Fonction appelée (et complétée) par l'un des listeners du fichier du même nom
 function saveNote() {
-  let data = {
-    id: document.querySelector('#note-modal-id').value,
-    title: document.querySelector('#note-modal-title').value,
-    text: document.querySelector('#note-modal textarea').value,
-  };
+  let data = null;
+  let route = null;
 
-  const request = new Request('/', {
+  if (document.querySelector('#note-modal-id').value == '') {
+    route = '/create-note';
+    data = {
+      id: document.querySelector('#note-modal-id').value,
+      title: document.querySelector('#note-modal-title').value,
+      text: document.querySelector('#note-modal textarea').value,
+    };
+  } else {
+    route = '/update-note';
+    data = {
+      title: document.querySelector('#note-modal-title').value,
+      text: document.querySelector('#note-modal textarea').value,
+    };
+  }
+
+  const request = new Request(route, {
     method: 'PUT',
     body: JSON.stringify(data),
     headers: {
@@ -48,8 +60,7 @@ function saveNote() {
 
   fetch(request)
     .then((response) => response.json())
-    .then((data) => {
-    })
+    .then((data) => {})
     .catch((error) => {
       console.log(error.message);
       alert('Erreur.');

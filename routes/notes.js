@@ -5,20 +5,22 @@ const {
   getNotes,
   getNote,
   createNote,
-  searchNote,
+  searchNotes,
   updateNote,
   deleteNote,
 } = require('../controllers/notes.js');
 
 router.get('/', getNotes);
 
+router.post('/', getNotes);
+
 router.post('/get-note', getNote);
 
-router.get('/create-note', createNote);
+router.put('/create-note', createNote);
 
-router.post('/search-note', searchNote);
+router.post('/search-note', searchNotes);
 
-router.put('/', updateNote);
+router.put('/update-note', updateNote);
 
 router.delete('/', deleteNote);
 
