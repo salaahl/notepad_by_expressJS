@@ -3,7 +3,6 @@ const router = express.Router();
 
 const {
   getNotes,
-  getNotesAsynchronously,
   getNote,
   createNote,
   searchNote,
@@ -12,8 +11,6 @@ const {
 } = require('../controllers/notes.js');
 
 router.get('/', getNotes);
-
-router.post('/get-notes', getNotesAsynchronously);
 
 router.post('/get-note', getNote);
 

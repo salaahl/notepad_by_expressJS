@@ -1,5 +1,4 @@
 const Note = require('../models/Note.js');
-const { db } = require('../data/sqlite3.js');
 const { client } = require('../data/mongoDB.js');
 
 // Provide the name of the database and collection you want to use.
@@ -9,63 +8,44 @@ const database = client.db('notepad');
 const collection = database.collection('notes');
 
 const getNotes = async (req, res) => {
-  const findQuery = {};
-
   try {
-    const findResult = await collection.find(findQuery);
-    if (findResult === null) {
-      console.log(
-        "Couldn't find any recipes that contain 'potato' as an ingredient.\n"
-      );
+    const findResult = await collection.find({});
+    // Si la requête est de type POST, alors renvoyer sous forme de JSON
+    if (1 === 2) {
+      res.setHeader('Content-Type', 'application/json');
+      res.end(JSON.stringify({ note: findResult }));
     } else {
-      console.log(
-        `Found a recipe with 'potato' as an ingredient:\n${JSON.stringify(
-          findResult
-        )}\n`
-      );
+      res.render('notes', { title: 'Notes', notes: findResult });
     }
-    console.log(JSON.stringify(
-      findResult
-    ))
-    res.render('notes', { title: 'Notes', notes: findResult });
   } catch (err) {
-    console.error(`Something went wrong trying to find one document: ${err}\n`);
+    console.error(err);
   }
 };
 
-const getNotesAsynchronously = (req, res) => {
-  res.setHeader('Content-Type', 'application/json');
-  res.end(JSON.stringify({ note: rows }));
-};
-
 const getNote = async (req, res) => {
-  // We can also find a single document. Let's find the first document
-  // that has the string "potato" in the ingredients list.
   const findOneQuery = { _id: req.body.id };
 
   try {
     const findOneResult = await collection.findOne(findOneQuery);
-    if (findResult === null) {
-      console.log(
-        "Couldn't find any recipes that contain 'potato' as an ingredient.\n"
-      );
-    } else {
-      console.log(
-        `Found a recipe with 'potato' as an ingredient:\n${JSON.stringify(
-          findOneResult
-        )}\n`
-      );
-    }
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify({ note: findOneResult }));
   } catch (err) {
     console.error(`Something went wrong trying to find one document: ${err}\n`);
   }
-  res.setHeader('Content-Type', 'application/json');
-  res.end(JSON.stringify({ note: row }));
 };
 
 const searchNote = (req, res) => {
-  res.setHeader('Content-Type', 'application/json');
-  res.end(JSON.stringify({ notes: rows }));
+  // En faire de même avec le colonne "title"
+  const findQuery = { text: '/' + req.body.search + '/' };
+
+  try {
+    const findResult = await collection.find(findQuery);
+
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify({ note: findResult }));
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 const createNote = async (req, res) => {
@@ -75,8 +55,8 @@ const createNote = async (req, res) => {
   };
 
   const noteBis = new Note({
-    title: "Note test",
-    text: "Lorem.",
+    title: 'Note test',
+    text: 'Lorem.',
   });
 
   try {
@@ -92,13 +72,38 @@ const createNote = async (req, res) => {
   }
 };
 
-const updateNote = (req, res) => {};
+const updateNote = (req, res) => {
+  const findOneQuery = { _id: req.body.id };
+  const updateDoc = { $set: { title: req.body.title, text: req.body.text } };
 
-const deleteNote = (req, res) => {};
+  // The following updateOptions document specifies that we want the *updated*
+  // document to be returned. By default, we get the document as it was *before*
+  // the update.
+  const updateOptions = { returnOriginal: false };
+
+  try {
+    const updateResult = await collection.findOneAndUpdate(
+      findOneQuery,
+      updateDoc,
+      updateOptions
+    );
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const deleteNote = (req, res) => {
+  const deleteQuery = { _id: req.body.id };
+  
+  try {
+    const deleteResult = await collection.deleteOne(deleteQuery);
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 module.exports = {
   getNotes,
-  getNotesAsynchronously,
   getNote,
   createNote,
   searchNote,
