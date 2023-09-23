@@ -13,11 +13,11 @@ const getNotes = async (req, res) => {
     const notes = await collection.find({}).toArray();
     // Si la requête est de type POST, alors renvoyer sous forme de JSON
     if (req.method == 'POST') {
-      console.log(req.method)
+      console.log(req.method);
       res.setHeader('Content-Type', 'application/json');
       res.end(JSON.stringify({ note: notes }));
     } else {
-      console.log(req.method)
+      console.log(req.method);
       res.render('notes', { title: 'Notes', notes: notes });
     }
   } catch (err) {
@@ -26,7 +26,7 @@ const getNotes = async (req, res) => {
 };
 
 const getNote = async (req, res) => {
-  console.log(req.body.id)
+  console.log(req.body.id);
   const findOneQuery = { _id: new ObjectId(req.body.id) };
 
   try {
@@ -87,7 +87,9 @@ const updateNote = async (req, res) => {
 
 const deleteNote = async (req, res) => {
   try {
-    const deleteResult = await collection.deleteOne({ _id: new ObjectId(req.body.id) });
+    const deleteResult = await collection.deleteOne({
+      _id: new ObjectId(req.body.id),
+    });
 
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify({ status: 'Note deleted' }));

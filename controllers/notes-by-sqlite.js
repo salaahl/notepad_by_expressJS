@@ -30,7 +30,7 @@ const getNotes = (req, res) => {
     }
 
     // Si la requête est de type POST, alors renvoyer sous forme de JSON
-    if (1 === 2) {
+    if (req.method == 'POST') {
       res.setHeader('Content-Type', 'application/json');
       res.end(JSON.stringify({ note: rows }));
     } else {
