@@ -5,7 +5,7 @@ const {
   getNotes,
   getNote,
   createNote,
-  searchNotes,
+  searchNote,
   updateNote,
   deleteNote,
 } = require('../controllers/notes-by-sqlite.js');
@@ -18,6 +18,7 @@ router.post('/get-note', getNote);
 
 router.put('/create-note', createNote);
 
+router.post('/search-note', searchNote);
 
 router.put('/update-note', updateNote);
 

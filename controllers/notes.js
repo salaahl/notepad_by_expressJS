@@ -38,7 +38,7 @@ const getNote = async (req, res) => {
   }
 };
 
-const searchNotes = async (req, res) => {
+const searchNote = async (req, res) => {
   // En faire de même avec le colonne "title"
   const findQuery = { title: `/${req.body.search}/` };
 
@@ -102,7 +102,7 @@ module.exports = {
   getNotes,
   getNote,
   createNote,
-  searchNotes,
+  searchNote,
   updateNote,
   deleteNote,
 };

@@ -1,7 +1,6 @@
 const Note = require('../models/Note.js');
 const { db } = require('../data/sqlite3.js');
 
-
 const createTableIfNotExist = (req, res) => {
   const sql_create = `CREATE TABLE IF NOT EXISTS notepad (
     _id INTEGER PRIMARY KEY AUTOINCREMENT,
