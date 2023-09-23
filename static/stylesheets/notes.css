@@ -7,8 +7,8 @@
 
 @media (prefers-color-scheme: light) {
   :root {
-    --note-title-background-color:beige;
-    --note-background-color:white;
+    --note-title-background-color: antiquewhite;
+    --note-background-color: white;
   }
 }
 
@@ -169,11 +169,11 @@ section:first-child button {
 }
 
 .open-note {
-  background-color: green;
+  background-color: mediumseagreen;
 }
 
 .delete-note {
-  background-color: red;
+  background-color: indianred;
 }
 
 .note-title,

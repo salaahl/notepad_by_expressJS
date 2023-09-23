@@ -11,6 +11,7 @@
 @media (prefers-color-scheme: light) {
   :root {
     --font-color: black;
+    --bg-color: white;
     --input-bg-color: white;
     --text-stroke-color: black;
     --h1-color: whitesmoke;
@@ -40,7 +41,7 @@
 @media (min-width: 768px) and (max-width: 1023px) {
   body h1 {
     font-size: 10vw;
-    -webkit-text-stroke: 2px var(--text-stroke-color);
+    -webkit-text-stroke: 4px var(--text-stroke-color);
   }
 
   body h2 {
@@ -55,7 +56,7 @@
 @media (min-width: 1024px) and (max-width: 1280px) {
   body h1 {
     font-size: 7vw;
-    -webkit-text-stroke: 3px var(--text-stroke-color);
+    -webkit-text-stroke: 4px var(--text-stroke-color);
   }
 
   body h2 {
@@ -70,7 +71,7 @@
 @media (min-width: 1280px) {
   body h1 {
     font-size: 6vw;
-    -webkit-text-stroke: 2px var(--text-stroke-color);
+    -webkit-text-stroke: 4px var(--text-stroke-color);
   }
 
   body h2 {
@@ -127,13 +128,20 @@ body h3 {
 .select select,
 .textarea {
   color: inherit;
-  border: 2px solid #dbdbdb;
+  border: 4px solid;
   background-color: var(--bg-color);
 }
 
-::placeholder {
-  color: var(--h1-color);
-  opacity: 1;
+.input:active, .input:focus, .is-active.input, .is-active.textarea, .is-focused.input, .is-focused.textarea, .select select.is-active, .select select.is-focused, .select select:active, .select select:focus, .textarea:active, .textarea:focus {
+  border-color: #485fc7;
+  box-shadow: none;
+}
+
+.input::placeholder,
+.select::placeholder,
+.textarea::placeholder {
+  color: inherit;
+  opacity: 0.5;
 }
 
 section {
