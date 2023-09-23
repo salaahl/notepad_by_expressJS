@@ -1,19 +1,16 @@
 @media (prefers-color-scheme: dark) {
   :root {
+    --font-color: whitesmoke;
+    --bg-color: rgb(31, 41, 55);
     --input-bg-color: whitesmoke;
     --text-stroke-color: white;
     --h1-color: black;
-  }
-
-  html,
-  body {
-    color: rgb(156, 163, 175);
-    background-color: rgb(31, 41, 55);
   }
 }
 
 @media (prefers-color-scheme: light) {
   :root {
+    --font-color: black;
     --input-bg-color: white;
     --text-stroke-color: black;
     --h1-color: whitesmoke;
@@ -94,6 +91,8 @@
 html,
 body {
   font-family: 'Oswald', sans-serif;
+  color: var(--font-color);
+  background-color: var(--bg-color);
   scroll-behavior: smooth;
   overflow: auto;
 }
@@ -124,8 +123,16 @@ body h3 {
   text-transform: uppercase;
 }
 
-.input, .select select, .textarea {
-  background-color: var(--input-bg-color);
+.input,
+.select select,
+.textarea {
+  border: 2px solid #dbdbdb;
+  background-color: var(--bg-color);
+}
+
+::placeholder {
+  color: var(--h1-color);
+  opacity: 1;
 }
 
 section {

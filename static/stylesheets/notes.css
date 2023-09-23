@@ -2,7 +2,6 @@
   :root {
     --note-title-background-color: darkslategrey;
     --note-background-color: rgb(31, 41, 55);
-    --font-color: white;
   }
 }
 
@@ -10,7 +9,6 @@
   :root {
     --note-title-background-color:beige;
     --note-background-color:white;
-    --font-color: black;
   }
 }
 
@@ -79,11 +77,10 @@ body {
   height: 100%;
   width: 100%;
   margin: 0;
-  color: var(--font-color);
 }
 
 input {
-  color: var(--font-color);
+  color: inherit;
   background-color: inherit;
 }
 
@@ -91,7 +88,7 @@ textarea {
   resize: none;
   width: 100%;
   border: 0px;
-  color: var(--font-color);
+  color: inherit;
   background-color: transparent;
 }
 
@@ -185,7 +182,7 @@ section:first-child button {
   text-align: center;
   font-weight: 600;
   background-color: var(--note-title-background-color);
-  color: var(--font-color);
+  color: inherit;
 }
 
 .note,
