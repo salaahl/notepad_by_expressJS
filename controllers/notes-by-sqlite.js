@@ -33,7 +33,7 @@ const getNotes = (req, res) => {
       res.setHeader('Content-Type', 'application/json');
       res.end(JSON.stringify({ note: rows }));
     } else {
-      res.render('notes', { title: 'Notes', notes: rows });
+      res.render('notes', { notes: rows });
     }
   });
 };

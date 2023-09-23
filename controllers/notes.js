@@ -18,7 +18,7 @@ const getNotes = async (req, res) => {
       res.end(JSON.stringify({ note: notes }));
     } else {
       console.log(req.method);
-      res.render('notes', { title: 'Notes', notes: notes });
+      res.render('notes', { notes: notes });
     }
   } catch (err) {
     console.error(err);
