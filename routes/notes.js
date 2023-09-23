@@ -18,7 +18,6 @@ router.post('/get-note', getNote);
 
 router.put('/create-note', createNote);
 
-router.post('/search-note', searchNotes);
 
 router.put('/update-note', updateNote);
 
