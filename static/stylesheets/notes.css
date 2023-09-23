@@ -1,7 +1,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --note-title-background-color: darkslategray;
-    --note-background-color: black;
+    --note-background-color: whitesmoke;
     --font-color: white;
   }
 }
@@ -137,7 +137,6 @@ section:first-child button {
   aspect-ratio: 1;
   margin: 1% 0;
   border: 2px solid;
-  background-color: var(--note-background-color);
   overflow: hidden;
 }
 
