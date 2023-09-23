@@ -68,18 +68,50 @@ const searchNote = (req, res) => {
   });
 };
 
+// Doublon
 const createNote = (req, res) => {
-  const stmt = db.prepare(
-    'INSERT INTO notepad title, text, tags VALUES (?, ?, ?)'
-  );
-  stmt.run(
-    'Mon titre',
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    'MonTag'
-  );
-  stmt.finalize();
+  let stmt = null;
+  let params = null;
+  res.setHeader('Content-Type', 'application/json');
 
-  res.send("Alimentation réussie de la table 'notepad'");
+  // Si id ET titre et/ou texte = note existante = mettre à jour
+  // Si titre et/ou texte existant MAIS pas de id = note inexistante = nouvelle note
+  // Si titre et texte manquant = note vide = supprimer
+  if ((req.body.title || req.body.text) && req.body.id) {
+    stmt = 'UPDATE notepad SET title = ?, text = ? WHERE _id = ?';
+    params = [req.body.title, req.body.text, req.body.id];
+  } else if ((req.body.title || req.body.text) && !req.body.id) {
+    stmt = 'INSERT INTO notepad (title, text) VALUES (?, ?)';
+    params = [req.body.title, req.body.text];
+  } else {
+    stmt = 'DELETE FROM notepad WHERE _id = ?';
+    params = [req.body.id];
+  }
+
+  db.run(stmt, params, function (err, row) {
+    if (err) {
+      console.error(err.message);
+      return res.end(
+        JSON.stringify({
+          status: 'error',
+          row: row,
+          data: req.body,
+          stmt: stmt,
+          id: this.lastID,
+        })
+      );
+    }
+
+    res.end(
+      JSON.stringify({
+        status: 'success',
+        row: row,
+        data: req.body,
+        stmt: stmt,
+        id: this.lastID,
+      })
+    );
+  });
 };
 
 const updateNote = (req, res) => {
