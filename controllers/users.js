@@ -1,85 +1,108 @@
 const User = require('../models/User.js');
-const { db } = require('../data/db.js');
+const ObjectId = require('mongodb').ObjectId;
 
-const createTableIfNotExist = (req, res) => {
-  const sql_create = `CREATE TABLE IF NOT EXISTS user (
-    user_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    mail VARCHAR NOT NULL,
-    password VARCHAR NOT NULL,
-    PRIMARY KEY(user_id),
-    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP NULL
-  );`;
-
-  db.run(sql_create, (err) => {
-    if (err) {
-      return console.error(err.message);
+const getUsers = async (req, res) => {
+  try {
+    const users = await User.find({});
+    // Si la requête est de type POST, alors renvoyer sous forme de JSON
+    if (req.method == 'POST') {
+      res.setHeader('Content-Type', 'application/json');
+      res.end(JSON.stringify({ user: users }));
+    } else {
+      res.render('users', { users: users });
     }
-    console.log("Mise à jour réussie de la table 'user'");
-  });
+  } catch (err) {
+    console.error(err);
+  }
 };
 
-const getUsers = (req, res) => {
-  createTableIfNotExist();
-  let sql = 'SELECT user_id, email FROM user ORDER BY user_id DESC';
+const getUser = async (req, res) => {
+  const findOneQuery = { _id: new ObjectId(req.body.id) };
 
-  db.all(sql, [], (err, rows) => {
-    if (err) {
-      console.error(err.message);
-    }
-    res.render('users', { title: 'Users', users: rows });
-  });
-};
-
-const getUser = (req, res) => {
-  const stmt = 'SELECT user_id, email FROM user WHERE user_id = ?';
-  var params = [req.body.id];
-
-  db.get(stmt, params, (err, row) => {
-    if (err) {
-      return console.error(err.message);
-    }
+  try {
+    const user = await User.findOne(findOneQuery);
     res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify({ user: row }));
-  });
+    res.end(JSON.stringify({ user: user }));
+  } catch (err) {
+    console.error(`Something went wrong trying to find one user: ${err}\n`);
+  }
 };
 
-const createUser = (req, res) => {
-  const stmt = db.prepare('INSERT INTO user mail, password VALUES (?, ?)');
-  stmt.run('exemple@gmail.com', 'Motdepasse');
-  stmt.finalize();
-  console.log("Alimentation réussie de la table 'user'");
+const searchUser = async (req, res) => {
+  const search = req.body.search;
+  // Le "i" de $options est pour "insensitive case"
+  const findQuery = {
+    $or: [
+      { title: { $regex: search, $options: 'i' } },
+      { text: { $regex: search, $options: 'i' } },
+    ],
+  };
+
+  try {
+    const users = await User.find(findQuery);
+
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify({ user: users }));
+  } catch (err) {
+    console.error(err);
+  }
 };
 
-const updateUser = (req, res) => {
-  let stmt = null;
-  let params = null;
-  stmt = 'UPDATE user SET title = ?, text = ? WHERE user_id = ?';
-  params = [req.body.title, req.body.text, req.body.id];
-
-  db.run(stmt, params, function (err, row) {
-    if (err) {
-      console.error(err.message);
-    }
-    console.log("Mise à jour réussie de la table 'user'");
+const createUser = async (req, res) => {
+  const user = new User({
+    name: 'Salaha',
+    surname: 'Sokhona',
+    email: 'sokhona.salaha@gmail.com',
+    password: 'Sokhona',
+    roles: ['user'],
   });
+
+  try {
+    await user.save();
+    console.log('Utilisateur ajouté !');
+  } catch (err) {
+    console.error(err);
+  }
 };
 
-const deleteUser = (req, res) => {
-  let stmt = 'DELETE FROM user WHERE user_id = ?';
-  let params = [req.body.id];
+const updateUser = async (req, res) => {
+  const user = { _id: new ObjectId(req.body.id) };
+  const userContent = { $set: { title: req.body.title, text: req.body.text } };
 
-  db.run(stmt, params, function (err, row) {
-    if (err) {
-      console.error(err.message);
-    }
-    console.log("Suppression réussie de l'utilisateur");
-  });
+  // The following options document specifies that we want the *updated*
+  // document to be returned. By default, we get the document as it was *before*
+  // the update.
+  const options = { returnOriginal: false };
+
+  try {
+    const updateResult = await User.findOneAndUpdate(
+      user,
+      userContent,
+      options
+    );
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const deleteUser = async (req, res) => {
+  try {
+    const deleteResult = await User.deleteOne({
+      _id: new ObjectId(req.body.id),
+    });
+
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify({ status: 'User deleted' }));
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 module.exports = {
   getUsers,
   getUser,
   createUser,
+  searchUser,
   updateUser,
-  deleteUser
+  deleteUser,
 };

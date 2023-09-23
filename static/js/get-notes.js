@@ -5,7 +5,7 @@ function getNotes(notes = null) {
   // Cas de figure 1 : un array personnalisé de notes est déjà fourni à la fonction (par le search-note.js par exemple)
   // Cas de figure 2 : je veux juste récupérer une liste actualisée de TOUTES mes notes (après une nouvelle note par exemple)
   if (notes) {
-    notes.notes.forEach((note) => {
+    notes.forEach((note) => {
       notesDiv.innerHTML += noteTemplate(note._id, note.title, note.text);
     });
   } else {

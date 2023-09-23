@@ -1,23 +1,15 @@
 const Note = require('../models/Note.js');
-const { client } = require('../data/mongoDB.js');
 const ObjectId = require('mongodb').ObjectId;
 
-// Provide the name of the database and collection you want to use.
-// If the database and/or collection do not exist, the driver and Atlas
-// will create them automatically when you first write data.
-const database = client.db('notepad');
-const collection = database.collection('notes');
 
 const getNotes = async (req, res) => {
   try {
-    const notes = await collection.find({}).toArray();
+    const notes = await Note.find({});
     // Si la requête est de type POST, alors renvoyer sous forme de JSON
     if (req.method == 'POST') {
-      console.log(req.method);
       res.setHeader('Content-Type', 'application/json');
       res.end(JSON.stringify({ note: notes }));
     } else {
-      console.log(req.method);
       res.render('notes', { notes: notes });
     }
   } catch (err) {
@@ -26,11 +18,10 @@ const getNotes = async (req, res) => {
 };
 
 const getNote = async (req, res) => {
-  console.log(req.body.id);
   const findOneQuery = { _id: new ObjectId(req.body.id) };
 
   try {
-    const note = await collection.findOne(findOneQuery);
+    const note = await Note.findOne(findOneQuery);
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify({ note: note }));
   } catch (err) {
@@ -39,11 +30,17 @@ const getNote = async (req, res) => {
 };
 
 const searchNote = async (req, res) => {
-  // En faire de même avec le colonne "title"
-  const findQuery = { title: `/${req.body.search}/` };
+  const search = req.body.search;
+  // Le "i" de $options est pour "insensitive case"
+  const findQuery = {
+    $or: [
+      { title: { $regex: search, $options: 'i' } },
+      { text: { $regex: search, $options: 'i' } },
+    ],
+  };
 
   try {
-    const notes = await collection.find(findQuery).toArray();
+    const notes = await Note.find(findQuery);
 
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify({ note: notes }));
@@ -59,9 +56,9 @@ const createNote = async (req, res) => {
   });
 
   try {
-    const note = await collection.insertOne(content);
+    await content.save();
   } catch (err) {
-    console.error();
+    console.error(err);
   }
 };
 
@@ -75,7 +72,7 @@ const updateNote = async (req, res) => {
   const options = { returnOriginal: false };
 
   try {
-    const updateResult = await collection.findOneAndUpdate(
+    const updateResult = await Note.findOneAndUpdate(
       note,
       noteContent,
       options
@@ -87,7 +84,7 @@ const updateNote = async (req, res) => {
 
 const deleteNote = async (req, res) => {
   try {
-    const deleteResult = await collection.deleteOne({
+    const deleteResult = await Note.deleteOne({
       _id: new ObjectId(req.body.id),
     });
 

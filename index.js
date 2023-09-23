@@ -4,9 +4,9 @@ const express = require('express');
 const app = express();
 const port = 3010;
 const path = require('path');
-const sqlite3 = require('./data/sqlite3.js');
-//const mongoDB = require('./data/mongoDB.js');
+const mongooseConnect = require('./data/mongoose.js');
 const notes_routes = require('./routes/notes.js');
+const users_routes = require('./routes/users.js');
 
 // Indispensable pour "ecouter" l'application
 app.listen(port, () => {
@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // Import des routes. Le 1er paramètre est un préfixe
 app.use('', notes_routes);
-//app.use('/products', products_routes);
+app.use('/users', users_routes);
 
 // Déclaration du dossier /views et initialisation des fichiers .pug
 app.set('view engine', 'pug');

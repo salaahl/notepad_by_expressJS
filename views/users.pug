@@ -1,0 +1,11 @@
+extends base
+
+append stylesheets
+
+block content
+    main
+        section
+            ul
+                h2 Utilisateurs :
+                for user in users
+                    li=user.name

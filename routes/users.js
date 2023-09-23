@@ -7,18 +7,17 @@ const {
   createUser,
   updateUser,
   deleteUser,
-} = require('../controllers/notes.js');
+} = require('../controllers/users.js');
 
 router.get('/', getUsers);
 
-router.post('/get-notes', getNotesAsynchronously);
+router.get('/:userID', getUser);
 
-router.post('/get-note', getUser);
+//router.post('/', createUser)
+router.get('/create-user', createUser);
 
-router.get('/create-note', createUser);
+router.put('/:userID', updateUser);
 
-router.put('/', updateUser);
-
-router.delete('/', deleteUser);
+router.delete('/:userID', deleteUser);
 
 module.exports = router;
