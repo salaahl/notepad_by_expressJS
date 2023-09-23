@@ -4,7 +4,7 @@ let timer;
 function notesButtonsListeners() {
   clearTimeout(timer);
   timer = setTimeout(function () {
-    document.querySelectorAll('.note').forEach((note) => {
+    document.querySelectorAll('.note-detail').forEach((note) => {
       note.addEventListener('click', getNote);
     });
 

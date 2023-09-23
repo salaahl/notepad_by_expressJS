@@ -12,7 +12,6 @@ function noteTemplate(id, title, text) {
     text +
     '</textarea>' +
     '</div>' +
-    '<button class="open-note">Ouvrir</button>' +
     '<button class="delete-note">Supprimer</button>' +
     '</article>';
 

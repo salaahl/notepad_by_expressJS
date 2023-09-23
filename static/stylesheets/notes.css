@@ -96,6 +96,16 @@ textarea:focus-visible {
   outline: 0;
 }
 
+h1 > span {
+  display: inline-block;
+  transform: translateY(0%);
+}
+
+h1 > span:hover {
+  transform: translateY(-5%);
+  transition: all .2s;
+}
+
 section:first-child {
   display: flex;
   justify-content: space-between;
@@ -135,12 +145,18 @@ section:first-child button {
   margin: 1% 0;
   border: 2px solid;
   overflow: hidden;
+  transform: translateY(0%);
   box-shadow: 0 0 0px 0px rgba(60,64,67,0.302), 0 0 0px 0px rgba(60,64,67,0.149);
 }
 
-.note:hover {
+.note-detail > *:hover {
+  cursor: pointer;
+}
+
+.note:has(.note-detail:hover) {
+  transform: translateY(-1%);
   box-shadow: 0 1px 3px 3px rgba(60,64,67,0.302), 0 1px 3px 0px rgba(60,64,67,0.149);
-  transition: box-shadow .2s;
+  transition: all .2s;
 }
 
 .note-detail {
