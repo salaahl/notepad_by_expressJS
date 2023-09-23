@@ -1,6 +1,6 @@
 @media (prefers-color-scheme: dark) {
   :root {
-    --note-title-background-color: darkslategray;
+    --note-title-background-color: lightsteelblue;
     --note-background-color: whitesmoke;
     --font-color: black;
   }
