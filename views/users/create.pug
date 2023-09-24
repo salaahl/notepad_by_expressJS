@@ -1,0 +1,32 @@
+extends ../base
+
+append stylesheets
+
+block content
+    h1
+        for letter of title
+            if letter == ' '
+                span(style="display: inline")=' '
+            span=letter
+
+    main
+        form(action='/users/create-user' method="POST")
+            .field
+                label(for='name' class='label') Prénom :
+                .control
+                    input#name(type='text' name='name' class='input')
+            .field
+                label(for='surname' class='label') Nom de famille :
+                .control
+                    input#surname(type='text' name='surname' class='input')
+            .field
+                label(for='email' class='label') E-mail :
+                .control
+                    input#email(type='email' name='email' class='input')
+            .field
+                label(for='password' class='label') Mot de passe :
+                .control
+                    input#password(type='password' name='password' class='input')
+            .field
+                .control
+                    input(type='submit' value='Soumettre')

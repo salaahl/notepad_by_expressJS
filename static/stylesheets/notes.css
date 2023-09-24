@@ -79,6 +79,14 @@ body {
   margin: 0;
 }
 
+.input,
+.select select,
+.textarea {
+  color: inherit;
+  border: 4px solid;
+  background-color: var(--bg-color);
+}
+
 input {
   color: inherit;
   background-color: inherit;
@@ -94,16 +102,6 @@ textarea {
 
 textarea:focus-visible {
   outline: 0;
-}
-
-h1 > span {
-  display: inline-block;
-  transform: translateY(0%);
-}
-
-h1 > span:hover {
-  transform: translateY(-5%);
-  transition: all .2s;
 }
 
 section:first-child {
@@ -146,7 +144,8 @@ section:first-child button {
   border: 2px solid;
   overflow: hidden;
   transform: translateY(0%);
-  box-shadow: 0 0 0px 0px rgba(60,64,67,0.302), 0 0 0px 0px rgba(60,64,67,0.149);
+  box-shadow: 0 0 0px 0px rgba(60, 64, 67, 0.302),
+    0 0 0px 0px rgba(60, 64, 67, 0.149);
 }
 
 .note-detail > *:hover {
@@ -155,8 +154,9 @@ section:first-child button {
 
 .note:has(.note-detail:hover) {
   transform: translateY(-1%);
-  box-shadow: 0 1px 3px 3px rgba(60,64,67,0.302), 0 1px 3px 0px rgba(60,64,67,0.149);
-  transition: all .2s;
+  box-shadow: 0 1px 3px 3px rgba(60, 64, 67, 0.302),
+    0 1px 3px 0px rgba(60, 64, 67, 0.149);
+  transition: all 0.2s;
 }
 
 .note-detail {

@@ -11,12 +11,15 @@ const {
 
 router.get('/', getUsers);
 
+router.get('/create', (req, res) => {
+  res.render('users/create', {title: 'Création d\'un nouvel utilisateur'});
+});
+
+router.post('/create', createUser);
+
+router.put('/update', updateUser);
+
 router.get('/:userID', getUser);
-
-//router.post('/', createUser)
-router.get('/create-user', createUser);
-
-router.put('/:userID', updateUser);
 
 router.delete('/:userID', deleteUser);
 

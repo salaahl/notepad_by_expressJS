@@ -25,7 +25,9 @@ document
   .querySelector('#close-modal-btn')
   .addEventListener('click', function () {
     saveNote();
-    getNotes();
+    setTimeout(() => {
+      getNotes();
+    }, 100);
     notesButtonsListeners();
     document.querySelector('#note-modal').classList.remove('active');
   });

@@ -9,7 +9,7 @@ const getUsers = async (req, res) => {
       res.setHeader('Content-Type', 'application/json');
       res.end(JSON.stringify({ user: users }));
     } else {
-      res.render('users', { users: users });
+      res.render('users/list', { title: 'Liste des utilisateurs', users: users });
     }
   } catch (err) {
     console.error(err);
@@ -50,10 +50,10 @@ const searchUser = async (req, res) => {
 
 const createUser = async (req, res) => {
   const user = new User({
-    name: 'Salaha',
-    surname: 'Sokhona',
-    email: 'sokhona.salaha@gmail.com',
-    password: 'Sokhona',
+    name: req.body.name,
+    surname: req.body.surname,
+    email: req.body.email,
+    password: req.body.password,
     roles: ['user'],
   });
 
