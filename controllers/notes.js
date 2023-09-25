@@ -30,8 +30,10 @@ const getNote = async (req, res) => {
 
 const searchNote = async (req, res) => {
   const search = req.body.search;
+  
   // Le "i" de $options est pour "insensitive case"
   const findQuery = {
+    user: req.cookies.user,
     $or: [
       { title: { $regex: search, $options: 'i' } },
       { text: { $regex: search, $options: 'i' } },
