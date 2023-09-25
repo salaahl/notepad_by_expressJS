@@ -3,7 +3,7 @@ require('dotenv').config();
 const express = require('express');
 var cookieParser = require('cookie-parser');
 const app = express();
-const port = 3010;
+const PORT = process.env.PORT || 5001
 const path = require('path');
 const initializeConnection = require('./data/mongoose.js');
 const morgan = require('morgan');
@@ -11,7 +11,6 @@ const cors = require('cors');
 const notes_routes = require('./routes/notes.js');
 const users_routes = require('./routes/users.js');
 
-const PORT = process.env.PORT || 5001
 
 // Indispensable pour "ecouter" l'application
 app.listen(PORT, () => {

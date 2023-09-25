@@ -3,7 +3,7 @@ const ObjectId = require('mongodb').ObjectId;
 
 const getNotes = async (req, res) => {
   try {
-    const notes = await Note.find({ user: req.cookies.user });
+    const notes = await Note.find({ user: req.user.email });
     // Si la requête est de type POST, alors renvoyer sous forme de JSON
     if (req.method == 'POST') {
       res.setHeader('Content-Type', 'application/json');
@@ -30,10 +30,10 @@ const getNote = async (req, res) => {
 
 const searchNote = async (req, res) => {
   const search = req.body.search;
-  
+
   // Le "i" de $options est pour "insensitive case"
   const findQuery = {
-    user: req.cookies.user,
+    user: req.user.email,
     $or: [
       { title: { $regex: search, $options: 'i' } },
       { text: { $regex: search, $options: 'i' } },
@@ -54,7 +54,7 @@ const createNote = async (req, res) => {
   const content = new Note({
     title: req.body.title,
     text: req.body.text,
-    user: new ObjectId(req.cookies.user),
+    user: req.user.email,
   });
 
   try {

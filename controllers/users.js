@@ -21,11 +21,6 @@ const logIn = async (req, res) => {
           httpOnly: true,
         });
 
-        res.cookie('user', user._id, {
-          maxAge: 600 * 1000,
-          httpOnly: true,
-        });
-
         res.redirect('/');
       } else {
         res.status(400).json({ error: "password doesn't match" });

@@ -6,7 +6,7 @@ const NoteSchema = new mongoose.Schema({
   tags: { type: String, required: false, maxLength: 100 },
   updated: { type: Date, required: true, default: Date.now },
   user: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.String,
     ref: 'User',
     required: true,
   },
