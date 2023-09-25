@@ -11,9 +11,11 @@ const cors = require('cors');
 const notes_routes = require('./routes/notes.js');
 const users_routes = require('./routes/users.js');
 
+const PORT = process.env.PORT || 5001
+
 // Indispensable pour "ecouter" l'application
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`Example app listening at http://localhost:${PORT}`);
 });
 
 // GLOBAL MIDDLEWARE
