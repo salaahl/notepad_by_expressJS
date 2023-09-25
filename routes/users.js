@@ -2,24 +2,25 @@ const express = require('express');
 const router = express.Router();
 
 const {
-  getUsers,
-  getUser,
-  createUser,
+  logIn,
+  signUp,
   updateUser,
   deleteUser,
 } = require('../controllers/users.js');
 
-router.get('/', getUsers);
-
-router.get('/create', (req, res) => {
-  res.render('users/create', {title: 'Création d\'un nouvel utilisateur'});
+router.get('/signup', (req, res) => {
+  res.render('users/signup', { title: "Création d'un nouvel utilisateur" });
 });
 
-router.post('/create', createUser);
+router.post('/signup', signUp);
 
 router.put('/update', updateUser);
 
-router.get('/:userID', getUser);
+router.get('/login', (req, res) => {
+  res.render('users/login', { title: 'Connexion' });
+});
+
+router.post('/login', logIn);
 
 router.delete('/:userID', deleteUser);
 

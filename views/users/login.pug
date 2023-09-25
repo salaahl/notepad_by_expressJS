@@ -1,0 +1,26 @@
+extends ../base
+
+append stylesheets
+    link(rel="stylesheet" href="/stylesheets/user-form.css")
+
+block content
+    h1
+        for letter of title
+            if letter == ' '
+                span(style="display: inline")=' ' 
+            span=letter
+
+    main
+        div#errors
+        form(action="/login" method="POST")
+            .field
+                label(for='email' class='label') E-mail :
+                .control
+                    input#email(type='email' name='email' class='input')
+            .field
+                label(for='password' class='label') Mot de passe :
+                .control
+                    input#password(type='password' name='password' class='input')
+            .field
+                .control
+                    input(type='submit' value='Soumettre')

@@ -1,54 +1,46 @@
 const User = require('../models/User.js');
 const ObjectId = require('mongodb').ObjectId;
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
-const getUsers = async (req, res) => {
+const logIn = async (req, res) => {
   try {
-    const users = await User.find({});
-    // Si la requête est de type POST, alors renvoyer sous forme de JSON
-    if (req.method == 'POST') {
-      res.setHeader('Content-Type', 'application/json');
-      res.end(JSON.stringify({ user: users }));
+    // check if the user exists
+    const user = await User.findOne({ email: req.body.email });
+    if (user) {
+      //check if password matches
+      const result = await bcrypt.compare(req.body.password, user.password);
+      if (result) {
+        // sign token and send it in response
+        // possibilité de lui donner un temps d'expiration, voir le "expiresIn"
+        const token = await jwt.sign({ email: user.email }, process.env.SECRET);
+
+        // 600*1000 pour 10 min
+        res.cookie('authorization', token, {
+          maxAge: 600 * 1000,
+          httpOnly: true,
+        });
+
+        res.cookie('user', user._id, {
+          maxAge: 600 * 1000,
+          httpOnly: true,
+        });
+
+        res.redirect('/');
+      } else {
+        res.status(400).json({ error: "password doesn't match" });
+      }
     } else {
-      res.render('users/list', { title: 'Liste des utilisateurs', users: users });
+      res.status(400).json({ error: "User doesn't exist" });
     }
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    res.status(400).json({ error });
   }
 };
 
-const getUser = async (req, res) => {
-  const findOneQuery = { _id: new ObjectId(req.body.id) };
+const signUp = async (req, res) => {
+  req.body.password = await bcrypt.hash(req.body.password, 10);
 
-  try {
-    const user = await User.findOne(findOneQuery);
-    res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify({ user: user }));
-  } catch (err) {
-    console.error(`Something went wrong trying to find one user: ${err}\n`);
-  }
-};
-
-const searchUser = async (req, res) => {
-  const search = req.body.search;
-  // Le "i" de $options est pour "insensitive case"
-  const findQuery = {
-    $or: [
-      { title: { $regex: search, $options: 'i' } },
-      { text: { $regex: search, $options: 'i' } },
-    ],
-  };
-
-  try {
-    const users = await User.find(findQuery);
-
-    res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify({ user: users }));
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-const createUser = async (req, res) => {
   const user = new User({
     name: req.body.name,
     surname: req.body.surname,
@@ -59,9 +51,20 @@ const createUser = async (req, res) => {
 
   try {
     await user.save();
-    console.log('Utilisateur ajouté !');
+    res.redirect('/login');
   } catch (err) {
-    console.error(err);
+    if (err.code === 11000) {
+      res.setHeader('Content-Type', 'application/json');
+      return res
+        .status(400)
+        .send({ message: 'Un compte avec cette adresse mail existe déjà.' });
+    }
+
+    // Error handling for misc validation errors
+    if (err.name === 'ValidationError') {
+      res.status(400);
+      return res.send(Object.values(err.errors)[0].message);
+    }
   }
 };
 
@@ -99,10 +102,8 @@ const deleteUser = async (req, res) => {
 };
 
 module.exports = {
-  getUsers,
-  getUser,
-  createUser,
-  searchUser,
+  logIn,
+  signUp,
   updateUser,
   deleteUser,
 };

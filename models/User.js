@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 
 /*
 A faire :
-- Hash du mot de passe
 - Validateur sur le email (validate: [isEmail, 'invalid email'] + l'import)
 */
 const userSchema = new mongoose.Schema({

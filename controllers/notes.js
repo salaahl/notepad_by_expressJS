@@ -1,10 +1,9 @@
 const Note = require('../models/Note.js');
 const ObjectId = require('mongodb').ObjectId;
 
-
 const getNotes = async (req, res) => {
   try {
-    const notes = await Note.find({});
+    const notes = await Note.find({ user: req.cookies.user });
     // Si la requête est de type POST, alors renvoyer sous forme de JSON
     if (req.method == 'POST') {
       res.setHeader('Content-Type', 'application/json');
@@ -53,6 +52,7 @@ const createNote = async (req, res) => {
   const content = new Note({
     title: req.body.title,
     text: req.body.text,
+    user: new ObjectId(req.cookies.user),
   });
 
   try {

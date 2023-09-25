@@ -1,16 +1,18 @@
 extends ../base
 
 append stylesheets
+    link(rel="stylesheet" href="/stylesheets/user-form.css")
 
 block content
     h1
         for letter of title
             if letter == ' '
-                span(style="display: inline")=' '
+                span(style="display: inline")=' ' 
             span=letter
 
     main
-        form(action='/users/create-user' method="POST")
+        div#errors
+        form(action="/signup" method="POST")
             .field
                 label(for='name' class='label') Prénom :
                 .control
