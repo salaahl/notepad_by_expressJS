@@ -338,7 +338,6 @@ section:first-child button {
   right: 2vw;
   bottom: 2vw;
   height: auto;
-  width: 5vw;
   aspect-ratio: 1;
   border-radius: 50px;
   background-color: indianred;
@@ -346,4 +345,8 @@ section:first-child button {
 
 #logout:hover {
   cursor: pointer;
+}
+
+#logout > i {
+  scale: 1.5;
 }
