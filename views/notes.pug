@@ -1,7 +1,9 @@
 extends base
 
+
 append stylesheets
     link(rel="stylesheet" href="/stylesheets/notes.css")
+
 
 block content
     h1
@@ -38,6 +40,7 @@ block content
                     button(id="close-modal-btn" class="button-stylised") Sauvegarder
 
         div(id="logout" onclick="logOut()")
+            i.fa-solid.fa-right-from-bracket
 
 
 block js
