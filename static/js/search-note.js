@@ -19,6 +19,5 @@ document.querySelector('#search-note').addEventListener('keyup', function () {
     })
     .catch((error) => {
       console.log(error.message);
-      alert('Erreur.');
     });
 });
