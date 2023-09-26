@@ -24,7 +24,7 @@ document
     saveNote();
     setTimeout(() => {
       getNotes();
-    }, 10);
+    }, 100);
     notesButtonsListeners();
     $('#search-note').value = null;
     document.querySelector('#note-modal').classList.remove('active');
