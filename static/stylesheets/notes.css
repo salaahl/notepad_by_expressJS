@@ -29,6 +29,10 @@
   #note-modal span {
     width: min-content;
   }
+
+  #logout {
+    width: 70px;
+  }
 }
 
 @media (min-width: 768px) {
@@ -43,6 +47,10 @@
 
   #note-modal span {
     width: fit-content;
+  }
+
+  #logout {
+    width: 80px;
   }
 }
 
@@ -320,4 +328,22 @@ section:first-child button {
   height: 10%;
   padding: 0 1%;
   width: 100%;
+}
+
+#logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  right: 2vw;
+  bottom: 2vw;
+  height: auto;
+  width: 5vw;
+  aspect-ratio: 1;
+  border-radius: 50px;
+  background-color: indianred;
+}
+
+#logout:hover {
+  cursor: pointer;
 }
