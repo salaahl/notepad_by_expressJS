@@ -22,6 +22,11 @@ router.get('/login', (req, res) => {
 
 router.post('/login', logIn);
 
+router.get('/logout', (req, res) => {
+  res.clearCookie('authorization');
+  res.redirect('/login');
+});
+
 router.delete('/:userID', deleteUser);
 
 module.exports = router;
