@@ -26,7 +26,6 @@ function getNote() {
     })
     .catch((error) => {
       console.log(error.message);
-      alert('Erreur.');
     });
 }
 
@@ -58,7 +57,6 @@ function saveNote() {
     .then((data) => {})
     .catch((error) => {
       console.log(error.message);
-      alert('Erreur.');
     });
 }
 
@@ -87,7 +85,6 @@ function deleteNote() {
       })
       .catch((error) => {
         console.log(error.message);
-        alert('Erreur.');
       });
   }
 }

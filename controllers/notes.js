@@ -59,6 +59,7 @@ const createNote = async (req, res) => {
 
   try {
     await content.save();
+    res.end();
   } catch (err) {
     console.error(err);
   }
@@ -79,6 +80,7 @@ const updateNote = async (req, res) => {
       noteContent,
       options
     );
+    res.end();
   } catch (err) {
     console.error(err);
   }
