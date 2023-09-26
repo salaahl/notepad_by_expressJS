@@ -112,3 +112,9 @@ function disableDeleteNote() {
     note.querySelector('.note-detail').addEventListener('click', getNote);
   });
 }
+
+function logOut() {
+  if(confirm('Se déconnecter ?')) {
+    window.location.replace('/logout');
+  }
+}
