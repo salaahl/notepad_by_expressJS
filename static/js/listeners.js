@@ -1,9 +1,6 @@
 // Définition d'un timer pour permettre aux notes de se charger avant que le querySelector ne se lance en cas de recharge des notes
-let timer;
-
 function notesButtonsListeners() {
-  clearTimeout(timer);
-  timer = setTimeout(function () {
+  setTimeout(function () {
     document.querySelectorAll('.note-detail').forEach((note) => {
       note.addEventListener('click', getNote);
     });
@@ -11,7 +8,7 @@ function notesButtonsListeners() {
     document.querySelectorAll('.delete-note').forEach((note) => {
       note.addEventListener('click', deleteNote);
     });
-  }, 500);
+  }, 1000);
 }
 
 // Nouvelle note
@@ -27,7 +24,7 @@ document
     saveNote();
     setTimeout(() => {
       getNotes();
-    }, 100);
+    }, 10);
     notesButtonsListeners();
     $('#search-note').value = null;
     document.querySelector('#note-modal').classList.remove('active');

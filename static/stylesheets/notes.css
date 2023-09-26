@@ -112,6 +112,50 @@ textarea:focus-visible {
   outline: 0;
 }
 
+h1 > span {
+  animation: title-animation 30s linear infinite;
+}
+
+h1 > span:nth-child(1) {
+  --color-1: #D2E0FB;
+  --color-2: #F9F3CC;
+  --color-3: #D7E5CA;
+  --color-4: #8EACCD;
+  --color-5: #2E4374;
+}
+
+h1 > span:nth-child(2) {
+  --color-1: #2E4374;
+  --color-2: #D2E0FB;
+  --color-3: #F9F3CC;
+  --color-4: #D7E5CA;
+  --color-5: #8EACCD;
+}
+
+h1 > span:nth-child(3) {
+  --color-1: #8EACCD;
+  --color-2: #2E4374;
+  --color-3: #D2E0FB;
+  --color-4: #F9F3CC;
+  --color-5: #D7E5CA;
+}
+
+h1 > span:nth-child(4) {
+  --color-1: #D7E5CA;
+  --color-2: #8EACCD;
+  --color-3: #2E4374;
+  --color-4: #D2E0FB;
+  --color-5: #F9F3CC;
+}
+
+h1 > span:nth-child(5) {
+  --color-1: #F9F3CC;
+  --color-2: #D7E5CA;
+  --color-3: #8EACCD;
+  --color-4: #2E4374;
+  --color-5: #D2E0FB;
+}
+
 section:first-child {
   display: flex;
   justify-content: space-between;
@@ -140,6 +184,7 @@ section:first-child button {
 #notes {
   display: flex;
   flex-wrap: wrap;
+  transition: all .5s;
 }
 
 .note {
@@ -162,8 +207,8 @@ section:first-child button {
 
 .note:has(.note-detail:hover) {
   transform: translateY(-1%);
-  box-shadow: 0 1px 3px 3px rgba(60, 64, 67, 0.302),
-    0 1px 3px 0px rgba(60, 64, 67, 0.149);
+  box-shadow: 0 1px 3px 3px rgb(60 64 67 / 20%),
+    0 1px 3px 0px rgb(60 64 67 / 10%);
   transition: all 0.2s;
 }
 
@@ -349,4 +394,22 @@ section:first-child button {
 
 #logout > i {
   scale: 1.5;
+}
+
+@keyframes title-animation {
+  0% {
+    color: var(--color-1);
+  }
+  25% {
+    color: var(--color-2);
+  }
+  50% {
+    color: var(--color-3);
+  }
+  75% {
+    color: var(--color-4);
+  }
+  100% {
+    color: var(--color-1);
+  }
 }
