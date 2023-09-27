@@ -1,3 +1,5 @@
+let x =  document.cookie;
+  
 if(getCookie("authorization")) {
   setTimeout(() => {
     window.location.replace('/login');
