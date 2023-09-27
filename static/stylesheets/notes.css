@@ -392,10 +392,6 @@ section:first-child button {
   cursor: pointer;
 }
 
-#logout > i {
-  scale: 1.5;
-}
-
 @keyframes title-animation {
   0% {
     color: var(--color-1);
