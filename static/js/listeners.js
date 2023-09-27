@@ -1,20 +1,23 @@
-function getCookie(cname) {
-   var name = cname + "=";
-   var ca = document.cookie.split(';');
-   for(var i=0; i<ca.length; i++) {
-      var c = ca[i];
-      while (c.charAt(0)==' ') c = c.substring(1);
-      if(c.indexOf(name) == 0)
-         return c.substring(name.length,c.length);
-   }
-   return "";
-}
-  
-if(getCookie("authorization")) {
-  setTimeout(() => {
-    window.location.replace('/login');
-  }, 10000);
-}
+/*
+Minuteur qui va déconnecter* l'utilisateur au bout de 10 min d'inactivité 
+(et sauvegarder le contenu d'une note si son contenu est en cours d'édition).
+
+*Les 10min sont alignées sur la durée de vie du cookie.
+*/
+let appTimer;
+
+['mousemove', 'keyup'].forEach((evt) => {
+  addEventListener(evt, () => {
+    clearTimeout(appTimer);
+
+    appTimer = setTimeout(() => {
+      if ($('#note-modal').classList.contains('active')) {
+        saveNote();
+      }
+      window.location.replace('/login');
+    }, 100000);
+  });
+});
 
 // Définition d'un timer pour permettre aux notes de se charger avant que le querySelector ne se lance en cas de recharge des notes
 function notesButtonsListeners() {
