@@ -1,5 +1,8 @@
 // Définition d'un timer pour permettre aux notes de se charger avant que le querySelector ne se lance en cas de recharge des notes
 function notesButtonsListeners() {
+  // returns object of the single cookie by NAME
+  // Ceci est un test
+  cookieStore.get('authorization').then(cookies=>console.log(cookies))
   setTimeout(function () {
     document.querySelectorAll('.note-detail').forEach((note) => {
       note.addEventListener('click', getNote);
