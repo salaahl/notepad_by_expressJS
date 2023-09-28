@@ -16,10 +16,7 @@ const logIn = async (req, res) => {
         const token = await jwt.sign({ email: user.email }, process.env.SECRET);
 
         // 600*1000 pour 10 min
-        res.cookie('authorization', token, {
-          maxAge: 600 * 1000,
-          httpOnly: true,
-        });
+        res.setHeader('Set-Cookie', 'authorization=' + token + ';expires=10000;path=/');
 
         res.redirect('/');
       } else {
