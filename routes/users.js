@@ -9,10 +9,10 @@ const {
 } = require('../controllers/users.js');
 
 router.get('/signup', (req, res) => {
-  res.render('users/signup', { title: "Création d'un nouvel utilisateur" });
+  res.render('users/signup', { title: "Nouvel utilisateur" });
 });
 
-router.post('/signup', signUp);
+router.put('/signup', signUp);
 
 router.put('/update', updateUser);
 

@@ -1,0 +1,63 @@
+@media (prefers-color-scheme: dark) {
+
+}
+
+@media (prefers-color-scheme: light) {
+
+}
+
+@media (max-width: 767px) {
+  
+}
+
+@media (min-width: 768px) {
+
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+
+}
+
+@media (min-width: 1024px) {
+
+}
+
+@media (min-width: 1280px) {
+}
+
+@media (max-width: 1280px) {
+}
+
+
+main {
+  max-width: 768px;
+}
+
+#login {
+  padding: 2%;
+  border-radius: 20px;
+  background-color: antiquewhite;
+}
+
+#errors > span {
+  display: block;
+  width: 100%;
+  padding: 1%;
+  margin-bottom: 1%;
+  border-radius: 10px;
+  font-weight: bold;
+  text-align: center;
+  background-color: red;
+}
+
+.button-stylised {
+  width: 250px;
+}
+
+.control:has(.button-stylised) {
+  text-align: center;
+}
+
+aside {
+  margin: 5% 0;
+}

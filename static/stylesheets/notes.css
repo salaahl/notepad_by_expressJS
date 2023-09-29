@@ -80,12 +80,6 @@
 @media (max-width: 1280px) {
 }
 
-html,
-body {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-}
 
 .input,
 .select select,

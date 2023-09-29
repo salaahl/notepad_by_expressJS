@@ -14,6 +14,11 @@ const isAuthenticated = async (req, res, next) => {
         if (payload) {
           // store user data in request object
           req.user = payload;
+          // Renouvellement du temps d'expiration du cookie
+          res.cookie('authorization', req.headers.authorization, {
+            maxAge: 600 * 1000,
+            httpOnly: true,
+          });
           next();
         } else {
           res.status(400).json({ error: 'token verification failed' });

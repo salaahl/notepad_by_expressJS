@@ -16,14 +16,17 @@ const logIn = async (req, res) => {
         const token = await jwt.sign({ email: user.email }, process.env.SECRET);
 
         // 600*1000 pour 10 min
-        res.setHeader('Set-Cookie', 'authorization=' + token + ';expires=10000;path=/');
+        res.cookie('authorization', token, {
+          maxAge: 600 * 1000,
+          httpOnly: true,
+        });
 
         res.redirect('/');
       } else {
-        res.status(400).json({ error: "password doesn't match" });
+        res.status(400).json({ error: 'Le mot de passe est incorrect' });
       }
     } else {
-      res.status(400).json({ error: "User doesn't exist" });
+      res.status(400).json({ error: "L'utilisateur n'existe pas" });
     }
   } catch (error) {
     res.status(400).json({ error });
@@ -49,7 +52,7 @@ const signUp = async (req, res) => {
       res.setHeader('Content-Type', 'application/json');
       return res
         .status(400)
-        .send({ message: 'Un compte avec cette adresse mail existe déjà.' });
+        .send({ error: 'Un compte avec cette adresse mail existe déjà.' });
     }
 
     // Error handling for misc validation errors

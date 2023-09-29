@@ -1,26 +1,35 @@
 extends ../base
 
 append stylesheets
-    link(rel="stylesheet" href="/stylesheets/user-form.css")
+    link(rel="stylesheet" href="/stylesheets/user-sign.css")
 
 block content
     h1
+        <!-- Permet de "matérialiser" les espaces -->
         for letter of title
             if letter == ' '
                 span(style="display: inline")=' ' 
             span=letter
 
     main
-        div#errors
-        form(action="/login" method="POST")
-            .field
-                label(for='email' class='label') E-mail :
-                .control
-                    input#email(type='email' name='email' class='input')
-            .field
-                label(for='password' class='label') Mot de passe :
-                .control
-                    input#password(type='password' name='password' class='input')
-            .field
-                .control
-                    input(type='submit' value='Soumettre')
+        div#login
+            div#errors
+            form#login-form
+                .field
+                    label(for='email' class='label') E-mail :
+                    .control
+                        input#email(type='email' name='email' class='input' required)
+                .field
+                    label(for='password' class='label') Mot de passe :
+                    .control
+                        input#password(type='password' name='password' class='input' required)
+                .field
+                    .control
+                        button(class="button-stylised" type='submit') Soumettre
+
+        aside
+            .control
+                a(href="./signup" class="button-stylised") S'inscrire
+
+block js
+    script(src='/js/user-sign.js')
