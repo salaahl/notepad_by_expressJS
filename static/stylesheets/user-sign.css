@@ -54,7 +54,7 @@ main {
   width: 250px;
 }
 
-aside.button-stylised {
+aside .button-stylised {
   border-radius: 0;
 }
 
