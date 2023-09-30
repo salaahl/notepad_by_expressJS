@@ -54,6 +54,10 @@ main {
   width: 250px;
 }
 
+.button-stylised:last-child {
+  border-radius: 0;
+}
+
 .control:has(.button-stylised) {
   text-align: center;
 }
