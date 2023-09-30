@@ -1,12 +1,17 @@
 @media (prefers-color-scheme: dark) {
-  --main-bg-color: black;
+  :root {
+    --main-bg-color: black;
+  }
+  
   .label {
     color: white;
   }
 }
 
 @media (prefers-color-scheme: light) {
-  --main-bg-color: antiquewhite;
+  :root {
+    --main-bg-color: antiquewhite;
+  }
 }
 
 @media (max-width: 767px) {
