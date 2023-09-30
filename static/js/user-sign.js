@@ -45,10 +45,11 @@ $('form').addEventListener('submit', function (e) {
   fetch(request)
     .then((response) => response.json())
     .then((data) => {
-      if(1 == 2) {
+      if(data.error) {
         $('#errors').innerHTML = '<span>' + data.error + '</span>';
+      } else if(data.redirect) {
+        window.location.replace(data.redirect);
       }
-      window.location.replace(data.redirect);
     })
     .catch((error) => {
       console.log(error.message);
