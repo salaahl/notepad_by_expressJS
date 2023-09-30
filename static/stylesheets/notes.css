@@ -202,7 +202,7 @@ section:first-child button {
 
 .note:has(.note-detail:hover) {
   transform: translateY(-1%);
-  box-shadow: 0 1px 3px 3px rgb(60 64 67 / 20%),
+  box-shadow: 0px 4px 0px 0px rgb(60 64 67 / 20%), 
     0 1px 3px 0px rgb(60 64 67 / 10%);
 }
 
