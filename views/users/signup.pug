@@ -4,13 +4,12 @@ append stylesheets
     link(rel="stylesheet" href="/stylesheets/user-sign.css")
 
 block content
-    h1
-        for letter of title
-            if letter == ' '
-                span(style="display: inline")=' ' 
-            span=letter
-
     main
+        h1
+            for letter of title
+                if letter == ' '
+                    span(style="display: inline")=' ' 
+                span=letter
         div#main-container
             div#errors
             form#signup-form

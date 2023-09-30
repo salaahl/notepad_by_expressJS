@@ -19,8 +19,6 @@ let appTimer;
   });
 });
 
-console.log(document.cookie);
-
 // Définition d'un timer pour permettre aux notes de se charger avant que le querySelector ne se lance en cas de recharge des notes
 function notesButtonsListeners() {
   setTimeout(function () {
