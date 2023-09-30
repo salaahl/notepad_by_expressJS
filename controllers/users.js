@@ -21,7 +21,7 @@ const logIn = async (req, res) => {
           httpOnly: true,
         });
 
-        res.redirect('/');
+        return res.json({ redirect: '/' });
       } else {
         res.status(400).json({ error: 'Le mot de passe est incorrect' });
       }
@@ -46,7 +46,7 @@ const signUp = async (req, res) => {
 
   try {
     await user.save();
-    res.redirect('/login');
+    return res.json({ redirect: '/login' });
   } catch (err) {
     if (err.code === 11000) {
       res.setHeader('Content-Type', 'application/json');
