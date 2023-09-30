@@ -40,7 +40,7 @@
 
 @media (min-width: 768px) and (max-width: 1023px) {
   body h1 {
-    font-size: 10vw;
+    font-size: 8vw;
     -webkit-text-stroke: 4px var(--text-stroke-color);
   }
 
@@ -55,7 +55,7 @@
 
 @media (min-width: 1024px) and (max-width: 1280px) {
   body h1 {
-    font-size: 7vw;
+    font-size: 5vw;
     -webkit-text-stroke: 4px var(--text-stroke-color);
   }
 
@@ -70,7 +70,7 @@
 
 @media (min-width: 1280px) {
   body h1 {
-    font-size: 6vw;
+    font-size: 4vw;
     -webkit-text-stroke: 4px var(--text-stroke-color);
   }
 
