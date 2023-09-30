@@ -1,5 +1,5 @@
 // Recherche d'une note
-document.querySelector('#search-note').addEventListener('change', function () {
+document.querySelector('#search-note').addEventListener('input', function () {
   let data = {
     search: this.value,
   };
