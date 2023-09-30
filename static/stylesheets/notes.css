@@ -193,6 +193,7 @@ section:first-child button {
   transform: translateY(0%);
   box-shadow: 0 0 0px 0px rgba(60, 64, 67, 0.302),
     0 0 0px 0px rgba(60, 64, 67, 0.149);
+  transition: all 0.2s;
 }
 
 .note-detail > *:hover {
@@ -203,7 +204,6 @@ section:first-child button {
   transform: translateY(-1%);
   box-shadow: 0 1px 3px 3px rgb(60 64 67 / 20%),
     0 1px 3px 0px rgb(60 64 67 / 10%);
-  transition: all 0.2s;
 }
 
 .note-detail {
