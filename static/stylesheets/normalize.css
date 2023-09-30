@@ -125,11 +125,11 @@ body h1 {
 h1 > span {
   display: inline-block;
   transform: translateY(0%);
+  transition: all 0.2s;
 }
 
 h1 > span:hover {
   transform: translateY(-5%);
-  transition: all 0.2s;
 }
 
 body h3 {
