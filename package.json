@@ -1,5 +1,5 @@
 {
-  "name": "node-starter",
+  "name": "starter",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -12,11 +12,25 @@
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
-    "express": "^4.17.1",
+    "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.5.2",
     "morgan": "^1.10.0",
     "nodemon": "^3.0.1",
     "pug": "^3.0.2"
-  }
+  },
+  "description": "Ce projet est un **bloc-notes en ligne** inspiré de **Google Keep**, permettant aux utilisateurs de créer, éditer, supprimer et organiser leurs notes. Il utilise une **architecture basée sur JavaScript** avec une interface utilisateur moderne, construite avec **Pug** et **Bulma CSS**.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/salaahl/notepad_by_expressJS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/salaahl/notepad_by_expressJS/issues"
+  },
+  "homepage": "https://github.com/salaahl/notepad_by_expressJS#readme"
 }

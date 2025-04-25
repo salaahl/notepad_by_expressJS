@@ -9,7 +9,7 @@ const {
 } = require('../controllers/users.js');
 
 router.get('/signup', (req, res) => {
-  res.render('users/signup', { title: "Nouvel utilisateur" });
+  res.render('users/signup', { title: "Inscription" });
 });
 
 router.put('/signup', signUp);

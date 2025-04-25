@@ -1,7 +1,7 @@
 services:
   - type: web
     name: express-app
-    runtime: docker  # Ajout du runtime
+    runtime: docker
     buildCommand: "docker build -t express-app ."
     startCommand: "docker run -p 3000:3000 express-app"
     plan: free

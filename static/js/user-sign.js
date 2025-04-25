@@ -2,35 +2,35 @@ let $ = (id) => {
   return document.querySelector(id);
 };
 
-$('form').addEventListener('submit', function (e) {
+$("form").addEventListener("submit", function (e) {
   e.preventDefault();
 
   let route = null;
   let method = null;
   let data = null;
 
-  if (this.id == 'signup-form') {
+  if (this.id == "signup-form") {
     if (
-      $('input[name=password]').value !==
-      $('input[name=confirm-password]').value
+      $("input[name=password]").value !==
+      $("input[name=confirm-password]").value
     ) {
-      return alert('Les mots de passe ne correspondent pas');
+      return alert("Les mots de passe ne correspondent pas");
     }
 
-    route = '/signup';
-    method = 'PUT';
+    route = "/signup";
+    method = "PUT";
     data = {
-      name: $('input[name=name]').value,
-      surname: $('input[name=surname]').value,
-      email: $('input[name=email]').value,
-      password: $('input[name=password]').value,
+      name: $("input[name=name]").value,
+      surname: $("input[name=surname]").value,
+      email: $("input[name=email]").value,
+      password: $("input[name=password]").value,
     };
   } else {
-    route = '/login';
-    method = 'POST';
+    route = "/login";
+    method = "POST";
     data = {
-      email: $('input[name=email]').value,
-      password: $('input[name=password]').value,
+      email: $("input[name=email]").value,
+      password: $("input[name=password]").value,
     };
   }
 
@@ -38,16 +38,16 @@ $('form').addEventListener('submit', function (e) {
     method: method,
     body: JSON.stringify(data),
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   });
 
   fetch(request)
     .then((response) => response.json())
     .then((data) => {
-      if(data.error) {
-        $('#errors').innerHTML = '<span>' + data.error + '</span>';
-      } else if(data.redirect) {
+      if (data.error) {
+        $("#errors").innerHTML = "<span>" + data.error + "</span>";
+      } else if (data.redirect) {
         window.location.replace(data.redirect);
       }
     })

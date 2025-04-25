@@ -5,13 +5,13 @@ append stylesheets
 
 block content
     main
-        h1
-            for letter of title
-                if letter == ' '
-                    span(style="display: inline")=' ' 
-                span=letter
-                
-        div#main-container
+        div.container
+            h1
+                for letter of title
+                    if letter == ' '
+                        span(style="display: inline")=' ' 
+                    span=letter
+                    
             div#errors
             form#login-form
                 .field
