@@ -32,7 +32,7 @@ aside {
   margin: 8% 0;
 }
 
-main > .container {
+main > .sign-container {
   max-width: 768px;
   margin: auto;
   padding: 5%;
