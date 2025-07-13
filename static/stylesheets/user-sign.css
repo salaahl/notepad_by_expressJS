@@ -33,7 +33,7 @@ aside {
 }
 
 main > .sign-container {
-  max-width: 768px;
+  max-width: 500px;
   margin: auto;
   padding: 5%;
   border-radius: 20px;
