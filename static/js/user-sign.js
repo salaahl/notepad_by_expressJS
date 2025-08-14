@@ -15,6 +15,16 @@ $("form").addEventListener("submit", function (e) {
       $("input[name=confirm-password]").value
     ) {
       return alert("Les mots de passe ne correspondent pas");
+    } else if ($("input[name=password]").value < 8) {
+      return alert("Le mot de passe doit contenir au moins 8 caractères");
+    } else if (
+      !/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(
+        $("input[name=password]").value
+      )
+    ) {
+      return alert(
+        "Le mot de passe doit contenir au moins une lettre et un chiffre"
+      );
     }
 
     route = "/signup";
