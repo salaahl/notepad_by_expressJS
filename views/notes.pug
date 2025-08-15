@@ -17,8 +17,14 @@ block content
                     input(id="search-note" class="input" type="text" name="search-note" placeholder="Rechercher une note")
 
             div
-                button(id="new-note" class="button-stylised" onclick="") Nouvelle note
-                button(id="enable-delete-note" class="button-stylised" onclick="enableDeleteNote()") Supprimer une note
+                button#new-note.button-stylised(onclick="")
+                    svg(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor")
+                        path(d="M19 11H13V5a1 1 0 1 0-2 0v6H5a1 1 0 1 0 0 2h6v6a1 1 0 1 0 2 0v-6h6a1 1 0 1 0 0-2z")
+
+                button#enable-delete-note.button-stylised(onclick="enableDeleteNote()")
+                    svg(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor")
+                        path(d="M9 3v1H4v2h16V4h-5V3h-6zm1 5v10h2V8h-2zm-4 0v10h2V8H6zm8 0v10h2V8h-2z")
+
                 button(id="disable-delete-note" class="button-stylised" onclick="disableDeleteNote()") Terminer
 
         section(id="notes")
@@ -27,7 +33,7 @@ block content
                     input(type="text" name="note-id" value=note._id hidden)
                     div(class="note-detail")
                         div(class="note-title")=note.title
-                        textarea(class="note-text" readonly)=note.text
+                        textarea(class="note-text" name="note-text" readonly)=note.text
                     button(class="delete-note") Supprimer
 
         article(id="note-modal")
@@ -41,7 +47,6 @@ block content
 
         div(id="logout" onclick="logOut()")
             i.fa-solid.fa-right-from-bracket
-
 
 block js
     script(src='/js/note-template.js')

@@ -1,23 +1,22 @@
-// Recherche d'une note
-document.querySelector('#search-note').addEventListener('input', function () {
-  let data = {
-    search: this.value,
-  };
+let searchTimeout;
 
-  const request = new Request('/search-note', {
-    method: 'POST',
-    body: JSON.stringify(data),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+document.querySelector("#search-note").addEventListener("input", function () {
+  clearTimeout(searchTimeout);
 
-  fetch(request)
-    .then((response) => response.json())
-    .then((data) => {
-      getNotes(data.note);
+  searchTimeout = setTimeout(() => {
+    let data = { search: this.value };
+
+    fetch("/search-note", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: { "Content-Type": "application/json" },
     })
-    .catch((error) => {
-      console.log(error.message);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        getNotes(data.note);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }, 500);
 });

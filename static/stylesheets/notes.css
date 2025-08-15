@@ -1,32 +1,15 @@
-@media (prefers-color-scheme: dark) {
-  :root {
-    --note-title-background-color: darkslategrey;
-    --note-background-color: rgb(31, 41, 55);
-  }
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    --note-title-background-color: antiquewhite;
-    --note-background-color: white;
-  }
+:root {
+  --note-title-background-color: rgb(0, 189, 126, 1);
+  --note-background-color: rgb(249, 250, 251, 1);
 }
 
 @media (max-width: 767px) {
-  section:first-child {
-    flex-wrap: wrap;
-  }
-
-  section:first-child > div:last-child {
-    margin-top: 5%;
-  }
-
-  section:first-child button:first-child {
-    margin-right: 15px;
-  }
-
   .note {
     width: 48%;
+  }
+
+  .note textarea {
+    font-size: medium;
   }
 
   #notes {
@@ -48,15 +31,6 @@
 }
 
 @media (min-width: 768px) {
-  section:first-child div:last-child {
-    margin-left: 1%;
-  }
-
-  section:first-child button {
-    width: min-content;
-    margin: 0 1% 0 1%;
-  }
-
   .note {
     width: 32%;
   }
@@ -68,10 +42,6 @@
 
   #note-modal span {
     width: fit-content;
-  }
-
-  #logout {
-    width: 80px;
   }
 }
 
@@ -99,8 +69,10 @@
 .select select,
 .textarea {
   color: inherit;
-  border: 4px solid;
-  background-color: var(--bg-color);
+  border: 0;
+  background-color: rgb(249 250 251);
+  box-shadow: #ffffff05 0 1px 1px inset, #32325d0d 0 50px 100px -20px,
+    #0000000f 0 30px 60px -30px;
 }
 
 input {
@@ -174,6 +146,11 @@ section:first-child div:first-child {
   width: 100%;
 }
 
+section:first-child button:first-of-type {
+  width: min-content;
+  margin: 0 10px 0 10px;
+}
+
 section:first-child div:last-child {
   display: flex;
 }
@@ -196,10 +173,10 @@ section:first-child div:last-child {
   align-items: center;
   aspect-ratio: 1;
   margin: 1% 0;
-  border: 2px solid;
   overflow: hidden;
   transform: translateY(0%);
-  box-shadow: 0 0 0px 0px rgba(0, 0, 0, 0), 0 0 0px 0px rgba(0, 0, 0, 0);
+  box-shadow: #ffffff03 0 1px 1px inset, #32325d06 0 50px 100px -20px,
+    #00000008 0 30px 60px -30px;
   transition: all 1s
     linear(
       0 0%,
@@ -243,37 +220,51 @@ section:first-child div:last-child {
 
 .note:has(.note-detail:hover) {
   transform: translateY(-1%);
-  box-shadow: 0px 4px 0px 0px rgb(60 64 67 / 20%),
-    0 10px 15px 0px rgb(60 64 67 / 10%);
+  box-shadow: #ffffff05 0 1px 1px inset, #32325d0d 0 50px 100px -20px,
+    #0000000f 0 30px 60px -30px;
 }
 
 .note-detail {
   height: 100%;
-  width: 100%;
+  width: 80%;
 }
 
 .note-title {
   height: auto;
-  width: 80%;
-  margin: auto;
+  margin: 5% auto 0 auto;
   padding: 1% 2%;
-  border-radius: 0 0 5px 5px;
+  border-radius: 5px;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
 }
 
 .note textarea {
+  position: absolute;
+  top: 0;
+  left: 0;
   height: inherit;
+  padding: 15% 4%;
+  text-align: center;
   overflow: hidden;
   z-index: -1;
-  position: relative;
+  mask-image: linear-gradient(
+      to top,
+      rgb(249, 250, 251, 0) 0%,
+      rgb(249, 250, 251, 1) 50px
+    ),
+    linear-gradient(
+      to bottom,
+      rgb(249, 250, 251, 0) 0%,
+      rgb(249, 250, 251, 1) 150px
+    );
+  mask-composite: intersect;
 }
 
 .open-note,
 .delete-note {
   position: relative;
-  height: 22%;
+  height: 15%;
   width: 70%;
   margin: -32% 0 10% 0;
   font-weight: 600;
@@ -286,6 +277,7 @@ section:first-child div:last-child {
 }
 
 .delete-note {
+  cursor: pointer;
   background-color: indianred;
 }
 
@@ -300,7 +292,7 @@ section:first-child div:last-child {
 
 .note,
 #note-modal-inner {
-  border-radius: 5px;
+  border-radius: 15px;
   background-color: var(--note-background-color);
 }
 
@@ -380,10 +372,6 @@ section:first-child div:last-child {
   overflow: hidden;
 }
 
-#note-modal.active > #note-modal-inner {
-  border: 2px solid;
-}
-
 #note-modal form {
   height: 90%;
   width: 100%;
@@ -397,10 +385,6 @@ section:first-child div:last-child {
 
 #note-modal textarea {
   height: 90%;
-}
-
-#note-modal textarea,
-.note-text {
   padding: 2%;
 }
 
@@ -421,7 +405,10 @@ section:first-child div:last-child {
   right: 2vw;
   bottom: 2vw;
   height: auto;
+  width: 60px;
   aspect-ratio: 1;
+  padding: 7.5px 15px;
+  font-weight: bold;
   border-radius: 50px;
   background-color: indianred;
 }

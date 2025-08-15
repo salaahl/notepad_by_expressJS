@@ -38,6 +38,10 @@ function saveNote() {
     text: document.querySelector("#note-modal textarea").value,
   };
 
+  if (data.title == "" && data.text == "") {
+    return;
+  }
+
   if (data.id == "") {
     route = "/create-note";
   } else {
