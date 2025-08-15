@@ -108,7 +108,7 @@ function enableDeleteNote() {
 }
 
 function disableDeleteNote() {
-  document.querySelector("#enable-delete-note").style.display = "block";
+  document.querySelector("#enable-delete-note").style.display = "flex";
   document.querySelector("#disable-delete-note").style.display = "none";
   document.querySelectorAll(".note").forEach((note) => {
     note.querySelector(".delete-note").style.display = "none";

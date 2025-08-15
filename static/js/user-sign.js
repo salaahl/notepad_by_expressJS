@@ -4,7 +4,7 @@ let $ = (id) => {
 
 NBP.init("mostcommon_100000", "/collections", true);
 
-$("form").addEventListener("submit", function (e) {
+$("button[type=submit]").addEventListener("click", function (e) {
   e.preventDefault();
 
   let route = null;

@@ -1,17 +1,5 @@
-@media (prefers-color-scheme: dark) {
-  :root {
-    --main-bg-color: black;
-  }
-
-  .label {
-    color: white;
-  }
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    --main-bg-color: antiquewhite;
-  }
+:root {
+  --main-bg-color: antiquewhite;
 }
 
 body {
@@ -22,22 +10,77 @@ body {
   border-radius: 10px;
 }
 
-main {
-  width: 100%;
-  max-width: 768px;
-}
-
 h1,
-aside {
-  margin: 8% 0;
+h2 {
+  margin: 0;
+  color: var(--h1-color);
+  border-radius: 5px;
 }
 
-main > .sign-container {
-  max-width: 500px;
+h1 {
+  font-size: 40px;
+}
+
+h2 {
+  font-size: 25px;
+  text-decoration: underline;
+}
+
+.field {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.control {
+  text-align: center;
+}
+
+.input {
+  border: 0;
+}
+
+.button-stylised {
+  width: 250px;
+}
+
+.global-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: fit-content;
   margin: auto;
-  padding: 5%;
   border-radius: 20px;
-  background-color: var(--main-bg-color);
+  overflow: hidden;
+}
+
+.global-container > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 5%;
+}
+
+.login-container-1 {
+  min-height: 300px;
+}
+
+.login-container-1,
+.signup-container-2 {
+  background-color: rgb(var(--accent-color-1), 1);
+}
+
+.login-container-1 .button-stylised,
+.signup-container-2 .button-stylised {
+  color: black;
+  background-color: rgb(var(--bg-color), 1);
+}
+
+.login-container-1 .button-stylised:hover,
+.login-container-1 .button-stylised:active,
+.signup-container-2 .button-stylised:hover,
+.signup-container-2 .button-stylised:active {
+  background-color: white;
 }
 
 #errors > span {
@@ -51,18 +94,71 @@ main > .sign-container {
   background-color: red;
 }
 
-#login-form > .field:last-of-type {
-  margin-top: 40px;
+.signup-container-1,
+.login-container-2 {
+  justify-content: center;
+  background-color: rgb(var(--accent-color-1), 0.75);
 }
 
-.button-stylised {
-  width: 250px;
+.signup-container-2 {
+  min-height: 400px;
 }
 
-aside .button-stylised {
-  border-radius: 0;
-}
-
-.control:has(.button-stylised) {
+.signup-container-1 > h2,
+.login-container-2 > h2 {
+  margin-bottom: 7.5%;
   text-align: center;
+}
+
+.signup-container-1 .button-stylised:hover,
+.signup-container-1 .button-stylised:active,
+.login-container-2 .button-stylised:hover,
+.login-container-2 .button-stylised:active {
+  color: black;
+  background-color: white;
+}
+
+#login-form,
+#signup-form {
+  width: 100%;
+}
+
+.login-container-1 > .field,
+.signup-container-2 > .field {
+  margin: 0;
+}
+
+@media (min-width: 1024px) {
+  .global-container.login,
+  .global-container.signup {
+    flex-wrap: nowrap;
+  }
+
+  .global-container.login {
+    min-height: 400px;
+  }
+
+  .global-container.signup {
+    min-height: 600px;
+    flex-wrap: nowrap;
+  }
+
+  .global-container > div {
+    min-height: unset;
+  }
+
+  .login-container-1,
+  .signup-container-2 {
+    min-width: 500px;
+  }
+
+  .login-container-1 > *,
+  .signup-container-2 > * {
+    width: 100%;
+  }
+
+  .signup-container-1,
+  .login-container-2 {
+    min-width: 300px;
+  }
 }

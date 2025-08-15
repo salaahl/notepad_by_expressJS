@@ -18,12 +18,10 @@ block content
 
             div
                 button#new-note.button-stylised(onclick="")
-                    svg(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor")
-                        path(d="M19 11H13V5a1 1 0 1 0-2 0v6H5a1 1 0 1 0 0 2h6v6a1 1 0 1 0 2 0v-6h6a1 1 0 1 0 0-2z")
+                    i.fa-solid.fa-plus(style="color: #ffffff; width: 24px;")
 
                 button#enable-delete-note.button-stylised(onclick="enableDeleteNote()")
-                    svg(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor")
-                        path(d="M9 3v1H4v2h16V4h-5V3h-6zm1 5v10h2V8h-2zm-4 0v10h2V8H6zm8 0v10h2V8h-2z")
+                    i.fa-regular.fa-trash-can(style="color: #ffffff; width: 24px;")
 
                 button(id="disable-delete-note" class="button-stylised" onclick="disableDeleteNote()") Terminer
 
@@ -34,7 +32,7 @@ block content
                     div(class="note-detail")
                         div(class="note-title")=note.title
                         textarea(class="note-text" name="note-text" readonly)=note.text
-                    button(class="delete-note") Supprimer
+                    button(class="button-stylised delete-note") Supprimer
 
         article(id="note-modal")
             div(id="note-modal-inner")
@@ -46,7 +44,7 @@ block content
                     button(id="close-modal-btn" class="button-stylised") Sauvegarder
 
         div(id="logout" onclick="logOut()")
-            i.fa-solid.fa-right-from-bracket
+            i.fa-solid.fa-arrow-right-from-bracket(style="color: #ffffff")
 
 block js
     script(src='/js/note-template.js')

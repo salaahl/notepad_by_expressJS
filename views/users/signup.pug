@@ -5,41 +5,37 @@ append stylesheets
 
 block content
     main
-        div.sign-container
-            h1
-                for letter of title
-                    if letter == ' '
-                        span(style="display: inline")=' ' 
-                    span=letter
-            div#errors
-            form#signup-form
-                .field
-                    label(for='name' class='label') Prénom :
-                    .control
-                        input#name(type='text' name='name' class='input' required)
-                .field
-                    label(for='surname' class='label') Nom de famille :
-                    .control
-                        input#surname(type='text' name='surname' class='input' required)
-                .field
-                    label(for='email' class='label') E-mail :
-                    .control
-                        input#email(type='email' name='email' class='input' required)
-                .field
-                    label(for='password' class='label') Mot de passe :
-                    .control
-                        input#password(type='password' name='password' class='input' required)
-                .field
-                    label(for='confirm-password' class='label') Mot de passe :
-                    .control
-                        input#confirm-password(type='password' name='confirm-password' class='input' required)
+        div.global-container.signup
+            div.signup-container-2
+                h1
+                    for letter of title
+                        if letter == ' '
+                            span(style="display: inline")=' ' 
+                        span=letter
+                form#signup-form
+                    div#errors
+                    .field
+                        .control
+                            input#name(placeholder="Nom" type='text' name='name' class='input' required)
+                    .field
+                        .control
+                            input#surname(placeholder="Prénom" type='text' name='surname' class='input' required)
+                    .field
+                        .control
+                            input#email(placeholder="Email" type='email' name='email' class='input' required)
+                    .field
+                        .control
+                            input#password(placeholder="Mot de passe" type='password' name='password' class='input' required)
+                    .field
+                        .control
+                            input#confirm-password(placeholder="Entrez de nouveau le mot de passe" type='password' name='confirm-password' class='input' required)
                 .field
                     .control
                         button(type='submit' class='button-stylised') S'inscrire
 
-        aside
-            .control
-                a(href="./login" class="button-stylised") Se connecter
+            div.login-container-2
+                    h2 Déjà un compte ?
+                    a(href="./login" class="button-stylised") Se connecter
 
 block js
     script(src='/js/nbp/nbp.min.js')
