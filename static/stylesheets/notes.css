@@ -145,8 +145,7 @@ section:first-child div:last-child {
   display: flex;
 }
 
-#disable-delete-note,
-.delete-note {
+#disable-delete-note {
   display: none;
 }
 
@@ -267,7 +266,10 @@ section:first-child div:last-child {
 }
 
 .delete-note {
+  opacity: 0;
+  pointer-events: none;
   background-color: rgb(var(--accent-color-1), 1);
+  transition: opacity 0.5s;
 }
 
 .delete-note:hover {

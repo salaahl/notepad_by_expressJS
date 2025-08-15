@@ -102,7 +102,8 @@ function enableDeleteNote() {
   document.querySelector("#enable-delete-note").style.display = "none";
   document.querySelector("#disable-delete-note").style.display = "block";
   document.querySelectorAll(".note").forEach((note) => {
-    note.querySelector(".delete-note").style.display = "block";
+    note.querySelector(".delete-note").style.opacity = "1";
+    note.querySelector(".delete-note").style.pointerEvents = "all";
     note.querySelector(".delete-note").addEventListener("click", deleteNote);
   });
 }
@@ -111,7 +112,8 @@ function disableDeleteNote() {
   document.querySelector("#enable-delete-note").style.display = "flex";
   document.querySelector("#disable-delete-note").style.display = "none";
   document.querySelectorAll(".note").forEach((note) => {
-    note.querySelector(".delete-note").style.display = "none";
+    note.querySelector(".delete-note").style.opacity = "0";
+    note.querySelector(".delete-note").style.pointerEvents = "none";
     note.querySelector(".note-detail").addEventListener("click", getNote);
   });
 }
