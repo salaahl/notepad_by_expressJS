@@ -2,6 +2,8 @@ let $ = (id) => {
   return document.querySelector(id);
 };
 
+NBP.init("mostcommon_100000", "/collections", true);
+
 $("form").addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -17,13 +19,9 @@ $("form").addEventListener("submit", function (e) {
       return alert("Les mots de passe ne correspondent pas");
     } else if ($("input[name=password]").value < 8) {
       return alert("Le mot de passe doit contenir au moins 8 caractères");
-    } else if (
-      !/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(
-        $("input[name=password]").value
-      )
-    ) {
+    } else if (NBP.isCommonPassword($("input[name=password]").value)) {
       return alert(
-        "Le mot de passe doit contenir au moins une lettre et un chiffre"
+        "Le mot de passe n'est pas assez complexe, choisissez-en un autre"
       );
     }
 

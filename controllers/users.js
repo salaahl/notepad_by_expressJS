@@ -1,7 +1,7 @@
-const User = require('../models/User.js');
-const ObjectId = require('mongodb').ObjectId;
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+const User = require("../models/User.js");
+const ObjectId = require("mongodb").ObjectId;
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const logIn = async (req, res) => {
   try {
@@ -11,19 +11,17 @@ const logIn = async (req, res) => {
       //check if password matches
       const result = await bcrypt.compare(req.body.password, user.password);
       if (result) {
-        // sign token and send it in response
-        // possibilité de lui donner un temps d'expiration, voir le "expiresIn"
-        const token = await jwt.sign({ email: user.email }, process.env.SECRET);
+        const token = jwt.sign({ email: user.email }, process.env.SECRET);
 
         // 600*1000 pour 10 min
-        res.cookie('authorization', token, {
+        res.cookie("authorization", token, {
           maxAge: 600 * 1000,
           httpOnly: true,
         });
 
-        return res.json({ redirect: '/' });
+        return res.json({ redirect: "/" });
       } else {
-        res.status(400).json({ error: 'Le mot de passe est incorrect' });
+        res.status(400).json({ error: "Le mot de passe est incorrect" });
       }
     } else {
       res.status(400).json({ error: "L'utilisateur n'existe pas" });
@@ -41,22 +39,22 @@ const signUp = async (req, res) => {
     surname: req.body.surname,
     email: req.body.email,
     password: req.body.password,
-    roles: ['user'],
+    roles: ["user"],
   });
 
   try {
     await user.save();
-    return res.json({ redirect: '/login' });
+    return res.json({ redirect: "/login" });
   } catch (err) {
     if (err.code === 11000) {
-      res.setHeader('Content-Type', 'application/json');
+      res.setHeader("Content-Type", "application/json");
       return res
         .status(400)
-        .send({ error: 'Un compte avec cette adresse mail existe déjà.' });
+        .send({ error: "Un compte avec cette adresse mail existe déjà." });
     }
 
     // Error handling for misc validation errors
-    if (err.name === 'ValidationError') {
+    if (err.name === "ValidationError") {
       res.status(400);
       return res.send(Object.values(err.errors)[0].message);
     }
@@ -89,8 +87,8 @@ const deleteUser = async (req, res) => {
       _id: new ObjectId(req.body.id),
     });
 
-    res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify({ status: 'User deleted' }));
+    res.setHeader("Content-Type", "application/json");
+    res.end(JSON.stringify({ status: "User deleted" }));
   } catch (err) {
     console.error(err);
   }
