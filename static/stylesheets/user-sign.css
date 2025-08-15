@@ -97,7 +97,7 @@ h2 {
 .signup-container-1,
 .login-container-2 {
   justify-content: center;
-  background-color: rgb(var(--accent-color-1), 0.75);
+  background-color: rgb(var(--accent-color-1), .75);
 }
 
 .signup-container-2 {
@@ -108,6 +108,11 @@ h2 {
 .login-container-2 > h2 {
   margin-bottom: 7.5%;
   text-align: center;
+}
+
+.button-stylised {
+  color: black;
+  background-color: white;
 }
 
 .signup-container-1 .button-stylised:hover,

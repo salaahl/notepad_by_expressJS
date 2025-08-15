@@ -1,20 +1,19 @@
 :root {
-  --note-background-color: rgb(249, 250, 251, 1);
+  --note-bg-color: 249, 250, 251;
 }
 
-.input,
-.select select,
+#search-note,
 .textarea {
-  color: inherit;
   border: 0;
-  background-color: rgb(249 250 251);
+}
+
+#search-note {
+  padding-left: 25px;
+  padding-right: 25px;
+  background-color: white;
+  border-radius: 9999px;
   box-shadow: #ffffff05 0 1px 1px inset, #32325d0d 0 50px 100px -20px,
     #0000000f 0 30px 60px -30px;
-}
-
-input {
-  color: inherit;
-  background-color: inherit;
 }
 
 textarea {
@@ -25,7 +24,8 @@ textarea {
   background-color: transparent;
 }
 
-textarea:focus-visible {
+#search-note:focus-visible,
+.textarea:focus-visible {
   outline: 0;
 }
 
@@ -209,6 +209,7 @@ section:first-child div:last-child {
 
 .note:has(.note-detail:hover) {
   transform: translateY(-1%);
+  background-color: white;
   box-shadow: #ffffff05 0 1px 1px inset, #32325d0d 0 50px 100px -20px,
     #0000000f 0 30px 60px -30px;
 }
@@ -269,11 +270,11 @@ section:first-child div:last-child {
   opacity: 0;
   pointer-events: none;
   background-color: rgb(var(--accent-color-1), 1);
-  transition: opacity 0.5s;
 }
 
 .delete-note:hover {
   background-color: indianred;
+  transform: translateY(0);
 }
 
 .note-title,
@@ -292,7 +293,7 @@ section:first-child div:last-child {
 .note,
 #note-modal-inner {
   border-radius: 15px;
-  background-color: var(--note-background-color);
+  background-color: rgb(var(--note-bg-color), 1);
 }
 
 .note.active {
@@ -378,12 +379,14 @@ section:first-child div:last-child {
 
 #note-modal-title {
   height: 10%;
-  width: 100%;
+  width: 80%;
+  margin: 2% 10% 0 10%;
+  border-radius: 5px;
   border: 0;
 }
 
 #note-modal textarea {
-  height: 90%;
+  height: 88%;
   padding: 2%;
 }
 

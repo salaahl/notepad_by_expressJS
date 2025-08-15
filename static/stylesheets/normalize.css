@@ -2,6 +2,7 @@
   --font-color: black;
   --bg-color: 245, 245, 245;
   --accent-color-1: 0, 189, 126;
+  --accent-color-2: 205, 92, 92;
   --input-bg-color: white;
   --text-stroke-color: black;
   --h1-color: whitesmoke;
@@ -34,7 +35,12 @@ form {
   margin: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   text-wrap-style: pretty;
 }
 
@@ -43,6 +49,10 @@ h2 {
   font-weight: 800;
   text-align: center;
   text-transform: uppercase;
+}
+
+textarea {
+  outline: none;
 }
 
 /* Override Bulma defaults */
@@ -81,8 +91,8 @@ section {
 
 .button-stylised {
   align-items: center;
-  color: whitesmoke;
-  background-color: rgb(var(--accent-color-1), 0.85);
+  color: white;
+  background-color: rgb(var(--accent-color-1), 1);
   border: 0;
   border-radius: 9999px;
   box-sizing: border-box;
@@ -102,22 +112,25 @@ section {
   overflow: hidden;
   padding: 10px;
   text-align: center;
+  transform: translateY(0%);
+  box-shadow: #ffffff03 0 1px 1px inset, #32325d06 0 50px 100px -20px,
+    #00000008 0 30px 60px -30px;
   touch-action: manipulation;
   transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s,
     box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s,
-    color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+    color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s,
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s;
   user-select: none;
   -webkit-user-select: none;
   vertical-align: middle;
 }
 
 .button-stylised:hover,
-.button-stylised:focus {
-  background-color: rgb(var(--accent-color-1), 1);
-}
-
+.button-stylised:focus,
 .button-stylised:active {
-  background-color: rgb(var(--accent-color-1), 1);
+  transform: translateY(-5%);
+  box-shadow: #ffffff05 0 1px 1px inset, #32325d0d 0 50px 100px -20px,
+    #0000000f 0 30px 60px -30px;
 }
 
 .button-stylised:disabled {
