@@ -9,7 +9,7 @@ const getNotes = async (req, res) => {
       res.setHeader('Content-Type', 'application/json');
       res.end(JSON.stringify({ note: notes }));
     } else {
-      res.render('notes', { title: 'Notes', notes: notes });
+      res.render('notes', { h1: 'Notes', notes: notes });
     }
   } catch (err) {
     console.error(err);

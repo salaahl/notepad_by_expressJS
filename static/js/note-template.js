@@ -5,9 +5,9 @@ function noteTemplate(id, title, text) {
     id +
     '" hidden />' +
     '<div class="note-detail">' +
-    '<div class="note-title">' +
-    title +
-    "</div>" +
+    '<h2 class="note-title">' +
+    (title ? title : "-") +
+    "</h2>" +
     '<div class="note-text">' +
     text +
     "</div>" +

@@ -22,7 +22,7 @@ function getNote() {
       $("#note-modal").classList.add("active");
       $("#note-modal-id").value = data.note._id;
       $("#note-modal-title").value = data.note.title;
-      $(".ql-editor p").innerHTML = data.note.text;
+      $(".ql-editor").innerHTML = data.note.text;
     })
     .catch((error) => {
       console.log(error.message);
@@ -30,12 +30,12 @@ function getNote() {
 }
 
 // Fonction appelée (et complétée) par l'un des listeners du fichier du même nom
-function saveNote() {
+async function saveNote() {
   let route = null;
   let data = {
     id: document.querySelector("#note-modal-id").value,
     title: document.querySelector("#note-modal-title").value,
-    text: document.querySelector(".ql-editor p").innerHTML,
+    text: document.querySelector(".ql-editor").innerHTML,
   };
 
   if (data.title == "" && data.text == "") {
@@ -95,7 +95,7 @@ function deleteNote() {
 function reinitializeModal() {
   document.querySelector("#note-modal-id").value = null;
   document.querySelector("#note-modal-title").value = null;
-  document.querySelector(".ql-editor p").innerHTML = "";
+  document.querySelector(".ql-editor").innerHTML = "";
 }
 
 function enableDeleteNote() {
@@ -122,4 +122,14 @@ function logOut() {
   if (confirm("Se déconnecter ?")) {
     window.location.replace("/logout");
   }
+}
+
+async function SaveNoteAndLogOut() {
+  // Sauvegarde de la note en cours d'édition avant deconnexion
+  if (document.querySelector("#note-modal")?.classList.contains("active")) {
+    await saveNote();
+  }
+
+  // Délai supplémentaire pour permettre la réussite du fetch
+  setTimeout(() => window.location.replace("/logout"), 1000);
 }

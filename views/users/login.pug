@@ -5,13 +5,13 @@ append stylesheets
 
 block content
     main
+        h1.animated-title
+            for letter of h1
+                span=letter
+
         div.global-container.login
             div.login-container-1
-                h1
-                    for letter of title
-                        if letter == ' '
-                            span(style="display: inline")=' ' 
-                        span=letter
+                h2 Connexion
                         
                 form#login-form
                     div#errors
@@ -26,7 +26,7 @@ block content
                         button(class="button-stylised" type='submit') Se connecter
 
             div.signup-container-1
-                h2 Pas de compte ?
+                h3 Pas de compte ?
                 a(href="./signup" class="button-stylised") S'inscrire
 
 block js

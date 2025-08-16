@@ -2,6 +2,10 @@
   --note-bg-color: 249, 250, 251;
 }
 
+.animated-title {
+  font-size: 65px;
+}
+
 button {
   all: unset;
   cursor: pointer;
@@ -28,96 +32,8 @@ button {
   outline: 0;
 }
 
-h1 {
+.animated-title {
   font-size: 65px;
-}
-
-h1 > span {
-  display: inline-block;
-  transform: translateY(0%);
-  transition: all 1s
-    linear(
-      0 0%,
-      0.22 2.1%,
-      0.86 6.5%,
-      1.11 8.6%,
-      1.3 10.7%,
-      1.35 11.8%,
-      1.37 12.9%,
-      1.37 13.7%,
-      1.36 14.5%,
-      1.32 16.2%,
-      1.03 21.8%,
-      0.94 24%,
-      0.89 25.9%,
-      0.88 26.85%,
-      0.87 27.8%,
-      0.87 29.25%,
-      0.88 30.7%,
-      0.91 32.4%,
-      0.98 36.4%,
-      1.01 38.3%,
-      1.04 40.5%,
-      1.05 42.7%,
-      1.05 44.1%,
-      1.04 45.7%,
-      1 53.3%,
-      0.99 55.4%,
-      0.98 57.5%,
-      0.99 60.7%,
-      1 68.1%,
-      1.01 72.2%,
-      1 86.7%,
-      1 100%
-    );
-}
-
-h1 > span {
-  animation: title-animation 30s linear infinite;
-}
-
-h1 > span:hover {
-  transform: translateY(-5%);
-}
-
-h1 > span:nth-child(1) {
-  --color-1: #d2e0fb;
-  --color-2: #f9f3cc;
-  --color-3: #d7e5ca;
-  --color-4: #8eaccd;
-  --color-5: #2e4374;
-}
-
-h1 > span:nth-child(2) {
-  --color-1: #2e4374;
-  --color-2: #d2e0fb;
-  --color-3: #f9f3cc;
-  --color-4: #d7e5ca;
-  --color-5: #8eaccd;
-}
-
-h1 > span:nth-child(3) {
-  --color-1: #8eaccd;
-  --color-2: #2e4374;
-  --color-3: #d2e0fb;
-  --color-4: #f9f3cc;
-  --color-5: #d7e5ca;
-}
-
-h1 > span:nth-child(4) {
-  --color-1: #d7e5ca;
-  --color-2: #8eaccd;
-  --color-3: #2e4374;
-  --color-4: #d2e0fb;
-  --color-5: #f9f3cc;
-}
-
-h1 > span:nth-child(5) {
-  --color-1: #f9f3cc;
-  --color-2: #d7e5ca;
-  --color-3: #8eaccd;
-  --color-4: #2e4374;
-  --color-5: #d2e0fb;
 }
 
 h3 {
@@ -233,21 +149,15 @@ section:first-child div:last-child {
   top: 0;
   left: 0;
   height: inherit;
+  width: 100%;
   padding: 15% 4%;
-  text-align: center;
   overflow: hidden;
   z-index: -1;
   mask-image: linear-gradient(
-      to top,
-      rgb(249, 250, 251, 0) 0%,
-      rgb(249, 250, 251, 1) 50px
-    ),
-    linear-gradient(
-      to bottom,
-      rgb(249, 250, 251, 0) 0%,
-      rgb(249, 250, 251, 1) 150px
-    );
-  mask-composite: intersect;
+    to top,
+    rgb(249, 250, 251, 0) 0%,
+    rgb(249, 250, 251, 1) 50px
+  );
 }
 
 .open-note,
@@ -278,9 +188,6 @@ section:first-child div:last-child {
 
 .note-title,
 #note-modal-title {
-  text-transform: uppercase;
-  text-align: center;
-  font-weight: 600;
   color: white;
   background-color: rgb(var(--accent-color-1), 1);
 }
@@ -365,16 +272,17 @@ section:first-child div:last-child {
 }
 
 #note-modal-inner {
+  position: relative;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   margin: auto;
-  padding: 2%;
+  padding: 20px;
   overflow: hidden;
 }
 
 #note-modal form {
-  height: 85%;
+  height: 90%;
   width: 100%;
 }
 
@@ -382,37 +290,52 @@ section:first-child div:last-child {
   height: 10%;
   width: 80%;
   margin: 0 10%;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: 600;
   border-radius: 5px;
   border: 0;
 }
 
-#note-modal #editor {
+#editor {
   height: 78%;
+  font-size: unset;
+}
+
+#editor h3 {
+  font-size: 30px;
+  font-weight: bolder;
+  text-transform: uppercase;
+}
+
+#editor h4 {
+  font-size: 20px;
+  font-weight: bolder;
+  text-transform: uppercase;
 }
 
 .save-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: right;
   align-items: center;
-  height: 15%;
+  height: 10%;
   width: 100%;
 }
 
-#editor {
-  font-size: unset;
-}
-
 #custom-toolbar {
+  display: flex;
+  margin-top: 5px;
   text-align: center;
+  overflow: auto;
 }
 
 #note-modal .ql-toolbar {
-  margin-right: 25px;
+  justify-content: space-between;
   padding: 10px 30px;
   color: white;
   background-color: rgb(var(--accent-color-3), 1);
-  border-radius: 9999px;
+  border-radius: 10px;
 }
 
 #custom-toolbar select {
@@ -421,6 +344,7 @@ section:first-child div:last-child {
 }
 
 .ql-formats {
+  display: flex;
   margin-right: 12.5px;
 }
 
@@ -429,6 +353,8 @@ section:first-child div:last-child {
 }
 
 #note-modal .button-stylised {
+  margin-top: 10px;
+  margin-bottom: 10px;
   padding: 10px 30px;
 }
 
@@ -450,6 +376,10 @@ section:first-child div:last-child {
 
 #logout:hover {
   cursor: pointer;
+}
+
+#logout > h2 {
+  display: none;
 }
 
 @media (max-width: 767px) {
@@ -476,7 +406,7 @@ section:first-child div:last-child {
 }
 
 @media (min-width: 768px) {
-  h1 {
+  .animated-title {
     font-size: 150px;
   }
 
@@ -491,6 +421,30 @@ section:first-child div:last-child {
   #note-modal-inner {
     height: 80%;
     width: 80%;
+  }
+
+  #custom-toolbar {
+    position: absolute;
+    bottom: 5%;
+    left: 20px;
+    width: fit-content;
+  }
+
+  .save-container {
+    flex-direction: row;
+  }
+
+  #logout {
+    width: unset;
+    aspect-ratio: unset;
+  }
+
+  #logout > i {
+    display: none;
+  }
+
+  #logout > h2 {
+    display: block;
   }
 }
 
@@ -513,30 +467,8 @@ section:first-child div:last-child {
     margin: auto 2% auto 1%;
   }
 
-  #note-modal form {
-    height: 90%;
-  }
-
-  .save-container {
-    flex-direction: row;
-    height: 10%;
-  }
-}
-
-@keyframes title-animation {
-  0% {
-    color: var(--color-1);
-  }
-  25% {
-    color: var(--color-2);
-  }
-  50% {
-    color: var(--color-3);
-  }
-  75% {
-    color: var(--color-4);
-  }
-  100% {
-    color: var(--color-1);
+  #note-modal .button-stylised {
+    margin-top: 0;
+    margin-bottom: 0;
   }
 }

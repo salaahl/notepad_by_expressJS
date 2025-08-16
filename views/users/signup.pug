@@ -5,13 +5,14 @@ append stylesheets
 
 block content
     main
+        h1.animated-title
+            for letter of h1
+                span=letter
+
         div.global-container.signup
             div.signup-container-2
-                h1
-                    for letter of title
-                        if letter == ' '
-                            span(style="display: inline")=' ' 
-                        span=letter
+                h2 Inscription 
+
                 form#signup-form
                     div#errors
                     .field
@@ -34,7 +35,7 @@ block content
                         button(type='submit' class='button-stylised') S'inscrire
 
             div.login-container-2
-                    h2 Déjà un compte ?
+                    h3 Déjà un compte ?
                     a(href="./login" class="button-stylised") Se connecter
 
 block js

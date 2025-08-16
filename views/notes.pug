@@ -8,8 +8,8 @@ append stylesheets
 
 
 block content
-    h1
-        for letter of title
+    h1.animated-title
+        for letter of h1
             span=letter
         
     main
@@ -32,7 +32,7 @@ block content
                 article(class="note")
                     input(type="text" name="note-id" value=note._id hidden)
                     div(class="note-detail")
-                        div(class="note-title")=note.title
+                        h2(class="note-title")=note.title ? note.title : "-"
                         div.note-text !{note.text}
                     button(class="button-stylised delete-note") Supprimer
 
@@ -44,9 +44,6 @@ block content
 
                     //- Conteneur principal et éditeur Quill
                     .richbox
-                    #editor
-
-                div.save-container
                     div#custom-toolbar
                         span.ql-formats
                             button.ql-bold(title="Gras")
@@ -60,8 +57,9 @@ block content
                         span.ql-formats
                             select.ql-header(name="text-size")
                                 option(value="" selected) Aa
-                                option(value="1") H1
-                                option(value="2") H2
+                                //- En réalité H3 et H4
+                                option(value="3") H1
+                                option(value="4") H2
                         span.ql-formats
                             select.ql-color(name="text-color")
                                 option(value="" selected) Couleur
@@ -72,12 +70,17 @@ block content
                                 option(value="green") Vert
                                 option(value="yellow") Jaune
                                 option(value="red") Rouge
+                    #editor
+
+                div.save-container
+                    
 
 
                     button(id="close-modal-btn" class="button-stylised") Sauvegarder / Fermer
 
         div(id="logout" class="button-stylised" onclick="logOut()")
             i.fa-solid.fa-arrow-right-from-bracket(style="color: #ffffff")
+            h2 Deconnexion
 
 block js
     script(src='/js/note-template.js')
@@ -96,36 +99,3 @@ block js
                 }
             }
         });
-
-        function updateSelects() {
-            const range = quill.getSelection();
-            if (!range) return;
-
-            const formats = quill.getFormat(range);
-
-            document.querySelector('.ql-header').value = formats.header || "Aa";
-            document.querySelector('.ql-color').value = formats.color || "Couleur";
-            document.querySelector('.ql-background').value = formats.background || "Surlignage";
-            }
-
-            // À chaque changement de texte
-            quill.on('text-change', (delta, oldDelta, source) => {
-            const range = quill.getSelection();
-            if (!range) return;
-
-            // Vérifie si un retour à la ligne vient d'être inséré
-            delta.ops.forEach(op => {
-                if (op.insert === '\n') {
-                // Mise à jour des selects après Enter
-                setTimeout(updateSelects, 0); // Timeout 0 pour attendre que Quill ait inséré la ligne
-                }
-            });
-
-            updateSelects();
-            });
-
-            // Mise à jour au changement de sélection
-            quill.on('selection-change', () => {
-            updateSelects();
-        });
-

@@ -4,18 +4,13 @@ Minuteur qui va déconnecter* l'utilisateur au bout de 10 min d'inactivité
 
 *Les 10min sont alignées sur la durée de vie du cookie.
 */
-let appTimer;
+let appTimer = setTimeout(async () => SaveNoteAndLogOut(), 600000);
 
-["mousemove", "keyup"].forEach((evt) => {
-  addEventListener(evt, () => {
+["click", "keyup"].forEach((evt) => {
+  document.addEventListener(evt, () => {
     clearTimeout(appTimer);
 
-    appTimer = setTimeout(() => {
-      if ($("#note-modal").classList.contains("active")) {
-        saveNote();
-      }
-      window.location.replace("/login");
-    }, 100000);
+    appTimer = setTimeout(async () => SaveNoteAndLogOut(), 600000);
   });
 });
 
