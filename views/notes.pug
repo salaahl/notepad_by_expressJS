@@ -2,6 +2,8 @@ extends base
 
 
 append stylesheets
+    //- Quill CSS
+    link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css")
     link(rel="stylesheet" href="/stylesheets/notes.css")
 
 
@@ -31,7 +33,7 @@ block content
                     input(type="text" name="note-id" value=note._id hidden)
                     div(class="note-detail")
                         div(class="note-title")=note.title
-                        textarea(class="note-text" name="note-text" readonly)=note.text
+                        div.note-text !{note.text}
                     button(class="button-stylised delete-note") Supprimer
 
         article(id="note-modal")
@@ -39,8 +41,39 @@ block content
                 form
                     input(id="note-modal-id" type="text" name="note-modal-id" hidden)
                     input(id="note-modal-title" type="text" name="note-modal-title" placeholder="Titre")
-                    textarea(id="note-modal-text" name="text")
-                span
+
+                    //- Conteneur principal et éditeur Quill
+                    .richbox
+                    #editor
+
+                div.save-container
+                    div#custom-toolbar
+                        span.ql-formats
+                            button.ql-bold(title="Gras")
+                                i.fa-solid.fa-bold
+                            button.ql-italic(title="Italique")
+                                i.fa-solid.fa-italic
+                            button.ql-underline(title="Souligné")
+                                i.fa-solid.fa-underline
+                            button.ql-strike(title="Barré")
+                                i.fa-solid.fa-strikethrough
+                        span.ql-formats
+                            select.ql-header(name="text-size")
+                                option(value="" selected) Aa
+                                option(value="1") H1
+                                option(value="2") H2
+                        span.ql-formats
+                            select.ql-color(name="text-color")
+                                option(value="" selected) Couleur
+                                option(value="black") Noir
+                                option(value="red") Rouge
+                            select.ql-background(name="text-surlign")
+                                option(value="" selected) Surlignage
+                                option(value="green") Vert
+                                option(value="yellow") Jaune
+                                option(value="red") Rouge
+
+
                     button(id="close-modal-btn" class="button-stylised") Sauvegarder / Fermer
 
         div(id="logout" class="button-stylised" onclick="logOut()")
@@ -52,3 +85,47 @@ block js
     script(src='/js/get-notes.js')
     script(src='/js/search-note.js')
     script(src='/js/listeners.js')
+    
+    //- Quill CSS
+    script(src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js")
+    script.
+        const quill = new Quill('#editor', {
+            modules: {
+                toolbar: {
+                    container: '#custom-toolbar',
+                }
+            }
+        });
+
+        function updateSelects() {
+            const range = quill.getSelection();
+            if (!range) return;
+
+            const formats = quill.getFormat(range);
+
+            document.querySelector('.ql-header').value = formats.header || "Aa";
+            document.querySelector('.ql-color').value = formats.color || "Couleur";
+            document.querySelector('.ql-background').value = formats.background || "Surlignage";
+            }
+
+            // À chaque changement de texte
+            quill.on('text-change', (delta, oldDelta, source) => {
+            const range = quill.getSelection();
+            if (!range) return;
+
+            // Vérifie si un retour à la ligne vient d'être inséré
+            delta.ops.forEach(op => {
+                if (op.insert === '\n') {
+                // Mise à jour des selects après Enter
+                setTimeout(updateSelects, 0); // Timeout 0 pour attendre que Quill ait inséré la ligne
+                }
+            });
+
+            updateSelects();
+            });
+
+            // Mise à jour au changement de sélection
+            quill.on('selection-change', () => {
+            updateSelects();
+        });
+

@@ -2,8 +2,16 @@
   --note-bg-color: 249, 250, 251;
 }
 
-#search-note,
-.textarea {
+button {
+  all: unset;
+  cursor: pointer;
+  display: inline-block;
+  background: none;
+  color: inherit;
+  font: inherit;
+}
+
+#search-note {
   border: 0;
 }
 
@@ -16,16 +24,7 @@
     #0000000f 0 30px 60px -30px;
 }
 
-textarea {
-  resize: none;
-  width: 100%;
-  border: 0px;
-  color: inherit;
-  background-color: transparent;
-}
-
-#search-note:focus-visible,
-.textarea:focus-visible {
+#search-note:focus-visible {
   outline: 0;
 }
 
@@ -229,7 +228,7 @@ section:first-child div:last-child {
   overflow: hidden;
 }
 
-.note textarea {
+.note-text {
   position: absolute;
   top: 0;
   left: 0;
@@ -312,6 +311,7 @@ section:first-child div:last-child {
   right: 0;
   margin: auto;
   z-index: 20;
+  overflow: hidden;
 }
 
 #note-modal.active {
@@ -369,34 +369,63 @@ section:first-child div:last-child {
   justify-content: space-between;
   flex-wrap: wrap;
   margin: auto;
+  padding: 2%;
   overflow: hidden;
 }
 
 #note-modal form {
-  height: 90%;
+  height: 85%;
   width: 100%;
 }
 
 #note-modal-title {
   height: 10%;
   width: 80%;
-  margin: 2% 10% 0 10%;
+  margin: 0 10%;
   border-radius: 5px;
   border: 0;
 }
 
-#note-modal textarea {
-  height: 88%;
-  padding: 2%;
+#note-modal #editor {
+  height: 78%;
 }
 
-#note-modal span {
+.save-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  height: 10%;
-  padding: 0 1%;
+  height: 15%;
   width: 100%;
+}
+
+#editor {
+  font-size: unset;
+}
+
+#custom-toolbar {
+  text-align: center;
+}
+
+#note-modal .ql-toolbar {
+  margin-right: 25px;
+  padding: 10px 30px;
+  color: white;
+  background-color: rgb(var(--accent-color-3), 1);
+  border-radius: 9999px;
+}
+
+#custom-toolbar select {
+  color: white;
+  border-color: white;
+}
+
+.ql-formats {
+  margin-right: 12.5px;
+}
+
+.ql-formats > * {
+  margin-right: 7.5px;
 }
 
 #note-modal .button-stylised {
@@ -428,7 +457,7 @@ section:first-child div:last-child {
     width: 48%;
   }
 
-  .note textarea {
+  .note-text {
     font-size: medium;
   }
 
@@ -463,10 +492,6 @@ section:first-child div:last-child {
     height: 80%;
     width: 80%;
   }
-
-  #note-modal span {
-    justify-content: right;
-  }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
@@ -486,6 +511,15 @@ section:first-child div:last-child {
 
   .note:nth-child(4n + 3) {
     margin: auto 2% auto 1%;
+  }
+
+  #note-modal form {
+    height: 90%;
+  }
+
+  .save-container {
+    flex-direction: row;
+    height: 10%;
   }
 }
 

@@ -7,13 +7,13 @@ function noteTemplate(id, title, text) {
     '<div class="note-detail">' +
     '<div class="note-title">' +
     title +
-    '</div>' +
-    '<textarea class="note-text" readonly>' +
+    "</div>" +
+    '<div class="note-text">' +
     text +
-    '</textarea>' +
-    '</div>' +
+    "</div>" +
+    "</div>" +
     '<button class="delete-note">Supprimer</button>' +
-    '</article>';
+    "</article>";
 
   return note;
 }

@@ -3,6 +3,7 @@
   --bg-color: 245, 245, 245;
   --accent-color-1: 0, 189, 126;
   --accent-color-2: 205, 92, 92;
+  --accent-color-3: 52, 58, 64;
   --input-bg-color: white;
   --text-stroke-color: black;
   --h1-color: whitesmoke;
@@ -83,6 +84,11 @@ textarea {
 .textarea::placeholder {
   color: inherit;
   opacity: 0.5;
+}
+
+select {
+  border-width: 0 0 2px 0;
+  background-color: transparent;
 }
 
 section {

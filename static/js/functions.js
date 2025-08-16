@@ -22,7 +22,7 @@ function getNote() {
       $("#note-modal").classList.add("active");
       $("#note-modal-id").value = data.note._id;
       $("#note-modal-title").value = data.note.title;
-      $("#note-modal-text").value = data.note.text;
+      $(".ql-editor p").innerHTML = data.note.text;
     })
     .catch((error) => {
       console.log(error.message);
@@ -35,7 +35,7 @@ function saveNote() {
   let data = {
     id: document.querySelector("#note-modal-id").value,
     title: document.querySelector("#note-modal-title").value,
-    text: document.querySelector("#note-modal textarea").value,
+    text: document.querySelector(".ql-editor p").innerHTML,
   };
 
   if (data.title == "" && data.text == "") {
@@ -95,7 +95,7 @@ function deleteNote() {
 function reinitializeModal() {
   document.querySelector("#note-modal-id").value = null;
   document.querySelector("#note-modal-title").value = null;
-  document.querySelector("#note-modal textarea").value = null;
+  document.querySelector(".ql-editor p").innerHTML = "";
 }
 
 function enableDeleteNote() {
