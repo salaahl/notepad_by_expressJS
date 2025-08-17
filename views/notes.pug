@@ -28,13 +28,39 @@ block content
                 button(id="disable-delete-note" class="button-stylised" onclick="disableDeleteNote()") Terminer
 
         section(id="notes")
-            for note in notes
+            for note in notes.reverse()
                 article(class="note")
                     input(type="text" name="note-id" value=note._id hidden)
                     div(class="note-detail")
                         h2(class="note-title")=note.title ? note.title : "-"
                         div.note-text !{note.text}
                     button(class="button-stylised delete-note") Supprimer
+
+        nav.pagination
+            if totalPages > 1
+                ul
+                //- Bouton précédent (désactivé si page 1)
+                if currentPage > 1
+                    li.button-stylised: a(href=`?page=${currentPage - 1}`)
+                        i.fa-solid.fa-chevron-left
+                else
+                    li.button-stylised.disabled
+                        i.fa-solid.fa-chevron-left
+
+                //- Boutons numéros de pages
+                each page in [...Array(totalPages).keys()].map(n => n + 1)
+                    if page === currentPage
+                        li.button-stylised.active= page
+                    else
+                        li.button-stylised: a(href=`?page=${page}`)= page
+
+                //- Bouton suivant (désactivé si dernière page)
+                if currentPage < totalPages
+                    li.button-stylised: a(href=`?page=${currentPage + 1}`)
+                        i.fa-solid.fa-chevron-right
+                else
+                    li.button-stylised.disabled
+                        i.fa-solid.fa-chevron-right
 
         article(id="note-modal")
             div(id="note-modal-inner")

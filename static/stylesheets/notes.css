@@ -364,7 +364,7 @@ section:first-child div:last-child {
   justify-content: center;
   position: fixed;
   right: 2vw;
-  bottom: 2vw;
+  bottom: 2vh;
   height: auto;
   width: 60px;
   aspect-ratio: 1;

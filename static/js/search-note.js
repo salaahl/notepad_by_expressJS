@@ -6,6 +6,10 @@ document.querySelector("#search-note").addEventListener("input", function () {
   searchTimeout = setTimeout(() => {
     let data = { search: this.value };
 
+    if (data.search == "") {
+      return getNotes();
+    }
+
     fetch("/search-note", {
       method: "POST",
       body: JSON.stringify(data),
@@ -13,7 +17,8 @@ document.querySelector("#search-note").addEventListener("input", function () {
     })
       .then((response) => response.json())
       .then((data) => {
-        getNotes(data.note);
+        // Le getNotes appelé par l'endpoint search-note ne renvoie pas le même nombre de notes
+        getNotes(data.notes);
       })
       .catch((error) => {
         console.log(error.message);

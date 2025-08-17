@@ -16,18 +16,27 @@ function getNotes(notes = null) {
       });
       notesDiv.style.cssText = "filter: blur(0px) opacity(1)";
     } else {
-      const request = new Request("/", {
-        method: "POST",
-      });
+      const request = new Request(
+        window.location.pathname + window.location.search,
+        {
+          method: "POST",
+        }
+      );
 
       notesDiv.innerHTML = "";
 
       fetch(request)
         .then((response) => response.json())
-        .then((notes) => {
-          notes.note.forEach((note) => {
-            notesDiv.innerHTML += noteTemplate(note._id, note.title, note.text);
-          });
+        .then((data) => {
+          // Tri avant affichage
+          data.notes.reverse()
+            .forEach((note) => {
+              notesDiv.innerHTML += noteTemplate(
+                note._id,
+                note.title,
+                note.text
+              );
+            });
           notesDiv.style.cssText = "filter: blur(0px) opacity(1)";
         })
         .catch((error) => {

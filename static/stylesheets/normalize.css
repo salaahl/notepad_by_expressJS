@@ -222,7 +222,8 @@ section {
 
 .button-stylised:hover,
 .button-stylised:focus,
-.button-stylised:active {
+.button-stylised:active,
+.pagination li.active {
   transform: translateY(-5%);
   box-shadow: #ffffff05 0 1px 1px inset, #32325d0d 0 50px 100px -20px,
     #0000000f 0 30px 60px -30px;
@@ -233,8 +234,29 @@ section {
   background: rgba(0, 0, 0, 0.08);
 }
 
-button:disabled {
-  filter: brightness(0.5);
+button:disabled,
+.pagination li.disabled {
+  pointer-events: none;
+  filter: contrast(0.85);
+}
+
+.pagination {
+  justify-content: center;
+  margin: 2vh 0; /* Aligné sur la hauteur du bouton de deconnexion */
+}
+
+.pagination li {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  aspect-ratio: 1;
+  margin: 0 10px;
+  font-weight: bold;
+  color: rgb(var(--accent-color-3), 1);
+  background-color: white;
+  border-radius: 99px;
 }
 
 @keyframes title-animation {
