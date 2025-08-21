@@ -224,7 +224,7 @@ section:first-child div:last-child {
 #note-modal.active {
   height: 100%;
   width: 100%;
-  backdrop-filter: blur(5px) brightness(0.5);
+  backdrop-filter: blur(2.5px) brightness(0.5);
   transition: width 0.5s,
     height 1s
       linear(
@@ -276,12 +276,17 @@ section:first-child div:last-child {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  max-width: 768px;
   margin: auto;
   padding: 20px;
+  background-color: rgb(var(--bg-color));
   overflow: hidden;
 }
 
 #note-modal form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   height: 90%;
   width: 100%;
 }
@@ -298,8 +303,13 @@ section:first-child div:last-child {
 }
 
 #editor {
-  height: 78%;
+  height: 80%;
   font-size: unset;
+}
+
+.ql-editor {
+  background-color: white;
+  border-radius: 10px;
 }
 
 #editor h3 {
@@ -314,28 +324,12 @@ section:first-child div:last-child {
   text-transform: uppercase;
 }
 
-.save-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: right;
-  align-items: center;
-  height: 10%;
-  width: 100%;
-}
-
 #custom-toolbar {
   display: flex;
   margin-top: 5px;
+  margin-bottom: 5px;
   text-align: center;
   overflow: auto;
-}
-
-#note-modal .ql-toolbar {
-  justify-content: space-between;
-  padding: 10px 30px;
-  color: white;
-  background-color: rgb(var(--accent-color-3), 1);
-  border-radius: 10px;
 }
 
 #custom-toolbar select {
@@ -343,18 +337,43 @@ section:first-child div:last-child {
   border-color: white;
 }
 
+.richbox {
+  display: none;
+}
+
+#note-modal .ql-toolbar {
+  justify-content: space-between;
+  padding: 10px 15px;
+  color: white;
+  background-color: rgb(var(--accent-color-3), 1);
+  border-radius: 10px;
+}
+
 .ql-formats {
   display: flex;
   margin-right: 12.5px;
+}
+
+.ql-formats:last-of-type,
+.ql-formats:last-of-type > *:last-of-type {
+  margin-right: 0;
 }
 
 .ql-formats > * {
   margin-right: 7.5px;
 }
 
+.save-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 10%;
+  width: 100%;
+}
+
 #note-modal .button-stylised {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 20px;
   padding: 10px 30px;
 }
 
@@ -423,17 +442,6 @@ section:first-child div:last-child {
     width: 80%;
   }
 
-  #custom-toolbar {
-    position: absolute;
-    bottom: 5%;
-    left: 20px;
-    width: fit-content;
-  }
-
-  .save-container {
-    flex-direction: row;
-  }
-
   #logout {
     width: unset;
     aspect-ratio: unset;
@@ -465,6 +473,39 @@ section:first-child div:last-child {
 
   .note:nth-child(4n + 3) {
     margin: auto 2% auto 1%;
+  }
+
+  #custom-toolbar,
+  #note-modal .button-stylised {
+    height: 40px;
+  }
+
+  #custom-toolbar {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    width: fit-content;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  #note-modal form {
+    height: 91%;
+  }
+
+  #editor {
+    height: 86%;
+  }
+
+  .ql-editor {
+    padding: 20px;
+  }
+
+  .save-container {
+    flex-direction: row;
+    justify-content: right;
+    align-items: end;
+    height: 9%;
   }
 
   #note-modal .button-stylised {
