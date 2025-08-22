@@ -227,8 +227,8 @@ section:first-child div:last-child {
   height: 100%;
   width: 100%;
   backdrop-filter: blur(2.5px) brightness(0.5);
-  transition: width 0.5s,
-    height 1s
+  transition: width 0.4s,
+    height 0.8s
       linear(
         0 0%,
         0 2.27%,
@@ -269,8 +269,8 @@ section:first-child div:last-child {
         0.99 97.73%,
         1 100%
       ),
-    backdrop-filter 1s;
-  transition-delay: 0s, 0.5s, 2s;
+    backdrop-filter 0.8s;
+  transition-delay: 0s, 0.5s, 1.2s;
 }
 
 #note-modal-inner {
