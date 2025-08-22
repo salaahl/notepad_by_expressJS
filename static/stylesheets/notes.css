@@ -16,13 +16,10 @@ button {
 }
 
 #search-note {
-  border: 0;
-}
-
-#search-note {
   padding-left: 25px;
   padding-right: 25px;
   background-color: white;
+  border: 0;
   border-radius: 9999px;
   box-shadow: #ffffff05 0 1px 1px inset, #32325d0d 0 50px 100px -20px,
     #0000000f 0 30px 60px -30px;
@@ -30,6 +27,11 @@ button {
 
 #search-note:focus-visible {
   outline: 0;
+}
+
+#new-note,
+#enable-delete-note {
+  aspect-ratio: 1;
 }
 
 .animated-title {
@@ -293,8 +295,7 @@ section:first-child div:last-child {
 
 #note-modal-title {
   height: 10%;
-  width: 80%;
-  margin: 0 10%;
+  width: 100%;
   text-transform: uppercase;
   text-align: center;
   font-weight: 600;
