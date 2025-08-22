@@ -29,14 +29,9 @@ function getNotes(notes = null) {
         .then((response) => response.json())
         .then((data) => {
           // Tri avant affichage
-          data.notes.reverse()
-            .forEach((note) => {
-              notesDiv.innerHTML += noteTemplate(
-                note._id,
-                note.title,
-                note.text
-              );
-            });
+          data.notes.forEach((note) => {
+            notesDiv.innerHTML += noteTemplate(note._id, note.title, note.text);
+          });
           notesDiv.style.cssText = "filter: blur(0px) opacity(1)";
         })
         .catch((error) => {

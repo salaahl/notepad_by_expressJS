@@ -28,7 +28,7 @@ block content
                 button(id="disable-delete-note" class="button-stylised" onclick="disableDeleteNote()") Terminer
 
         section(id="notes")
-            for note in notes.reverse()
+            for note in notes
                 article(class="note")
                     input(type="text" name="note-id" value=note._id hidden)
                     div(class="note-detail")

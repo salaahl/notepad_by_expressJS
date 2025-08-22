@@ -9,7 +9,7 @@ const getNotes = async (req, res) => {
     const skip = (currentPage - 1) * limit;
 
     const notes = await Note.find({ user: user })
-      .sort({ updated: -1 }) // tri par date de mise à jour descendante
+      .sort({ updatedAt: -1 }) // tri par date de mise à jour descendante
       .limit(limit)
       .skip(skip);
 
