@@ -11,18 +11,19 @@ $("button[type=submit]").addEventListener("click", function (e) {
   let method = null;
   let data = null;
 
-  if (this.id == "signup-form") {
+  if (this.closest(".field").previousSibling.id == "signup-form") {
     if (
       $("input[name=password]").value !==
       $("input[name=confirm-password]").value
     ) {
-      return alert("Les mots de passe ne correspondent pas");
+      $("#errors").innerHTML =
+        "<span>Les mots de passe ne correspondent pas</span>";
     } else if ($("input[name=password]").value < 8) {
-      return alert("Le mot de passe doit contenir au moins 8 caractères");
+      $("#errors").innerHTML =
+        "<span>Le mot de passe doit contenir au moins 8 caractères</span>";
     } else if (NBP.isCommonPassword($("input[name=password]").value)) {
-      return alert(
-        "Le mot de passe n'est pas assez complexe, choisissez-en un autre"
-      );
+      $("#errors").innerHTML =
+        "<span>Le mot de passe n'est pas assez complexe, choisissez-en un autre</span>";
     }
 
     route = "/signup";
@@ -56,6 +57,9 @@ $("button[type=submit]").addEventListener("click", function (e) {
       if (data.error) {
         $("#errors").innerHTML = "<span>" + data.error + "</span>";
       } else if (data.redirect) {
+        if (data.redirect == "/login") {
+          alert("Inscription reussie !");
+        }
         window.location.replace(data.redirect);
       }
     })

@@ -152,7 +152,7 @@ section:first-child div:last-child {
   left: 0;
   height: inherit;
   width: 100%;
-  padding: 15% 4%;
+  padding: 20% 4%;
   overflow: hidden;
   z-index: -1;
   mask-image: linear-gradient(

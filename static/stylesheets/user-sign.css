@@ -92,12 +92,12 @@ h3 {
 #errors > span {
   display: block;
   width: 100%;
-  padding: 1%;
+  padding: 5px 10px;
   margin-bottom: 1%;
   border-radius: 10px;
   font-weight: bold;
   text-align: center;
-  background-color: red;
+  background-color: indianred;
 }
 
 .signup-container-1,
