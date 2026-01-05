@@ -11,6 +11,8 @@ const userSchema = new mongoose.Schema({
     validate: [isEmail, "Adresse email invalide"],
   },
   password: { type: String, required: true },
+  failedLogins: { type: Number, default: 0 },
+  lockUntil: { type: Date, default: null },
   roles: { type: [String], required: true },
 });
 
