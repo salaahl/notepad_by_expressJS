@@ -89,6 +89,23 @@ h3 {
   background-color: white;
 }
 
+#loader {
+  display: none;
+  width: 80px;
+  height: 30px;
+  margin: auto;
+  --g: radial-gradient(
+      farthest-side,
+      #0000 calc(95% - 6px),
+      #fff calc(100% - 6px) 98%,
+      #0000 101%
+    )
+    no-repeat;
+  background: var(--g), var(--g), var(--g);
+  background-size: 20px 20px;
+  animation: loader 1s infinite alternate;
+}
+
 #errors > span {
   display: block;
   width: 100%;
@@ -176,5 +193,26 @@ h3 {
   .signup-container-1,
   .login-container-2 {
     min-width: 300px;
+  }
+}
+
+@keyframes loader {
+  0% {
+    background-position: 0 50%, 50% 50%, 100% 50%;
+  }
+  20% {
+    background-position: 0 0, 50% 50%, 100% 50%;
+  }
+  40% {
+    background-position: 0 100%, 50% 0, 100% 50%;
+  }
+  60% {
+    background-position: 0 50%, 50% 100%, 100% 0;
+  }
+  80% {
+    background-position: 0 50%, 50% 50%, 100% 100%;
+  }
+  100% {
+    background-position: 0 50%, 50% 50%, 100% 50%;
   }
 }

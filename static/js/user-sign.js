@@ -11,6 +11,9 @@ $("button[type=submit]").addEventListener("click", function (e) {
   let method = null;
   let data = null;
 
+  $("#loader").style.display = "block";
+  $("#errors").innerHTML = "";
+
   if (this.closest(".field").previousSibling.id == "signup-form") {
     if (
       $("input[name=password]").value !==
@@ -54,6 +57,8 @@ $("button[type=submit]").addEventListener("click", function (e) {
   fetch(request)
     .then((response) => response.json())
     .then((data) => {
+      $("#loader").style.display = "none";
+      
       if (data.error) {
         $("#errors").innerHTML = "<span>" + data.error + "</span>";
       } else if (data.redirect) {
